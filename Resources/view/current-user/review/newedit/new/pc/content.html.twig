@@ -1,0 +1,55 @@
+{% trans_default_domain('products-review.current-user') %}
+
+<div class="modal-dialog modal-dialog-centered" style="max-width: 800px;">
+    {{ form_start(form) }}
+    <div class="modal-content p-3 border-bottom border-5 border-danger">
+        <div class="modal-header">
+            <h5 class="modal-title">
+                {{ 'page.new'|trans }}
+            </h5>
+        </div>
+
+        <div class="modal-body">
+
+            {{ form_widget(form.category) }}
+            {{ form_widget(form.product) }}
+            {{ form_widget(form.user) }}
+            {{ form_widget(form.name) }}
+            {{ form_widget(form.status) }}
+            {{ form_widget(form.text) }}
+
+
+            <div class="d-block">
+
+                {% for criterion in form.criteria %}
+
+                    <div class="d-flex">
+
+                        {{ form_row(criterion.name, { attr: { class: 'd-none' } }) }}
+                        {{ form_row(criterion.criteria) }}
+                        {{ form_row(criterion.rating) }}
+
+                    </div>
+
+                {% endfor %}
+            </div>
+
+        </div>
+
+        <div class="modal-footer">
+            <div class="mt-3 gap-3 d-flex">
+                {# Отмена #}
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">
+                    {{ 'btn.cancel'|trans({}, 'core.btn') }}
+                </button>
+                {{ form_widget(form.new_product_review, { label: '
+                    <span>'~ 'Сохранить'|trans({}, 'core.btn') ~'</span>
+                    <span class="spinner-border spinner-border-sm vertical-middle d-none"></span>
+			    '}) }}
+                {{ form_end(form) }}
+            </div>
+        </div>
+
+    </div>
+
+</div>

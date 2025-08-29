@@ -1,0 +1,46 @@
+{% block products_review_rating_widget %}
+
+    <style>
+        .form-check {
+            position: relative;
+            padding-left: 0;
+        }
+        .form-check input[type="radio"] {
+            position: absolute;
+            top: -9999px;
+        }
+        .form-check label {
+            width: 1em;
+            overflow: hidden;
+            white-space: nowrap;
+            cursor: pointer;
+            font-size: 30px;
+            color: #ccc;
+            display: block;
+            transition: color 0.2s;
+        }
+        .form-check label:before {
+            content: '★ ';
+        }
+        .form-check label.active {
+            color: #ffc700;
+        }
+        .form-check label.hovered {
+            color: #deb217;
+        }
+    </style>
+
+
+    <div class="rate d-flex">
+
+        {% for child in form.children|filter(child => not child.rendered) %}
+
+            <div class="{{ child.vars.value is empty ? 'd-none' }}">
+                {{ form_widget(child) }}
+            </div>
+
+        {% endfor %}
+    </div>
+
+{% endblock %}
+

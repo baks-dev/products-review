@@ -1,0 +1,19 @@
+ROLE_PRODUCTS_REVIEW_SETTINGS:
+  name: 'Review settings'
+  desc: 'Settings of reviews criteria'
+
+ROLE_PRODUCTS_REVIEW_SETTINGS_INDEX:
+  name: 'View'
+  desc: ''
+
+ROLE_PRODUCTS_REVIEW_SETTINGS_NEWEDIT:
+  name: 'Edit'
+  desc: ''
+
+ROLE_PRODUCTS_REVIEW_SETTINGS_DELETE:
+  name: 'Delete'
+  desc: ''
+
+ROLE_PRODUCTS_REVIEW:
+  name: 'Products reviews'
+  desc: 'Admin page for all the products reviews'

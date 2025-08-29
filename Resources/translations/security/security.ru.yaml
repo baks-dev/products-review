@@ -1,0 +1,19 @@
+ROLE_PRODUCTS_REVIEW_SETTINGS:
+  name: 'Настройки отзывов'
+  desc: 'Настройки критериев отзывов'
+
+ROLE_PRODUCTS_REVIEW_SETTINGS_INDEX:
+  name: 'Просмотр'
+  desc: ''
+
+ROLE_PRODUCTS_REVIEW_SETTINGS_NEWEDIT:
+  name: 'Редактировать'
+  desc: ''
+
+ROLE_PRODUCTS_REVIEW_SETTINGS_DELETE:
+  name: 'Удалить'
+  desc: ''
+
+ROLE_PRODUCTS_REVIEW:
+  name: 'Отзывы о продуктах'
+  desc: 'Страница администрирования отзывов'
