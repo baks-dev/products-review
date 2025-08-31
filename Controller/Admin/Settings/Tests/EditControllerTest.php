@@ -26,27 +26,15 @@ declare(strict_types=1);
 namespace BaksDev\Products\Review\Controller\Admin\Settings\Tests;
 
 use BaksDev\Products\Review\Type\Setting\Event\ProductReviewSettingEventUid;
+use BaksDev\Products\Review\UseCase\Admin\Settings\NewEdit\Tests\NewProductReviewSettingTest;
 use BaksDev\Users\User\Tests\TestUserAccount;
+use PHPUnit\Framework\Attributes\DependsOnClass;
+use PHPUnit\Framework\Attributes\Group;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\DependencyInjection\Attribute\When;
-use PHPUnit\Framework\Attributes\Group;
-use PHPUnit\Framework\Attributes\DependsOnClass;
-use BaksDev\Products\Review\UseCase\Admin\Settings\NewEdit\Tests\NewProductReviewSettingTest;
 
-/**
- * @group products-review
- * @group products-review-controller
- *
- * @group products-review-repository
- * @group products-review-usecase
- *
- * @depends BaksDev\Products\Review\UseCase\Admin\Settings\NewEdit\Tests\NewProductReviewSettingTest::class
- */
 #[When(env: 'test')]
 #[Group('products-review')]
-#[Group('products-review-controller')]
-#[Group('products-review-repository')]
-#[Group('products-review-usecase')]
 final class EditControllerTest extends WebTestCase
 {
     private const string URL = '/admin/settings/products/review/edit/%s';

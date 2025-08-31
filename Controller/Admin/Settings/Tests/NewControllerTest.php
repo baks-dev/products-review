@@ -26,17 +26,12 @@ declare(strict_types=1);
 namespace BaksDev\Products\Review\Controller\Admin\Settings\Tests;
 
 use BaksDev\Users\User\Tests\TestUserAccount;
+use PHPUnit\Framework\Attributes\Group;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\DependencyInjection\Attribute\When;
-use PHPUnit\Framework\Attributes\Group;
 
-/**
- * @group products-review
- * @group products-review-controller
- */
 #[When(env: 'test')]
 #[Group('products-review')]
-#[Group('products-review-controller')]
 final class NewControllerTest extends WebTestCase
 {
     private const string URL = '/admin/settings/products/review/new';

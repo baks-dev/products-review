@@ -26,46 +26,33 @@ declare(strict_types=1);
 namespace BaksDev\Products\Review\UseCase\Admin\Review\NewEdit\Tests;
 
 use BaksDev\Products\Product\Type\Id\ProductUid;
+use BaksDev\Products\Review\Controller\Admin\Review\Tests\DeleteControllerTest;
+use BaksDev\Products\Review\Controller\Admin\Review\Tests\EditControllerTest;
 use BaksDev\Products\Review\Entity\Review\Event\ProductReviewEvent;
 use BaksDev\Products\Review\Entity\Review\ProductReview;
 use BaksDev\Products\Review\Type\Review\Event\ProductReviewEventUid;
 use BaksDev\Products\Review\Type\Setting\Criteria\ConstId\ProductReviewSettingCriteriaConst;
 use BaksDev\Products\Review\Type\Status\ReviewStatus;
-use BaksDev\Products\Review\UseCase\Admin\Review\NewEdit\Name\EditProductReviewNameDTO;
+use BaksDev\Products\Review\Type\Status\ReviewStatus\Collection\ReviewStatusActive;
+use BaksDev\Products\Review\UseCase\Admin\Review\NewEdit\Criteria\EditProductReviewCriteriaDTO;
 use BaksDev\Products\Review\UseCase\Admin\Review\NewEdit\EditProductReviewDTO;
+use BaksDev\Products\Review\UseCase\Admin\Review\NewEdit\EditProductReviewHandler;
+use BaksDev\Products\Review\UseCase\Admin\Review\NewEdit\Name\EditProductReviewNameDTO;
 use BaksDev\Products\Review\UseCase\Admin\Review\NewEdit\Product\EditProductReviewProductDTO;
 use BaksDev\Products\Review\UseCase\Admin\Review\NewEdit\Rating\EditProductReviewRatingDTO;
 use BaksDev\Products\Review\UseCase\Admin\Review\NewEdit\Status\EditProductReviewStatusDTO;
+use BaksDev\Products\Review\UseCase\Admin\Review\NewEdit\Text\EditProductReviewTextDTO;
+use BaksDev\Products\Review\UseCase\Admin\Review\NewEdit\User\EditProductReviewUserDTO;
 use BaksDev\Users\User\Type\Id\UserUid;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
-use Symfony\Component\DependencyInjection\Attribute\When;
-use BaksDev\Products\Review\UseCase\Admin\Review\NewEdit\EditProductReviewHandler;
-use BaksDev\Products\Review\UseCase\Admin\Review\NewEdit\Criteria\EditProductReviewCriteriaDTO;
-use BaksDev\Products\Review\Type\Status\ReviewStatus\Collection\ReviewStatusActive;
-use BaksDev\Products\Review\UseCase\Admin\Review\NewEdit\Text\EditProductReviewTextDTO;
-use BaksDev\Products\Review\UseCase\Admin\Review\NewEdit\User\EditProductReviewUserDTO;
 use PHPUnit\Framework\Attributes\DependsOnClass;
 use PHPUnit\Framework\Attributes\Group;
-use BaksDev\Products\Review\Controller\Admin\Review\Tests\EditControllerTest;
-use BaksDev\Products\Review\Controller\Admin\Review\Tests\DeleteControllerTest;
+use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use Symfony\Component\DependencyInjection\Attribute\When;
 
-/**
- * @group products-review
- * @group products-review-usecase
- *
- * @group products-review-repository
- * @group products-review-controller
- *
- * @depends BaksDev\Products\Review\Controller\Admin\Review\Tests\EditControllerTest::class
- * @depends BaksDev\Products\Review\Controller\Admin\Review\Tests\DeleteControllerTest::class
- */
 #[When(env: 'test')]
 #[Group('products-review')]
-#[Group('products-review-usecase')]
-#[Group('products-review-repository')]
-#[Group('products-review-controller')]
 final class EditProductReviewTest extends KernelTestCase
 {
     #[DependsOnClass(EditControllerTest::class)]

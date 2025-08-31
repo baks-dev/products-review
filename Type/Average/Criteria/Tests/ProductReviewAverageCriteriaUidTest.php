@@ -27,16 +27,11 @@ namespace BaksDev\Products\Review\Type\Average\Criteria\Tests;
 
 use BaksDev\Products\Review\Type\Average\Criteria\ProductReviewAverageCriteriaUid;
 use Monolog\Test\TestCase;
-use Symfony\Component\DependencyInjection\Attribute\When;
 use PHPUnit\Framework\Attributes\Group;
+use Symfony\Component\DependencyInjection\Attribute\When;
 
-/**
- * @group products-review
- * @group products-review-type
- */
 #[When(env: 'test')]
 #[Group('products-review')]
-#[Group('products-review-type')]
 final class ProductReviewAverageCriteriaUidTest extends TestCase
 {
     public function testConstructor()

@@ -25,33 +25,24 @@ declare(strict_types=1);
 
 namespace BaksDev\Products\Review\Repository\AllReviews\Tests;
 
-use BaksDev\Products\Review\Type\Status\ReviewStatus;
-use BaksDev\Users\User\Type\Id\UserUid;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
-use Symfony\Component\DependencyInjection\Attribute\When;
+use BaksDev\Products\Product\Type\Id\ProductUid;
+use BaksDev\Products\Product\UseCase\Admin\NewEdit\Tests\ProductsProductNewAdminUseCaseTest;
 use BaksDev\Products\Review\Repository\AllReviews\AllReviewsInterface;
 use BaksDev\Products\Review\Repository\AllReviews\AllReviewsRepository;
 use BaksDev\Products\Review\Repository\AllReviews\AllReviewsResult;
 use BaksDev\Products\Review\Type\Review\Event\ProductReviewEventUid;
-use BaksDev\Products\Product\Type\Id\ProductUid;
-use DateTimeImmutable;
+use BaksDev\Products\Review\Type\Status\ReviewStatus;
 use BaksDev\Products\Review\UseCase\CurrentUser\Review\NewEdit\Tests\NewProductReviewTest;
 use BaksDev\Users\Profile\UserProfile\UseCase\User\NewEdit\Tests\UserNewUserProfileHandleTest;
-use BaksDev\Products\Product\UseCase\Admin\NewEdit\Tests\ProductsProductNewAdminUseCaseTest;
+use BaksDev\Users\User\Type\Id\UserUid;
+use DateTimeImmutable;
 use PHPUnit\Framework\Attributes\DependsOnClass;
 use PHPUnit\Framework\Attributes\Group;
+use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use Symfony\Component\DependencyInjection\Attribute\When;
 
-/**
- * @group products-review
- * @group products-review-repository
- *
- * @depends BaksDev\Products\Review\UseCase\CurrentUser\Review\NewEdit\Tests\NewProductReviewTest::class
- * @depends BaksDev\Users\Profile\UserProfile\UseCase\User\NewEdit\Tests\UserNewUserProfileHandleTest::class
- * @depends BaksDev\Products\Product\UseCase\Admin\NewEdit\Tests\ProductsProductNewAdminUseCaseTest::class
- */
 #[When(env: 'test')]
 #[Group('products-review')]
-#[Group('products-review-repository')]
 final class AllReviewsRepositoryTest extends KernelTestCase
 {
     #[DependsOnClass(NewProductReviewTest::class)]

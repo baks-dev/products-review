@@ -30,21 +30,14 @@ use BaksDev\Products\Review\Repository\AverageProductRating\AverageProductRating
 use BaksDev\Products\Review\Repository\AverageProductRating\AverageProductRatingRepository;
 use BaksDev\Products\Review\Repository\AverageProductRating\AverageProductRatingResult;
 use BaksDev\Products\Review\Type\Setting\Criteria\ConstId\ProductReviewSettingCriteriaConst;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
-use Symfony\Component\DependencyInjection\Attribute\When;
+use BaksDev\Products\Review\UseCase\Admin\Review\NewEdit\Tests\EditProductReviewTest;
 use PHPUnit\Framework\Attributes\DependsOnClass;
 use PHPUnit\Framework\Attributes\Group;
-use BaksDev\Products\Review\UseCase\Admin\Review\NewEdit\Tests\EditProductReviewTest;
+use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use Symfony\Component\DependencyInjection\Attribute\When;
 
-/**
- * @group products-review
- * @group products-review-repository
- *
- * @depends BaksDev\Products\Review\UseCase\Admin\Review\NewEdit\Tests\EditProductReviewTest::class
- */
 #[When(env: 'test')]
 #[Group('products-review')]
-#[Group('products-review-repository')]
 final class AverageProductRatingRepositoryTest extends KernelTestCase
 {
     #[DependsOnClass(EditProductReviewTest::class)]

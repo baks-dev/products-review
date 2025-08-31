@@ -32,27 +32,17 @@ use BaksDev\Products\Review\Type\Setting\Criteria\ConstId\ProductReviewSettingCr
 use BaksDev\Products\Review\Type\Setting\Id\ProductReviewSettingUid;
 use BaksDev\Products\Review\UseCase\Admin\Settings\NewEdit\Category\NewEditProductReviewSettingCategoryDTO;
 use BaksDev\Products\Review\UseCase\Admin\Settings\NewEdit\Criteria\NewEditProductReviewSettingCriteriaDTO;
+use BaksDev\Products\Review\UseCase\Admin\Settings\NewEdit\Criteria\Text\NewEditProductReviewSettingCriteriaTextDTO;
 use BaksDev\Products\Review\UseCase\Admin\Settings\NewEdit\NewEditProductReviewSettingDTO;
 use BaksDev\Products\Review\UseCase\Admin\Settings\NewEdit\NewEditProductReviewSettingHandler;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
-use Symfony\Component\DependencyInjection\Attribute\When;
-use BaksDev\Products\Review\UseCase\Admin\Settings\NewEdit\Criteria\Text\NewEditProductReviewSettingCriteriaTextDTO;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\Attributes\DependsOnClass;
 use PHPUnit\Framework\Attributes\Group;
+use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use Symfony\Component\DependencyInjection\Attribute\When;
 
-/**
- * @group products-review
- * @group products-review-usecase
- *
- * @group products-review-controller
- * @group products-review-repository
- */
 #[When(env: 'test')]
 #[Group('products-review')]
-#[Group('products-review-usecase')]
-#[Group('products-review-controller')]
-#[Group('products-review-repository')]
 final class NewProductReviewSettingTest extends KernelTestCase
 {
     public static function setUpBeforeClass(): void

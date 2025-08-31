@@ -25,18 +25,13 @@ declare(strict_types=1);
 
 namespace BaksDev\Products\Review\Type\Setting\Id\Tests;
 
-use PHPUnit\Framework\TestCase;
-use Symfony\Component\DependencyInjection\Attribute\When;
 use BaksDev\Products\Review\Type\Setting\Id\ProductReviewSettingUid;
 use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\TestCase;
+use Symfony\Component\DependencyInjection\Attribute\When;
 
-/**
- * @group products-review
- * @group products-review-type
- */
 #[When(env: 'test')]
 #[Group('products-review')]
-#[Group('products-review-type')]
 final class ProductReviewSettingUidTest extends TestCase
 {
     public function testConstructor()

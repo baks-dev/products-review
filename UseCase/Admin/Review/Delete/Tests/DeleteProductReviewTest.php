@@ -26,32 +26,24 @@ declare(strict_types=1);
 namespace BaksDev\Products\Review\UseCase\Admin\Review\Delete\Tests;
 
 use BaksDev\Core\Doctrine\DBALQueryBuilder;
-use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
-use Symfony\Component\DependencyInjection\Attribute\When;
-use BaksDev\Products\Review\Repository\ReviewCurrentEvent\ReviewCurrentEventInterface;
-use BaksDev\Products\Review\Entity\Review\ProductReview;
-use BaksDev\Products\Review\Type\Review\Id\ProductReviewUid;
 use BaksDev\Products\Review\Entity\Review\Event\ProductReviewEvent;
+use BaksDev\Products\Review\Entity\Review\ProductReview;
+use BaksDev\Products\Review\Repository\ReviewCurrentEvent\ReviewCurrentEventInterface;
 use BaksDev\Products\Review\Type\Review\Event\ProductReviewEventUid;
+use BaksDev\Products\Review\Type\Review\Id\ProductReviewUid;
 use BaksDev\Products\Review\UseCase\Admin\Review\Delete\DeleteProductReviewDTO;
 use BaksDev\Products\Review\UseCase\Admin\Review\Delete\DeleteProductReviewHandler;
-use PHPUnit\Framework\Attributes\DependsOnClass;
-use PHPUnit\Framework\Attributes\Group;
 use BaksDev\Products\Review\UseCase\Admin\Review\NewEdit\Tests\EditProductReviewTest;
 use BaksDev\Products\Review\UseCase\Average\NewEdit\Tests\NewProductReviewAverageTest;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
+use PHPUnit\Framework\Attributes\DependsOnClass;
+use PHPUnit\Framework\Attributes\Group;
+use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use Symfony\Component\DependencyInjection\Attribute\When;
 
-/**
- * @group products-review
- * @group products-review-usecase
- *
- * @depends BaksDev\Products\Review\UseCase\Admin\Review\NewEdit\Tests\EditProductReviewTest::class
- * @depends BaksDev\Products\Review\UseCase\Average\NewEdit\Tests\NewProductReviewAverageTest::class
- */
 #[When(env: 'test')]
 #[Group('products-review')]
-#[Group('products-review-usecase')]
 final class DeleteProductReviewTest extends KernelTestCase
 {
     #[DependsOnClass(EditProductReviewTest::class)]

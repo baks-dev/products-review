@@ -31,6 +31,7 @@ use BaksDev\Products\Review\Entity\Setting\ProductReviewSetting;
 use BaksDev\Products\Review\Repository\ReviewSettingCurrentEvent\ReviewSettingCurrentEventInterface;
 use BaksDev\Products\Review\Type\Setting\Criteria\ConstId\ProductReviewSettingCriteriaConst;
 use BaksDev\Products\Review\Type\Setting\Id\ProductReviewSettingUid;
+use BaksDev\Products\Review\UseCase\Admin\Review\NewEdit\Tests\EditProductReviewTest;
 use BaksDev\Products\Review\UseCase\Admin\Settings\NewEdit\Category\NewEditProductReviewSettingCategoryDTO;
 use BaksDev\Products\Review\UseCase\Admin\Settings\NewEdit\Criteria\NewEditProductReviewSettingCriteriaDTO;
 use BaksDev\Products\Review\UseCase\Admin\Settings\NewEdit\Criteria\Text\NewEditProductReviewSettingCriteriaTextDTO;
@@ -38,24 +39,13 @@ use BaksDev\Products\Review\UseCase\Admin\Settings\NewEdit\NewEditProductReviewS
 use BaksDev\Products\Review\UseCase\Admin\Settings\NewEdit\NewEditProductReviewSettingHandler;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\DependencyInjection\Attribute\When;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use PHPUnit\Framework\Attributes\DependsOnClass;
 use PHPUnit\Framework\Attributes\Group;
-use BaksDev\Products\Review\UseCase\Admin\Review\NewEdit\Tests\EditProductReviewTest;
+use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use Symfony\Component\DependencyInjection\Attribute\When;
 
-/**
- * @group products-review
- * @group products-review-usecase
- *
- * @group products-review-controller
- *
- * @depends BaksDev\Products\Review\UseCase\Admin\Review\NewEdit\Tests\EditProductReviewTest::class
- */
 #[When(env: 'test')]
 #[Group('products-review')]
-#[Group('products-review-usecase')]
-#[Group('products-review-controller')]
 final class EditProductReviewSettingTest extends KernelTestCase
 {
     #[DependsOnClass(EditProductReviewTest::class)]

@@ -30,21 +30,14 @@ use BaksDev\Products\Review\Repository\AllCriteriaByCategory\AllCriteriaByCatego
 use BaksDev\Products\Review\Repository\AllCriteriaByCategory\AllCriteriaByCategoryRepository;
 use BaksDev\Products\Review\Repository\AllCriteriaByCategory\AllCriteriaByCategoryResult;
 use BaksDev\Products\Review\Type\Setting\Criteria\ConstId\ProductReviewSettingCriteriaConst;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
-use Symfony\Component\DependencyInjection\Attribute\When;
+use BaksDev\Products\Review\UseCase\Admin\Settings\NewEdit\Tests\NewProductReviewSettingTest;
 use PHPUnit\Framework\Attributes\DependsOnClass;
 use PHPUnit\Framework\Attributes\Group;
-use BaksDev\Products\Review\UseCase\Admin\Settings\NewEdit\Tests\NewProductReviewSettingTest;
+use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use Symfony\Component\DependencyInjection\Attribute\When;
 
-/**
- * @group products-review
- * @group products-review-repository
- *
- * @depends BaksDev\Products\Review\UseCase\Admin\Settings\NewEdit\Tests\NewProductReviewSettingTest::class
- */
 #[When(env: 'test')]
 #[Group('products-review')]
-#[Group('products-review-repository')]
 final class AllCriteriaByCategoryRepositoryTest extends KernelTestCase
 {
     #[DependsOnClass(NewProductReviewSettingTest::class)]

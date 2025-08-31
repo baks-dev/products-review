@@ -26,17 +26,12 @@ declare(strict_types=1);
 namespace BaksDev\Products\Review\Type\Setting\Criteria\ConstId\Tests;
 
 use BaksDev\Products\Review\Type\Setting\Criteria\Id\ProductReviewSettingCriteriaUid;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\Attribute\When;
-use PHPUnit\Framework\Attributes\Group;
 
-/**
- * @group products-review
- * @group products-review-type
- */
 #[When(env: 'test')]
 #[Group('products-review')]
-#[Group('products-review-type')]
 final class ProductReviewSettingCriteriaConstTest extends TestCase
 {
     public function testConstructor()

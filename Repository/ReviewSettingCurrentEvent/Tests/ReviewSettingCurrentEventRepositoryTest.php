@@ -28,21 +28,14 @@ namespace BaksDev\Products\Review\Repository\ReviewSettingCurrentEvent\Tests;
 use BaksDev\Products\Review\Entity\Setting\Event\ProductReviewSettingEvent;
 use BaksDev\Products\Review\Repository\ReviewSettingCurrentEvent\ReviewSettingCurrentEventInterface;
 use BaksDev\Products\Review\Type\Setting\Id\ProductReviewSettingUid;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
-use Symfony\Component\DependencyInjection\Attribute\When;
+use BaksDev\Products\Review\UseCase\Admin\Settings\NewEdit\Tests\NewProductReviewSettingTest;
 use PHPUnit\Framework\Attributes\DependsOnClass;
 use PHPUnit\Framework\Attributes\Group;
-use BaksDev\Products\Review\UseCase\Admin\Settings\NewEdit\Tests\NewProductReviewSettingTest;
+use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use Symfony\Component\DependencyInjection\Attribute\When;
 
-/**
- * @group products-review
- * @group products-review-repository
- *
- * @depends BaksDev\Products\Review\UseCase\Admin\Settings\NewEdit\Tests\NewProductReviewSettingTest::class
- */
 #[When(env: 'test')]
 #[Group('products-review')]
-#[Group('products-review-repository')]
 final class ReviewSettingCurrentEventRepositoryTest extends KernelTestCase
 {
     #[DependsOnClass(NewProductReviewSettingTest::class)]

@@ -26,34 +26,24 @@ declare(strict_types=1);
 namespace BaksDev\Products\Review\UseCase\Admin\Settings\Delete\Tests;
 
 use BaksDev\Core\Doctrine\DBALQueryBuilder;
-use BaksDev\Products\Review\Controller\Admin\Review\Tests\DeleteControllerTest;
-use BaksDev\Products\Review\Controller\Admin\Review\Tests\EditControllerTest;
 use BaksDev\Products\Review\Entity\Setting\Event\ProductReviewSettingEvent;
+use BaksDev\Products\Review\Entity\Setting\ProductReviewSetting;
 use BaksDev\Products\Review\Repository\ReviewSettingCurrentEvent\ReviewSettingCurrentEventInterface;
 use BaksDev\Products\Review\Type\Setting\Event\ProductReviewSettingEventUid;
 use BaksDev\Products\Review\Type\Setting\Id\ProductReviewSettingUid;
+use BaksDev\Products\Review\UseCase\Admin\Review\Delete\Tests\DeleteProductReviewTest;
 use BaksDev\Products\Review\UseCase\Admin\Settings\Delete\DeleteProductReviewSettingDTO;
 use BaksDev\Products\Review\UseCase\Admin\Settings\Delete\DeleteProductReviewSettingHandler;
+use BaksDev\Products\Review\UseCase\Admin\Settings\NewEdit\Tests\EditProductReviewSettingTest;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
-use Symfony\Component\DependencyInjection\Attribute\When;
-use BaksDev\Products\Review\Entity\Setting\ProductReviewSetting;
 use PHPUnit\Framework\Attributes\DependsOnClass;
 use PHPUnit\Framework\Attributes\Group;
-use BaksDev\Products\Review\UseCase\Admin\Review\Delete\Tests\DeleteProductReviewTest;
-use BaksDev\Products\Review\UseCase\Admin\Settings\NewEdit\Tests\EditProductReviewSettingTest;
+use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use Symfony\Component\DependencyInjection\Attribute\When;
 
-/**
- * @group products-review
- * @group products-review-usecase
- *
- * @depends BaksDev\Products\Review\UseCase\Admin\Review\Delete\Tests\DeleteProductReviewTest::class
- * @depends BaksDev\Products\Review\UseCase\Admin\Settings\NewEdit\Tests\EditProductReviewSettingTest::class
- */
 #[When(env: 'test')]
 #[Group('products-review')]
-#[Group('products-review-usecase')]
 final class DeleteProductReviewSettingTest extends KernelTestCase
 {
     #[DependsOnClass(DeleteProductReviewTest::class)]

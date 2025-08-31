@@ -26,32 +26,23 @@ declare(strict_types=1);
 namespace BaksDev\Products\Review\Repository\AllWidgetReviews\Tests;
 
 use BaksDev\Products\Product\Type\Id\ProductUid;
+use BaksDev\Products\Product\UseCase\Admin\NewEdit\Tests\ProductsProductNewAdminUseCaseTest;
+use BaksDev\Products\Review\Repository\AllWidgetReviews\AllWidgetReviews;
 use BaksDev\Products\Review\Repository\AllWidgetReviews\AllWidgetReviewsInterface;
 use BaksDev\Products\Review\Repository\AllWidgetReviews\AllWidgetReviewsResult;
+use BaksDev\Products\Review\Repository\AverageProductRating\Tests\AverageProductRatingRepositoryTest;
 use BaksDev\Products\Review\Type\Review\Event\ProductReviewEventUid;
 use BaksDev\Products\Review\Type\Status\ReviewStatus;
+use BaksDev\Users\Profile\UserProfile\UseCase\User\NewEdit\Tests\UserNewUserProfileHandleTest;
 use BaksDev\Users\User\Type\Id\UserUid;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
-use Symfony\Component\DependencyInjection\Attribute\When;
 use DateTimeImmutable;
-use BaksDev\Products\Review\Repository\AllWidgetReviews\AllWidgetReviews;
 use PHPUnit\Framework\Attributes\DependsOnClass;
 use PHPUnit\Framework\Attributes\Group;
-use BaksDev\Products\Review\Repository\AverageProductRating\Tests\AverageProductRatingRepositoryTest;
-use BaksDev\Users\Profile\UserProfile\UseCase\User\NewEdit\Tests\UserNewUserProfileHandleTest;
-use BaksDev\Products\Product\UseCase\Admin\NewEdit\Tests\ProductsProductNewAdminUseCaseTest;
+use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use Symfony\Component\DependencyInjection\Attribute\When;
 
-/**
- * @group products-review
- * @group products-review-repository
- *
- * @depends BaksDev\Products\Review\Repository\AverageProductRating\Tests\AverageProductRatingRepositoryTest::class
- * @depends BaksDev\Users\Profile\UserProfile\UseCase\User\NewEdit\Tests\UserNewUserProfileHandleTest::class
- * @depends BaksDev\Products\Product\UseCase\Admin\NewEdit\Tests\ProductsProductNewAdminUseCaseTest::class
- */
 #[When(env: 'test')]
 #[Group('products-review')]
-#[Group('products-review-repository')]
 final class AllWidgetReviewsRepositoryTest extends KernelTestCase
 {
     #[DependsOnClass(AverageProductRatingRepositoryTest::class)]

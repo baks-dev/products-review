@@ -25,22 +25,17 @@ declare(strict_types=1);
 
 namespace BaksDev\Products\Review\Type\Status\Tests;
 
+use BaksDev\Products\Review\Type\Status\ReviewStatus;
 use BaksDev\Products\Review\Type\Status\ReviewStatus\ReviewStatusCollection;
 use BaksDev\Products\Review\Type\Status\ReviewStatus\ReviewStatusInterface;
 use BaksDev\Products\Review\Type\Status\ReviewStatusType;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
+use PHPUnit\Framework\Attributes\Group;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\DependencyInjection\Attribute\When;
-use BaksDev\Products\Review\Type\Status\ReviewStatus;
-use PHPUnit\Framework\Attributes\Group;
 
-/**
- * @group products-review
- * @group products-review-type
- */
 #[When(env: 'test')]
 #[Group('products-review')]
-#[Group('products-review-type')]
 final class ReviewStatusTest extends KernelTestCase
 {
     public function testType(): void

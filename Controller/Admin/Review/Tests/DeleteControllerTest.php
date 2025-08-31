@@ -26,27 +26,15 @@ declare(strict_types=1);
 namespace BaksDev\Products\Review\Controller\Admin\Review\Tests;
 
 use BaksDev\Products\Review\Type\Review\Event\ProductReviewEventUid;
+use BaksDev\Products\Review\UseCase\CurrentUser\Review\NewEdit\Tests\NewProductReviewTest;
 use BaksDev\Users\User\Tests\TestUserAccount;
+use PHPUnit\Framework\Attributes\DependsOnClass;
+use PHPUnit\Framework\Attributes\Group;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\DependencyInjection\Attribute\When;
-use BaksDev\Products\Review\UseCase\CurrentUser\Review\NewEdit\Tests\NewProductReviewTest;
-use PHPUnit\Framework\Attributes\Group;
-use PHPUnit\Framework\Attributes\DependsOnClass;
 
-/**
- * @group products-review
- * @group products-review-controller
- *
- * @group products-review-repository
- * @group products-review-usecase
- *
- * @depends BaksDev\Products\Review\UseCase\CurrentUser\Review\NewEdit\Tests\NewProductReviewTest::class
- */
 #[When(env: 'test')]
 #[Group('products-review')]
-#[Group('products-review-controller')]
-#[Group('products-review-repository')]
-#[Group('products-review-usecase')]
 final class DeleteControllerTest extends WebTestCase
 {
     private const string URL = '/admin/products/review/delete/';

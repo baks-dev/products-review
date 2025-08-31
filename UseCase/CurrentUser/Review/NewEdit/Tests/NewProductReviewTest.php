@@ -26,50 +26,38 @@ declare(strict_types=1);
 namespace BaksDev\Products\Review\UseCase\CurrentUser\Review\NewEdit\Tests;
 
 use BaksDev\Products\Category\Type\Id\CategoryProductUid;
+use BaksDev\Products\Product\Type\Id\ProductUid;
+use BaksDev\Products\Review\Entity\Review\Event\ProductReviewEvent;
+use BaksDev\Products\Review\Entity\Review\ProductReview;
 use BaksDev\Products\Review\Repository\ReviewSettingCurrentEvent\ReviewSettingCurrentEventInterface;
 use BaksDev\Products\Review\Repository\ReviewSettingCurrentEvent\ReviewSettingCurrentEventRepository;
+use BaksDev\Products\Review\Type\Review\Id\ProductReviewUid;
 use BaksDev\Products\Review\Type\Setting\Id\ProductReviewSettingUid;
+use BaksDev\Products\Review\UseCase\Admin\Settings\NewEdit\Tests\NewProductReviewSettingTest;
+use BaksDev\Products\Review\UseCase\CurrentUser\Review\NewEdit\Category\NewProductReviewCategoryDTO;
+use BaksDev\Products\Review\UseCase\CurrentUser\Review\NewEdit\Criteria\NewProductReviewCriteriaDTO;
 use BaksDev\Products\Review\UseCase\CurrentUser\Review\NewEdit\Name\NewProductReviewNameDTO;
-use BaksDev\Products\Review\UseCase\CurrentUser\Review\NewEdit\Rating\NewProductReviewRatingDTO;
-use BaksDev\Products\Review\UseCase\CurrentUser\Review\NewEdit\Status\NewProductReviewStatusDTO;
-use BaksDev\Products\Review\Entity\Review\ProductReview;
-use BaksDev\Products\Review\Entity\Review\Event\ProductReviewEvent;
-use BaksDev\Products\Review\UseCase\CurrentUser\Review\NewEdit\User\NewProductReviewUserDTO;
+use BaksDev\Products\Review\UseCase\CurrentUser\Review\NewEdit\NewProductReviewDTO;
 use BaksDev\Products\Review\UseCase\CurrentUser\Review\NewEdit\NewProductReviewHandler;
 use BaksDev\Products\Review\UseCase\CurrentUser\Review\NewEdit\Product\NewProductReviewProductDTO;
+use BaksDev\Products\Review\UseCase\CurrentUser\Review\NewEdit\Rating\NewProductReviewRatingDTO;
+use BaksDev\Products\Review\UseCase\CurrentUser\Review\NewEdit\Status\NewProductReviewStatusDTO;
 use BaksDev\Products\Review\UseCase\CurrentUser\Review\NewEdit\Text\NewProductReviewTextDTO;
+use BaksDev\Products\Review\UseCase\CurrentUser\Review\NewEdit\User\NewProductReviewUserDTO;
+use BaksDev\Users\User\Type\Id\UserUid;
 use Doctrine\ORM\EntityManagerInterface;
+use PHPUnit\Framework\Attributes\DependsOnClass;
+use PHPUnit\Framework\Attributes\Group;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Event\ConsoleCommandEvent;
 use Symfony\Component\Console\Input\StringInput;
 use Symfony\Component\Console\Output\NullOutput;
 use Symfony\Component\DependencyInjection\Attribute\When;
-use BaksDev\Products\Review\UseCase\CurrentUser\Review\NewEdit\NewProductReviewDTO;
-use BaksDev\Products\Product\Type\Id\ProductUid;
-use BaksDev\Users\User\Type\Id\UserUid;
-use BaksDev\Products\Review\UseCase\CurrentUser\Review\NewEdit\Criteria\NewProductReviewCriteriaDTO;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use BaksDev\Products\Review\Type\Review\Id\ProductReviewUid;
-use BaksDev\Products\Review\UseCase\CurrentUser\Review\NewEdit\Category\NewProductReviewCategoryDTO;
-use PHPUnit\Framework\Attributes\DependsOnClass;
-use PHPUnit\Framework\Attributes\Group;
-use BaksDev\Products\Review\UseCase\Admin\Settings\NewEdit\Tests\NewProductReviewSettingTest;
 
-/**
- * @group products-review
- * @group products-review-usecase
- *
- * @group products-review-controller
- * @group products-review-repository
- *
- * @depends BaksDev\Products\Review\UseCase\Admin\Settings\NewEdit\Tests\NewProductReviewSettingTest::class
- */
 #[When(env: 'test')]
 #[Group('products-review')]
-#[Group('products-review-usecase')]
-#[Group('products-review-controller')]
-#[Group('products-review-repository')]
 final class NewProductReviewTest extends KernelTestCase
 {
     #[DependsOnClass(NewProductReviewSettingTest::class)]

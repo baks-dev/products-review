@@ -34,22 +34,15 @@ use BaksDev\Products\Review\Repository\AverageProductRating\AverageProductRating
 use BaksDev\Products\Review\UseCase\Admin\Review\NewEdit\Tests\EditProductReviewTest;
 use BaksDev\Products\Review\UseCase\Average\NewEdit\Counter\NewEditProductReviewAverageAverageCounterDTO;
 use BaksDev\Products\Review\UseCase\Average\NewEdit\Criteria\NewEditProductReviewAverageCriteriaDTO;
-use BaksDev\Products\Review\UseCase\Average\NewEdit\NewEditProductReviewAverageHandler;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use BaksDev\Products\Review\UseCase\Average\NewEdit\NewEditProductReviewAverageDTO;
-use Symfony\Component\DependencyInjection\Attribute\When;
+use BaksDev\Products\Review\UseCase\Average\NewEdit\NewEditProductReviewAverageHandler;
 use PHPUnit\Framework\Attributes\DependsOnClass;
 use PHPUnit\Framework\Attributes\Group;
+use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use Symfony\Component\DependencyInjection\Attribute\When;
 
-/**
- * @group products-review
- * @group products-review-usecase
- *
- * @depends BaksDev\Products\Review\UseCase\Admin\Review\NewEdit\Tests\EditProductReviewTest::class
- */
 #[When(env: 'test')]
 #[Group('products-review')]
-#[Group('products-review-usecase')]
 final class NewProductReviewAverageTest extends KernelTestCase
 {
     #[DependsOnClass(EditProductReviewTest::class)]

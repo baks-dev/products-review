@@ -25,24 +25,17 @@ declare(strict_types=1);
 
 namespace BaksDev\Products\Review\Repository\ReviewCurrentEvent\Tests;
 
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
-use Symfony\Component\DependencyInjection\Attribute\When;
+use BaksDev\Products\Review\Entity\Review\Event\ProductReviewEvent;
 use BaksDev\Products\Review\Repository\ReviewCurrentEvent\ReviewCurrentEventInterface;
 use BaksDev\Products\Review\Type\Review\Id\ProductReviewUid;
-use BaksDev\Products\Review\Entity\Review\Event\ProductReviewEvent;
+use BaksDev\Products\Review\UseCase\CurrentUser\Review\NewEdit\Tests\NewProductReviewTest;
 use PHPUnit\Framework\Attributes\DependsOnClass;
 use PHPUnit\Framework\Attributes\Group;
-use BaksDev\Products\Review\UseCase\CurrentUser\Review\NewEdit\Tests\NewProductReviewTest;
+use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use Symfony\Component\DependencyInjection\Attribute\When;
 
-/**
- * @group products-review
- * @group products-review-repository
- *
- * @depends BaksDev\Products\Review\UseCase\CurrentUser\Review\NewEdit\Tests\NewProductReviewTest::class
- */
 #[When(env: 'test')]
 #[Group('products-review')]
-#[Group('products-review-repository')]
 final class ReviewCurrentEventTest extends KernelTestCase
 {
     #[DependsOnClass(NewProductReviewTest::class)]
