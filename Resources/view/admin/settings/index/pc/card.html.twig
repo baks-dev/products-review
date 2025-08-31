@@ -1,0 +1,23 @@
+{% trans_default_domain('products-review.admin') %}
+
+<tr class="vertical-middle">
+
+	<td class="text-nowrap">
+		{# Пользовательское меню #}
+		{{ include(_self|replace({ "card.html.twig": "_usecase.html.twig" })) }}
+	</td>
+
+	<td>
+		{% for category in item.categories %}
+			<div>{{ category }}</div>
+		{% endfor %}
+	</td>
+	
+	
+	<td>
+		{% for criteria in item.criteria %}
+			<div>{{ criteria }}</div>
+		{% endfor %}
+	</td>
+
+</tr>

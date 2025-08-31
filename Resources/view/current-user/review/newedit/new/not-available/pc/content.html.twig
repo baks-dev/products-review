@@ -1,0 +1,50 @@
+{% trans_default_domain('products-review.current-user') %}
+
+<div class="modal-dialog modal-dialog-centered" style="max-width: 800px;">
+
+    <div class="modal-content p-3 border-bottom border-5 border-danger">
+        <div class="modal-header">
+            <h5 class="modal-title">
+                {{ 'page.reviews.new'|trans }}
+            </h5>
+        </div>
+
+        <div class="modal-body">
+
+            Вы не можете добавить отзыв, так как прежде не заказывали данный товар
+
+        </div>
+
+        <div class="modal-footer">
+            {% if offer is defined %}
+                <div class="mt-3">
+
+                    {# Кнопка для покупки #}
+                    <a
+                        data-href="{{ path('orders-order:public.add', {
+                            product: event,
+                            offer : offer,
+                            variation : variation,
+                            modification : modification
+                        }) }}"
+                        data-bs-target="#modal"
+                        class="d-flex align-items-center btn btn-primary"
+                        title="Добавить в корзину"
+                    >
+                        Добавить в корзину
+                    </a>
+
+                </div>
+            {% endif %}
+
+            <div class="mt-3 gap-3 d-flex">
+                {# Отмена #}
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">
+                    {{ 'btn.cancel'|trans({}, 'core.btn') }}
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+</div>

@@ -1,0 +1,28 @@
+{% trans_default_domain('products-review.admin') %}
+
+<tr class="vertical-middle">
+    <td class="text-nowrap">
+        {# Пользовательское меню #}
+        {{ include(_self|replace({ "card.html.twig": "_usecase.html.twig" })) }}
+
+    <td class="text-center">
+        {{ item.reviewStatus|trans({}, 'review.status') }}
+    </td>
+
+    <td class="text-center">
+        {{ item.profileUsername }}
+    </td>
+
+    <td class="text-center">
+        {{ item.reviewName }}
+    </td>
+
+    <td class="text-center">
+        {{ item.productName }}
+    </td>
+
+    <td class="text-center">
+        {{ item.reviewText|length > 150 ? item.reviewText|striptags|slice(0, 150) ~ '...' : item.reviewText|striptags }}
+    </td>
+
+</tr>

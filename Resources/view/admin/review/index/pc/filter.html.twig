@@ -1,0 +1,7 @@
+{{ form_start(filter) }}
+<div class="w-100 d-flex gap-3 justify-content-end" style="height: 55px;">
+    <div class="w-100">
+        {{ form_row(filter.status, { attr : { 'data-select' : 'select2' }, placeholder: 'Все статусы...' }) }}
+    </div>
+</div>
+{{ form_end(filter) }}

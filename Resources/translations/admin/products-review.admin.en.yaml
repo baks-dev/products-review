@@ -1,0 +1,50 @@
+page:
+  settings:
+    index: Review settings
+    new: Add review setting
+    edit: Edit review setting
+    delete: Delete review setting
+    categories: Categories
+    criteria: Criteria
+  reviews:
+    index: Products reviews
+    edit: Edit review
+    delete: Delete review
+
+success:
+  settings:
+    new: Setting added successfully
+    edit: Setting edited successfully
+    delete: Setting deleted successfully
+  reviews:
+    edit: Review edited successfully
+    delete: Review deleted successfully
+
+danger:
+  settings:
+    new: Error adding review setting
+    edit: Error editing review setting
+    delete: Error deleting review setting
+  reviews:
+    edit: Error editing review
+    delete: Error deleting review
+
+breadcrumb:
+  settings:
+    index: Review settings
+    new: Add review settings
+  reviews:
+    index: Products reviews
+    new: Add review
+
+form:
+  settings:
+    header:
+      delete: Are you sure you want to delete review setting?
+    label:
+      delete: Are you sure you want to delete review setting?
+  reviews:
+    header:
+      delete: Are you sure you want to delete the review?
+    label:
+      delete: Are you sure you want to delete the review?

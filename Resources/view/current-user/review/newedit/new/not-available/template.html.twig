@@ -1,0 +1,10 @@
+{% trans_default_domain('products-review.current-user') %}
+
+{% block title %}
+    {{ 'page.reviews.new'|trans }}
+{% endblock %}
+
+{# ---- КОНТЕНТ-БЛОК ------------------------------------------------------------ #}
+{% block content %}
+    {{ include(_self|replace({ "template.html.twig": baks_settings.device~"/content.html.twig" })) }}
+{% endblock %}

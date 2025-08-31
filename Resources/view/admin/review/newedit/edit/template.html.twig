@@ -1,0 +1,12 @@
+{% trans_default_domain('products-review.admin') %}
+
+{% set ROLE = 'ROLE_PRODUCTS_REVIEW' %}
+
+{% block title %}
+    {{ 'page.reviews.edit'|trans }}
+{% endblock %}
+
+{# ---- КОНТЕНТ-БЛОК ------------------------------------------------------------ #}
+{% block content %}
+    {{ include(_self|replace({ "template.html.twig": baks_settings.device~"/content.html.twig" })) }}
+{% endblock %}
