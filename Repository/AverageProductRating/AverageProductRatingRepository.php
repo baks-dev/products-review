@@ -128,7 +128,7 @@ final readonly class AverageProductRatingRepository implements AverageProductRat
             );
 
         $dbal
-            ->where('product_review_category.value = setting_category.value')
+            ->andWhere('product_review_category.value = setting_category.value')
             ->join(
                 'product_review_event',
                 ProductReviewCategory::class,
