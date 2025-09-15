@@ -34,7 +34,7 @@ final class NewProductReviewStatusDTO implements ProductReviewStatusInterface
 {
     /** Status */
     #[Assert\NotBlank]
-    private ReviewStatus $value;
+    private readonly ReviewStatus $value;
 
     public function __construct()
     {

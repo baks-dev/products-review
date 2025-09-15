@@ -1,0 +1,32 @@
+<script nonce='{{ csp_nonce() }}' async data-src="/assets/plugins/htmx/2.0.4/htmx.min.js?v={{ version }}" class="lazy"></script>
+
+<div class="d-flex align-items-center gap-4 mb-2 lh-1">
+    <h3 class="fs-6 text-uppercase fw-bold mb-0">
+        отзывы
+    </h3>
+    <div class="fs-12 text-black">{{ reviews.counter }} отзывов</div>
+
+    {% if app.user %}
+        <button
+                data-href="{{path(
+                    'products-review:current-user.review.newedit.new',
+                    {
+                        'product': card.productId,
+                        'category': card.categoryId,
+                        'event': card.productEvent,
+                        'offer': card.productOfferUid is not defined ? null : card.productOfferUid,
+                        'variation': card.productVariationUid is not defined ? null : card.productVariationUid,
+                        'modification': card.productModificationUid is not defined ? null : card.productModificationUid
+                    })
+                }}"
+                class="btn bg-primary fw-medium rounded-5 fs-12 modal-link"
+                data-bs-toggle="modal"
+                data-bs-target="#modal"
+                title="Оставить отзыв"
+        >
+            Оставить отзыв
+        </button>
+    {% endif %}
+</div>
+
+{{ include(_self|replace({ "reviews.section.html.twig": "reviews.section.inner.html.twig" })) }}

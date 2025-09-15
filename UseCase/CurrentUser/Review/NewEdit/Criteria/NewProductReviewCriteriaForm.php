@@ -38,7 +38,7 @@ final class NewProductReviewCriteriaForm extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $builder->add('criteria', HiddenType::class, ['required' => false]);
+        //$builder->add('criteria', HiddenType::class, ['required' => false]);
 
         $builder->add('name', TextType::class, [
             'attr' => ['class' => 'd-none'],
@@ -57,7 +57,7 @@ final class NewProductReviewCriteriaForm extends AbstractType
 
                 $value = $data->getName();
 
-                $form->add('rating', RatingFieldForm::class, ['label' => $value]);
+                $form->add('rating', RatingFieldForm::class, ['label' => $value, 'label_html' => true]);
             }
         });
     }

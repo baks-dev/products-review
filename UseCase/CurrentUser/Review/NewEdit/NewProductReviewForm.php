@@ -42,9 +42,9 @@ final class NewProductReviewForm extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $builder->add('category', NewProductReviewCategoryForm::class);
+       // $builder->add('category', NewProductReviewCategoryForm::class);
 
-        $builder->add('user', NewProductReviewUserForm::class);
+        //$builder->add('user', NewProductReviewUserForm::class);
 
         $builder->add('text', NewProductReviewTextForm::class);
 
@@ -59,11 +59,11 @@ final class NewProductReviewForm extends AbstractType
             'prototype_name' => '__category__',
         ]);
 
-        $builder->add('product', NewProductReviewProductForm::class);
+        //$builder->add('product', NewProductReviewProductForm::class);
 
         $builder->add('name', NewProductReviewNameForm::class);
 
-        $builder->add('status', NewProductReviewStatusForm::class);
+        //$builder->add('status', NewProductReviewStatusForm::class);
 
         /* Сохранить ******************************************************/
         $builder->add(
