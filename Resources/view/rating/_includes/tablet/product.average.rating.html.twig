@@ -1,0 +1,33 @@
+<div class="d-flex align-items-center justify-content-between mb-4">
+    <h3 class="fs-18 text-uppercase fw-bold mb-0">Характеристики</h3>
+    <span class="badge text-black fs-12 fw-bold">
+        Оценка:
+        <span class="text-bg-success rounded-3 px-2 py-1 fs-14 ms-1">{{ common }}</span>
+    </span>
+</div>
+
+{% if criteria %}
+<div class="border p-4 rounded-4 mb-5">
+    {% for criterion in criteria %}
+    <dl class="mb-0 fs-11 d-flex align-items-center">
+        <dt style="width: 65%;">{{ criterion.name|length > 100 ? criterion.name|striptags|slice(0, 150) ~ '...' : criterion.name }}</dt>
+        <dd style="width: 35%;">
+            <div
+                class="progress"
+                style="height: 7px;"
+                role="progressbar"
+                aria-label="Значение характеристики"
+                aria-valuenow="100"
+                aria-valuemin="0"
+                aria-valuemax="100"
+            >
+                <div
+                     class="progress-bar {{ criterion.avg >= loop.index ? criterion.avg < 4 ? criterion.avg < 2 ? 'bg-danger' : 'bg-warning' : 'bg-success' : 'bg-secondary' }}"
+                     style="width: {{ criterion.avg / 5 * 100 }}%"
+                ></div>
+            </div>
+        </dd>
+    </dl>
+    {% endfor %}
+</div>
+{% endif %}

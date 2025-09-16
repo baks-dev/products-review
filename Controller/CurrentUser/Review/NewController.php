@@ -133,16 +133,20 @@ final class NewController extends AbstractController
 
 
         // Форма
-        $form = $this->createForm(NewProductReviewForm::class, $productsReviewDTO, [
-            'action' => $this->generateUrl(
-                'products-review:current-user.review.newedit.new',
-                ['product' => $product->getId(), 'category' => $category->getId()]
-            ),
-        ]);
+        $form = $this
+            ->createForm(
+                NewProductReviewForm::class,
+                $productsReviewDTO,
+                [
+                    'action' => $this->generateUrl(
+                        'products-review:current-user.review.newedit.new',
+                        ['product' => $product->getId(), 'category' => $category->getId()]
+                    ),
+                ])
+            ->handleRequest($request);
 
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid() && $form->has('new_product_review')) {
+        if($form->isSubmitted() && $form->isValid() && $form->has('new_product_review'))
+        {
             if($form->get('criteria')->count() !== 0)
             {
                 /** Расчет общей оценки */

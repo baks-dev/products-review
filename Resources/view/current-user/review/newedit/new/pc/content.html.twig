@@ -1,8 +1,8 @@
 {% trans_default_domain('products-review.current-user') %}
 
-<div class="modal-dialog modal-dialog-centered" style="max-width: 800px;">
+<div class="modal-dialog modal-dialog-centered" style="max-width: 800px; margin:auto">
     {{ form_start(form) }}
-    <div class="modal-content p-3 border-bottom border-5 border-danger">
+    <div class="modal-content p-3 border-bottom border-5 border-primary">
         <div class="modal-header">
             <h5 class="modal-title">
                 {{ 'page.new'|trans }}
@@ -11,23 +11,30 @@
 
         <div class="modal-body">
 
-            {{ form_widget(form.category) }}
-            {{ form_widget(form.product) }}
-            {{ form_widget(form.user) }}
-            {{ form_widget(form.name) }}
-            {{ form_widget(form.status) }}
-            {{ form_widget(form.text) }}
+            {{ form_row(form.name.value, { attr: { placeholder: 'Имя пользователя' } }) }}
+
+            {{ form_widget(form.text.value, { attr: { placeholder: 'Текст сообщения' } }) }}
 
 
-            <div class="d-block">
+            {% if form.criteria.count > 0 %}
+                <hr class="my-4 text-muted">
+            {% endif %}
+
+            <div class="row row-cols-2">
 
                 {% for criterion in form.criteria %}
 
-                    <div class="d-flex">
+                    <div class="d-flex justify-content-between align-items-center">
 
-                        {{ form_row(criterion.name, { attr: { class: 'd-none' } }) }}
-                        {{ form_row(criterion.criteria) }}
-                        {{ form_row(criterion.rating) }}
+                        <div>
+                            {{ form_widget(criterion.name) }}
+
+                            {{ criterion.vars.value.name }}
+                        </div>
+
+                        <div>
+                            {{ form_widget(criterion.rating) }}
+                        </div>
 
                     </div>
 
@@ -42,10 +49,15 @@
                 <button type="button" class="btn btn-light" data-bs-dismiss="modal">
                     {{ 'btn.cancel'|trans({}, 'core.btn') }}
                 </button>
-                {{ form_widget(form.new_product_review, { label: '
-                    <span>'~ 'Сохранить'|trans({}, 'core.btn') ~'</span>
-                    <span class="spinner-border spinner-border-sm vertical-middle d-none"></span>
-			    '}) }}
+
+                {{ form_widget(form.new_product_review,
+                    {
+                        attr: { class: 'bg-primary' },
+                        label: '
+                            <span>'~ 'Сохранить'|trans({}, 'core.btn') ~'</span>
+                            <span class="spinner-border spinner-border-sm vertical-middle d-none"></span>
+                    '})
+                }}
                 {{ form_end(form) }}
             </div>
         </div>
