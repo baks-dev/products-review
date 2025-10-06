@@ -1,0 +1,11 @@
+Page:
+  New: Add a review
+
+Success:
+  New: The review is successfully added
+
+Danger:
+  New: An error of adding a review
+
+Breadcrumb:
+  New: Adding a review
