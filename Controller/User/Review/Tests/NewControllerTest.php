@@ -23,7 +23,7 @@
 
 declare(strict_types=1);
 
-namespace BaksDev\Products\Review\Controller\CurrentUser\Review\Tests;
+namespace BaksDev\Products\Review\Controller\User\Review\Tests;
 
 use BaksDev\Products\Category\Type\Id\CategoryProductUid;
 use BaksDev\Products\Product\Type\Id\ProductUid;
