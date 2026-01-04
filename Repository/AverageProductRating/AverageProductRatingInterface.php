@@ -32,5 +32,6 @@ interface AverageProductRatingInterface
 {
     public function product(ProductUid $product): self;
 
-    public function find(): Generator;
+    /** @return Generator<AverageProductRatingResult>|false */
+    public function find(): Generator|false;
 }

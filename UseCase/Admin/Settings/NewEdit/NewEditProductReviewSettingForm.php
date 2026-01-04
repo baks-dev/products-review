@@ -52,7 +52,7 @@ final class NewEditProductReviewSettingForm extends AbstractType
             'entry_type' => NewEditProductReviewSettingCriteriaForm::class,
             'entry_options' => ['label' => false,],
             'label' => false,
-            'by_reference' => false,
+            'by_reference' => true,
             'allow_delete' => true,
             'allow_add' => true,
             'prototype_name' => '__criteria__',

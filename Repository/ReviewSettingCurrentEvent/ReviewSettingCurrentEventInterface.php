@@ -32,5 +32,5 @@ use Symfony\Component\DependencyInjection\Attribute\Autoconfigure;
 #[Autoconfigure(public: true)] /* TODO: удалить !!! */
 interface ReviewSettingCurrentEventInterface
 {
-    public function get(ProductReviewSetting|string $productReviewSetting): ProductReviewSettingEvent;
+    public function get(ProductReviewSetting|string $productReviewSetting): ProductReviewSettingEvent|null;
 }

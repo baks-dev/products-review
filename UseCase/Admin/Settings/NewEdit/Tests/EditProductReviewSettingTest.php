@@ -31,7 +31,6 @@ use BaksDev\Products\Review\Entity\Setting\ProductReviewSetting;
 use BaksDev\Products\Review\Repository\ReviewSettingCurrentEvent\ReviewSettingCurrentEventInterface;
 use BaksDev\Products\Review\Type\Setting\Criteria\ConstId\ProductReviewSettingCriteriaConst;
 use BaksDev\Products\Review\Type\Setting\Id\ProductReviewSettingUid;
-use BaksDev\Products\Review\UseCase\Admin\Review\NewEdit\Tests\EditProductReviewTest;
 use BaksDev\Products\Review\UseCase\Admin\Settings\NewEdit\Category\NewEditProductReviewSettingCategoryDTO;
 use BaksDev\Products\Review\UseCase\Admin\Settings\NewEdit\Criteria\NewEditProductReviewSettingCriteriaDTO;
 use BaksDev\Products\Review\UseCase\Admin\Settings\NewEdit\Criteria\Text\NewEditProductReviewSettingCriteriaTextDTO;
@@ -48,41 +47,37 @@ use Symfony\Component\DependencyInjection\Attribute\When;
 #[Group('products-review')]
 final class EditProductReviewSettingTest extends KernelTestCase
 {
-    #[DependsOnClass(EditProductReviewTest::class)]
+    #[DependsOnClass(NewProductReviewSettingTest::class)]
     public function testUseCase(): void
     {
-        $NewEditProductReviewSettingHandler = self::getContainer()->get(NewEditProductReviewSettingHandler::class);
+
+        /** @var ReviewSettingCurrentEventInterface $ReviewSettingCurrentEventRepository */
+        $ReviewSettingCurrentEventRepository = self::getContainer()->get(ReviewSettingCurrentEventInterface::class);
+        $ProductReviewSettingEvent = $ReviewSettingCurrentEventRepository->get(ProductReviewSettingUid::TEST);
+        self::assertInstanceOf(ProductReviewSettingEvent::class, $ProductReviewSettingEvent);
+
 
         $newEditProductReviewSettingDTO = new NewEditProductReviewSettingDTO();
-
-        $em = self::getContainer()->get(EntityManagerInterface::class);
-
-        $CurrentEventRepository = self::getContainer()->get(ReviewSettingCurrentEventInterface::class);
-        $event = $CurrentEventRepository->get(ProductReviewSettingUid::TEST);
-
-        /** @var EntityManager $em */
-        $productReviewSettingEvent = $em
-            ->getRepository(ProductReviewSettingEvent::class)
-            ->findOneBy(['id' => $event]);
-
-        $productReviewSettingEvent->getDto($newEditProductReviewSettingDTO);
+        $ProductReviewSettingEvent->getDto($newEditProductReviewSettingDTO);
 
         $NewEditProductReviewSettingCriteriaDTO = $newEditProductReviewSettingDTO->getCriteria()->current();
-
 
         /** Проверяем наличие первого критерия */
         self::assertInstanceOf(
             NewEditProductReviewSettingCriteriaDTO::class,
-            $NewEditProductReviewSettingCriteriaDTO
+            $NewEditProductReviewSettingCriteriaDTO,
         );
+
         self::assertInstanceOf(
             NewEditProductReviewSettingCriteriaTextDTO::class,
-            $NewEditProductReviewSettingCriteriaDTO->getText()
+            $NewEditProductReviewSettingCriteriaDTO->getText(),
         );
+
         self::assertInstanceOf(
             ProductReviewSettingCriteriaConst::class,
-            $NewEditProductReviewSettingCriteriaDTO->getConst()
+            $NewEditProductReviewSettingCriteriaDTO->getConst(),
         );
+
         self::assertEquals('Test', $NewEditProductReviewSettingCriteriaDTO->getText()->getValue());
 
 
@@ -92,14 +87,13 @@ final class EditProductReviewSettingTest extends KernelTestCase
             $newEditProductReviewSettingDTO->getCategory()->current(),
         );
 
-
         /** Добавляем новую категорию в коллекцию */
-        $categoryDTO = new NewEditProductReviewSettingCategoryDTO()->setValue(new CategoryProductUid());
+        $categoryDTO = new NewEditProductReviewSettingCategoryDTO()->setValue(clone new CategoryProductUid());
         $newEditProductReviewSettingDTO->addCategory($categoryDTO);
 
 
         /** Добавляем новый критерий в коллекцию */
-        $criteriaDTO = new NewEditProductReviewSettingCriteriaDTO()->setConst(new ProductReviewSettingCriteriaConst());
+        $criteriaDTO = new NewEditProductReviewSettingCriteriaDTO()->setConst(clone new ProductReviewSettingCriteriaConst());
         $newEditProductReviewSettingDTO->addCriterion($criteriaDTO);
 
         $textDTO = new NewEditProductReviewSettingCriteriaTextDTO()->setValue('Test3');
@@ -108,6 +102,7 @@ final class EditProductReviewSettingTest extends KernelTestCase
 
 
         /** @var NewEditProductReviewSettingHandler $NewEditProductReviewSettingHandler */
+        $NewEditProductReviewSettingHandler = self::getContainer()->get(NewEditProductReviewSettingHandler::class);
         $handle = $NewEditProductReviewSettingHandler->handle($newEditProductReviewSettingDTO);
 
         self::assertTrue($handle instanceof ProductReviewSetting);

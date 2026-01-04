@@ -53,7 +53,10 @@ final class ReviewStatusTest extends KernelTestCase
             self::assertTrue($reviewStatus->equals($reviewStatus)); // объект класса
 
             $reviewStatusType = new ReviewStatusType();
-            $platform = $this->getMockForAbstractClass(AbstractPlatform::class);
+
+            $platform = $this
+                ->getMockBuilder(AbstractPlatform::class)
+                ->getMock();
 
             $convertToDatabase = $reviewStatusType->convertToDatabaseValue($reviewStatus, $platform);
             self::assertEquals($reviewStatus->getReviewStatusValue(), $convertToDatabase);

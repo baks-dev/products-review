@@ -26,8 +26,8 @@ declare(strict_types=1);
 namespace BaksDev\Products\Review\UseCase\Admin\Settings\NewEdit;
 
 use BaksDev\Core\Entity\AbstractHandler;
-use BaksDev\Products\Review\Entity\Setting\ProductReviewSetting;
 use BaksDev\Products\Review\Entity\Setting\Event\ProductReviewSettingEvent;
+use BaksDev\Products\Review\Entity\Setting\ProductReviewSetting;
 use BaksDev\Products\Review\Messenger\ProductReviewSettingMessage;
 
 final class NewEditProductReviewSettingHandler extends AbstractHandler
@@ -38,6 +38,7 @@ final class NewEditProductReviewSettingHandler extends AbstractHandler
         $this->setCommand($command);
 
         $this->preEventPersistOrUpdate(ProductReviewSetting::class, ProductReviewSettingEvent::class);
+
 
         /** Валидация всех объектов */
         if ($this->validatorCollection->isInvalid()) {

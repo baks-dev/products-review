@@ -30,7 +30,7 @@ use BaksDev\Products\Review\Controller\Admin\Review\Tests\DeleteControllerTest;
 use BaksDev\Products\Review\Controller\Admin\Review\Tests\EditControllerTest;
 use BaksDev\Products\Review\Entity\Review\Event\ProductReviewEvent;
 use BaksDev\Products\Review\Entity\Review\ProductReview;
-use BaksDev\Products\Review\Type\Review\Event\ProductReviewEventUid;
+use BaksDev\Products\Review\Type\Review\Id\ProductReviewUid;
 use BaksDev\Products\Review\Type\Setting\Criteria\ConstId\ProductReviewSettingCriteriaConst;
 use BaksDev\Products\Review\Type\Status\ReviewStatus;
 use BaksDev\Products\Review\Type\Status\ReviewStatus\Collection\ReviewStatusActive;
@@ -43,35 +43,54 @@ use BaksDev\Products\Review\UseCase\Admin\Review\NewEdit\Rating\EditProductRevie
 use BaksDev\Products\Review\UseCase\Admin\Review\NewEdit\Status\EditProductReviewStatusDTO;
 use BaksDev\Products\Review\UseCase\Admin\Review\NewEdit\Text\EditProductReviewTextDTO;
 use BaksDev\Products\Review\UseCase\Admin\Review\NewEdit\User\EditProductReviewUserDTO;
+use BaksDev\Products\Review\UseCase\CurrentUser\Review\NewEdit\Tests\NewProductReviewTest;
 use BaksDev\Users\User\Type\Id\UserUid;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\Attributes\DependsOnClass;
 use PHPUnit\Framework\Attributes\Group;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Event\ConsoleCommandEvent;
+use Symfony\Component\Console\Input\StringInput;
+use Symfony\Component\Console\Output\NullOutput;
 use Symfony\Component\DependencyInjection\Attribute\When;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 #[When(env: 'test')]
 #[Group('products-review')]
 final class EditProductReviewTest extends KernelTestCase
 {
+    #[DependsOnClass(NewProductReviewTest::class)]
     #[DependsOnClass(EditControllerTest::class)]
     #[DependsOnClass(DeleteControllerTest::class)]
     public function testUseCase(): void
     {
+
+        // Бросаем событие консольной комманды
+        $dispatcher = self::getContainer()->get(EventDispatcherInterface::class);
+        $event = new ConsoleCommandEvent(new Command(), new StringInput(''), new NullOutput());
+        $dispatcher->dispatch($event, 'console.command');
+
         $NewEditProductReviewHandler = self::getContainer()->get(EditProductReviewHandler::class);
 
         $newEditProductReviewDTO = new EditProductReviewDTO();
 
         $em = self::getContainer()->get(EntityManagerInterface::class);
 
-        /** @var EntityManager $em */
+        $ProductReview = $em
+            ->getRepository(ProductReview::class)
+            ->find(ProductReviewUid::TEST);
+
+        self::assertInstanceOf(ProductReview::class, $ProductReview);
+
         $productReviewEvent = $em
             ->getRepository(ProductReviewEvent::class)
-            ->findOneBy(['id' => ProductReviewEventUid::TEST]);
+            ->find($ProductReview->getEvent());
+
+        self::assertInstanceOf(ProductReviewEvent::class, $productReviewEvent);
 
         $productReviewEvent->getDto($newEditProductReviewDTO);
-
 
         /** Criteria */
         $newEditProductReviewCriteriaDTO = $newEditProductReviewDTO->getCriteria()->current();
@@ -161,7 +180,7 @@ final class EditProductReviewTest extends KernelTestCase
         self::assertIsFloat($newEditProductReviewRatingDTO->getValue());
 
         /** Изменяем общую оценку */
-        $newEditProductReviewRatingDTO->setValue(3,5);
+        $newEditProductReviewRatingDTO->setValue(3.5);
         $newEditProductReviewDTO->setRating($newEditProductReviewRatingDTO);
 
         $handle = $NewEditProductReviewHandler->handle($newEditProductReviewDTO);

@@ -51,7 +51,7 @@ final class NewProductReviewSettingTest extends KernelTestCase
         $em = self::getContainer()->get(EntityManagerInterface::class);
 
         $main = $em->getRepository(ProductReviewSetting::class)
-            ->findOneBy(['id' => ProductReviewSettingUid::TEST]);
+            ->find(ProductReviewSettingUid::TEST);
 
         if($main)
         {
@@ -78,7 +78,8 @@ final class NewProductReviewSettingTest extends KernelTestCase
 
 
         /** Добавляем категорию в коллекцию */
-        $categoryDTO = new NewEditProductReviewSettingCategoryDTO()->setValue(new CategoryProductUid());
+        $categoryDTO = new NewEditProductReviewSettingCategoryDTO()
+            ->setValue(new CategoryProductUid(CategoryProductUid::TEST));
         $newEditProductReviewSettingDTO->addCategory($categoryDTO);
 
         $criteriaDTO = new NewEditProductReviewSettingCriteriaDTO()
@@ -87,7 +88,6 @@ final class NewProductReviewSettingTest extends KernelTestCase
 
         /** Добавляем критерий в коллекцию */
         $textDTO = new NewEditProductReviewSettingCriteriaTextDTO()->setValue('Test');
-
         $criteriaDTO->setText($textDTO);
 
 
@@ -98,9 +98,7 @@ final class NewProductReviewSettingTest extends KernelTestCase
 
         /** Добавляем критерий в коллекцию */
         $textDTO2 = new NewEditProductReviewSettingCriteriaTextDTO()->setValue('Test 2');
-
         $criteriaDTO2->setText($textDTO2);
-
 
         /** @var NewEditProductReviewSettingHandler $NewEditProductReviewSettingHandler */
         $handle = $NewEditProductReviewSettingHandler->handle($newEditProductReviewSettingDTO);

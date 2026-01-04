@@ -85,10 +85,11 @@ final class NewProductReviewAverageTest extends KernelTestCase
             $averageCount += 1;
         }
 
-        $averageDTO
-            ->setValue(round($averageSum / $averageCount, 1))
-            ->addCriterion($averageCriteriaDTO);
+        $value = $averageCount !== 0 ? round($averageSum / $averageCount, 1) : 0;
 
+        $averageDTO
+            ->setValue($value)
+            ->addCriterion($averageCriteriaDTO);
 
         $NewEditAverageHandler = self::getContainer()->get(NewEditProductReviewAverageHandler::class);
 

@@ -34,8 +34,8 @@ use BaksDev\Products\Review\Entity\Setting\Category\ProductReviewSettingCategory
 use BaksDev\Products\Review\Entity\Setting\Event\ProductReviewSettingEvent;
 use BaksDev\Products\Review\Entity\Setting\ProductReviewSetting;
 use BaksDev\Products\Review\Type\Setting\Event\ProductReviewSettingEventUid;
-use Generator;
 use Doctrine\DBAL\Exception;
+use Generator;
 
 final class AllCategoriesWithoutSettingRepository implements AllCategoriesWithoutSettingInterface
 {
@@ -65,15 +65,17 @@ final class AllCategoriesWithoutSettingRepository implements AllCategoriesWithou
         return $this;
     }
 
-
     /**
-     * @return Generator<int, CategoryProductUid>
+     *
      * Метод получает список категорий, для которых нет настройки критериев. Он также позволяет получать помимо них
      * категории, которые уже являются частью данной настройки, если был указан uid события настройки критериев (метод
      * event)
+     *
+     * @return Generator<CategoryProductUid>|false
      * @throws Exception
+     *
      */
-    public function findAll(): Generator
+    public function findAll(): Generator|false
     {
         $dbal = $this->queryBuilder->createQueryBuilder(self::class)->bindLocal();
 

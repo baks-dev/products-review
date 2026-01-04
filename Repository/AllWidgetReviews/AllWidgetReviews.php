@@ -47,11 +47,11 @@ use BaksDev\Products\Review\Entity\Review\Status\ProductReviewStatus;
 use BaksDev\Products\Review\Entity\Review\Text\ProductReviewText;
 use BaksDev\Products\Review\Entity\Review\User\ProductReviewUser;
 use BaksDev\Products\Review\Type\Status\ReviewStatus;
+use BaksDev\Products\Review\Type\Status\ReviewStatus\Collection\ReviewStatusActive;
 use BaksDev\Users\Profile\UserProfile\Entity\Event\Info\UserProfileInfo;
 use BaksDev\Users\Profile\UserProfile\Entity\Event\Personal\UserProfilePersonal;
 use BaksDev\Users\Profile\UserProfile\Entity\UserProfile;
 use Generator;
-use BaksDev\Products\Review\Type\Status\ReviewStatus\Collection\ReviewStatusActive;
 
 final class AllWidgetReviews implements AllWidgetReviewsInterface
 {
@@ -62,7 +62,11 @@ final class AllWidgetReviews implements AllWidgetReviewsInterface
         $this->DBALQueryBuilder = $DBALQueryBuilder;
     }
 
-    /** Метод возвращает пагинатор Reviews */
+    /**
+     * Метод возвращает пагинатор Reviews
+     *
+     * @return Generator<AllWidgetReviewsResult>|false
+     */
     public function findAll(): Generator|false
     {
         $dbal = $this->DBALQueryBuilder->createQueryBuilder(self::class);

@@ -50,18 +50,12 @@ final class DeleteProductReviewSettingTest extends KernelTestCase
     #[DependsOnClass(EditProductReviewSettingTest::class)]
     public function testUseCase(): void
     {
-        $EntityManager = self::getContainer()->get(EntityManagerInterface::class);
-
-        $CurrentEventRepository = self::getContainer()->get(ReviewSettingCurrentEventInterface::class);
-        $event = $CurrentEventRepository->get(ProductReviewSettingUid::TEST);
-
-        /** @var EntityManager $EntityManager */
-        $productReviewSettingEvent = $EntityManager
-            ->getRepository(ProductReviewSettingEvent::class)
-            ->findOneBy(['id' => $event]);
+        /** @var ReviewSettingCurrentEventInterface $ReviewSettingCurrentEventRepository */
+        $ReviewSettingCurrentEventRepository = self::getContainer()->get(ReviewSettingCurrentEventInterface::class);
+        $ProductReviewSettingEvent = $ReviewSettingCurrentEventRepository->get(ProductReviewSettingUid::TEST);
 
         $deleteProductReviewSettingDTO = new DeleteProductReviewSettingDTO();
-        $productReviewSettingEvent->getDTO($deleteProductReviewSettingDTO);
+        $ProductReviewSettingEvent->getDTO($deleteProductReviewSettingDTO);
 
         /** @var DeleteProductReviewSettingHandler $DeleteProductReviewSettingHandler */
         $DeleteProductReviewSettingHandler = self::getContainer()->get(DeleteProductReviewSettingHandler::class);

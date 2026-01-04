@@ -31,16 +31,15 @@ use BaksDev\Products\Review\Entity\Review\Category\ProductReviewCategory;
 use BaksDev\Products\Review\Entity\Review\Criteria\ProductReviewCriteria;
 use BaksDev\Products\Review\Entity\Review\Event\ProductReviewEvent;
 use BaksDev\Products\Review\Entity\Review\Product\ProductReviewProduct;
+use BaksDev\Products\Review\Entity\Review\ProductReview;
 use BaksDev\Products\Review\Entity\Review\Status\ProductReviewStatus;
 use BaksDev\Products\Review\Entity\Setting\Category\ProductReviewSettingCategory;
 use BaksDev\Products\Review\Entity\Setting\Criteria\ProductReviewSettingCriteria;
 use BaksDev\Products\Review\Entity\Setting\Criteria\Text\ProductReviewSettingCriteriaText;
-use BaksDev\Products\Review\Entity\Setting\Event\ProductReviewSettingEvent;
 use BaksDev\Products\Review\Entity\Setting\ProductReviewSetting;
 use BaksDev\Products\Review\Type\Status\ReviewStatus;
 use BaksDev\Products\Review\Type\Status\ReviewStatus\Collection\ReviewStatusActive;
 use Generator;
-use BaksDev\Products\Review\Entity\Review\ProductReview;
 
 final readonly class AverageProductRatingRepository implements AverageProductRatingInterface
 {
@@ -54,7 +53,8 @@ final readonly class AverageProductRatingRepository implements AverageProductRat
         return $this;
     }
 
-    public function find(): Generator
+    /** @return Generator<AverageProductRatingResult>|false */
+    public function find(): Generator|false
     {
         $dbal = $this->queryBuilder->createQueryBuilder(self::class);
 

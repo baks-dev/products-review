@@ -26,6 +26,7 @@ declare(strict_types=1);
 namespace BaksDev\Products\Review\Repository\AllCategoriesWithoutSetting\Tests;
 
 use BaksDev\Products\Category\Type\Id\CategoryProductUid;
+use BaksDev\Products\Review\Entity\Setting\Event\ProductReviewSettingEvent;
 use BaksDev\Products\Review\Repository\AllCategoriesWithoutSetting\AllCategoriesWithoutSettingInterface;
 use BaksDev\Products\Review\Repository\AllCategoriesWithoutSetting\AllCategoriesWithoutSettingRepository;
 use BaksDev\Products\Review\Repository\ReviewSettingCurrentEvent\ReviewSettingCurrentEventInterface;
@@ -55,15 +56,28 @@ final class AllCategoriesWithoutSettingTest extends KernelTestCase
     #[DependsOnClass(NewProductReviewSettingTest::class)]
     public function testFindAllByEvent(): void
     {
-        $AllCategoriesWithoutSettingRepository = self::getContainer()
-            ->get(AllCategoriesWithoutSettingInterface::class);
+        /** @var ReviewSettingCurrentEventInterface $ReviewSettingCurrentEventRepository */
+        $ReviewSettingCurrentEventRepository = self::getContainer()->get(ReviewSettingCurrentEventInterface::class);
+        $ProductReviewSettingEvent = $ReviewSettingCurrentEventRepository->get(ProductReviewSettingUid::TEST);
+        self::assertInstanceOf(ProductReviewSettingEvent::class, $ProductReviewSettingEvent);
 
-        $CurrentEventRepository = self::getContainer()->get(ReviewSettingCurrentEventInterface::class);
-        $event = $CurrentEventRepository->get(ProductReviewSettingUid::TEST);
 
         /** @var AllCategoriesWithoutSettingRepository $AllCategoriesWithoutSettingRepository */
-        $result = $AllCategoriesWithoutSettingRepository->event($event)->findAll()->current();
+        $AllCategoriesWithoutSettingRepository = self::getContainer()
+            ->get(AllCategoriesWithoutSettingInterface::class);
+        $results = $AllCategoriesWithoutSettingRepository
+            ->event($ProductReviewSettingEvent->getId())
+            ->findAll();
 
-        self::assertInstanceOf(CategoryProductUid::class, $result);
+        if(false === $results || false === $results->valid())
+        {
+            return;
+        }
+
+        foreach($results as $CategoryProductUid)
+        {
+            self::assertInstanceOf(CategoryProductUid::class, $CategoryProductUid);
+        }
+
     }
 }

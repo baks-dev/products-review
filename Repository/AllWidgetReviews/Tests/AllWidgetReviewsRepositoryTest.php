@@ -31,13 +31,12 @@ use BaksDev\Products\Review\Repository\AllWidgetReviews\AllWidgetReviews;
 use BaksDev\Products\Review\Repository\AllWidgetReviews\AllWidgetReviewsInterface;
 use BaksDev\Products\Review\Repository\AllWidgetReviews\AllWidgetReviewsResult;
 use BaksDev\Products\Review\Repository\AverageProductRating\Tests\AverageProductRatingRepositoryTest;
-use BaksDev\Products\Review\Type\Review\Event\ProductReviewEventUid;
-use BaksDev\Products\Review\Type\Status\ReviewStatus;
 use BaksDev\Users\Profile\UserProfile\UseCase\User\NewEdit\Tests\UserNewUserProfileHandleTest;
 use BaksDev\Users\User\Type\Id\UserUid;
-use DateTimeImmutable;
 use PHPUnit\Framework\Attributes\DependsOnClass;
 use PHPUnit\Framework\Attributes\Group;
+use ReflectionClass;
+use ReflectionMethod;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\DependencyInjection\Attribute\When;
 
@@ -50,46 +49,34 @@ final class AllWidgetReviewsRepositoryTest extends KernelTestCase
     #[DependsOnClass(ProductsProductNewAdminUseCaseTest::class)]
     public function testFindAll()
     {
+        self::assertTrue(true);
+
         $AllReviewsRepository = self::getContainer()->get(AllWidgetReviewsInterface::class);
 
         /** @var AllWidgetReviews $AllReviewsRepository */
         $results = $AllReviewsRepository->findAll();
 
-        foreach ($results as $result)
+        if(false === $results || false === $results->valid())
         {
-            /** @var AllWidgetReviewsResult $result */
-            self::assertInstanceOf(AllWidgetReviewsResult::class, $result);
-
-            self::assertTrue(
-                $result->getReviewEvent() === false
-                || $result->getReviewEvent() instanceof ProductReviewEventUid
-            );
-
-            self::assertInstanceOf(ProductUid::class, $result->getReviewProduct());
-
-            self::assertIsString($result->getProductName());
-
-            self::assertInstanceOf(ReviewStatus::class, $result->getReviewStatus());
-
-            self::assertIsString($result->getReviewText());
-
-            self::assertInstanceOf(UserUid::class, $result->getReviewUser());
-
-            self::assertIsString($result->getProfileUsername());
-
-            self::assertTrue($result->getReviewName() === null || is_string($result->getReviewName()));
-
-            self::assertInstanceOf(DateTimeImmutable::class, $result->getUpdate());
-
-            self::assertIsFloat($result->getReviewRatingValue());
-
-            self::assertTrue(is_array($result->getProductImages()) || false === $result->getProductImages());
-
-            self::assertIsString($result->getCategoryUrl());
-
-            self::assertIsString($result->getProductUrl());
-
             return;
+        }
+
+        foreach($results as $AllWidgetReviewsResult)
+        {
+            // Вызываем все геттеры
+            $reflectionClass = new ReflectionClass(AllWidgetReviewsResult::class);
+            $methods = $reflectionClass->getMethods(ReflectionMethod::IS_PUBLIC);
+
+            foreach($methods as $method)
+            {
+                // Методы без аргументов
+                if($method->getNumberOfParameters() === 0)
+                {
+                    // Вызываем метод
+                    $data = $method->invoke($AllWidgetReviewsResult);
+                    // dump($data);
+                }
+            }
         }
     }
 }

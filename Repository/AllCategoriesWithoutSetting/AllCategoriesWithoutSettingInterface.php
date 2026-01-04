@@ -35,10 +35,12 @@ interface AllCategoriesWithoutSettingInterface
     public function event(ProductReviewSettingEventUid|ProductReviewSettingEvent|string $event): self;
 
     /**
-     * @return Generator<int, CategoryProductUid>
+     *
      * Метод получает список категорий, для которых нет настройки критериев. Он также позволяет получать помимо них
      * категории, которые уже являются частью данной настройки, если был указан uid события настройки критериев (метод
      * event)
+     *
+     * @return Generator<int, CategoryProductUid>|false
      */
-    public function findAll(): Generator;
+    public function findAll(): Generator|false;
 }

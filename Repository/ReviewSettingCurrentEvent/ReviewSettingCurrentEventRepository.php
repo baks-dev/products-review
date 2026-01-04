@@ -34,15 +34,20 @@ final readonly class ReviewSettingCurrentEventRepository implements ReviewSettin
 {
     public function __construct(private ORMQueryBuilder $ORMQueryBuilder) {}
 
-    public function get(ProductReviewSetting|string $productReviewSetting): ProductReviewSettingEvent
+    public function get(ProductReviewSetting|string $productReviewSetting): ProductReviewSettingEvent|null
     {
-        $productReviewSetting = new ProductReviewSettingUid($productReviewSetting);
+        $ProductReviewSettingUid = new ProductReviewSettingUid($productReviewSetting);
+
         $orm = $this->ORMQueryBuilder->createQueryBuilder(self::class);
-        
+
         $orm
             ->from(ProductReviewSetting::class, 'review_setting')
             ->where('review_setting = :review_setting')
-            ->setParameter('review_setting', $productReviewSetting, ProductReviewSettingUid::TYPE);
+            ->setParameter(
+                key: 'review_setting',
+                value: $ProductReviewSettingUid,
+                type: ProductReviewSettingUid::TYPE,
+            );
 
         $orm
             ->select('event')

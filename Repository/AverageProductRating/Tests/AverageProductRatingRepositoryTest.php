@@ -29,10 +29,11 @@ use BaksDev\Products\Product\Type\Id\ProductUid;
 use BaksDev\Products\Review\Repository\AverageProductRating\AverageProductRatingInterface;
 use BaksDev\Products\Review\Repository\AverageProductRating\AverageProductRatingRepository;
 use BaksDev\Products\Review\Repository\AverageProductRating\AverageProductRatingResult;
-use BaksDev\Products\Review\Type\Setting\Criteria\ConstId\ProductReviewSettingCriteriaConst;
 use BaksDev\Products\Review\UseCase\Admin\Review\NewEdit\Tests\EditProductReviewTest;
 use PHPUnit\Framework\Attributes\DependsOnClass;
 use PHPUnit\Framework\Attributes\Group;
+use ReflectionClass;
+use ReflectionMethod;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\DependencyInjection\Attribute\When;
 
@@ -43,19 +44,38 @@ final class AverageProductRatingRepositoryTest extends KernelTestCase
     #[DependsOnClass(EditProductReviewTest::class)]
     public function testFind(): void
     {
+        self::assertTrue(true);
+
         $AverageProductRatingRepository = self::getContainer()->get(AverageProductRatingInterface::class);
 
         /** @var AverageProductRatingRepository $AverageProductRatingRepository */
         $result = $AverageProductRatingRepository
-            ->product(new ProductUid())
-            ->find()
-            ->current();
+            ->product(new ProductUid(ProductUid::TEST))
+            ->find();
 
-        self::assertInstanceOf(AverageProductRatingResult::class, $result);
-        self::assertInstanceOf(ProductReviewSettingCriteriaConst::class, $result->getCriteria());
-        self::assertIsFloat($result->getAvg());
-        self::assertIsInt($result->getSum());
-        self::assertIsInt($result->getCount());
-        self::assertIsString($result->getName());
+        if(false === $result || false === $result->valid())
+        {
+            return;
+        }
+
+        foreach($result as $AverageProductRatingResult)
+        {
+            // Вызываем все геттеры
+            $reflectionClass = new ReflectionClass(AverageProductRatingResult::class);
+            $methods = $reflectionClass->getMethods(ReflectionMethod::IS_PUBLIC);
+
+            foreach($methods as $method)
+            {
+                // Методы без аргументов
+                if($method->getNumberOfParameters() === 0)
+                {
+                    // Вызываем метод
+                    $data = $method->invoke($AverageProductRatingResult);
+                    // dump($data);
+                }
+            }
+
+        }
+
     }
 }

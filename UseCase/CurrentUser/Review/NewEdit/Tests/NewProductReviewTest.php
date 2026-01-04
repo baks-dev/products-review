@@ -73,7 +73,7 @@ final class NewProductReviewTest extends KernelTestCase
 
         $main = $em
             ->getRepository(ProductReview::class)
-            ->findOneBy(['id' => ProductReviewUid::TEST]);
+            ->find(ProductReviewUid::TEST);
 
         if($main)
         {
@@ -96,16 +96,17 @@ final class NewProductReviewTest extends KernelTestCase
     #[DependsOnClass(NewProductReviewSettingTest::class)]
     public function testUseCase(): void
     {
-        $NewEditProductReviewHandler = self::getContainer()->get(NewProductReviewHandler::class);
-
         $newEditProductReviewDTO = new NewProductReviewDTO();
 
-
-        /** Получаем существующий критерий (важно для теста AverageProductRatingResult) */
+        /**
+         * Получаем существующий критерий (важно для теста AverageProductRatingResult)
+         *
+         * @var ReviewSettingCurrentEventRepository $ReviewSettingCurrentEventRepository
+         */
         $ReviewSettingCurrentEventRepository = self::getContainer()->get(ReviewSettingCurrentEventInterface::class);
-        /** @var ReviewSettingCurrentEventRepository $ReviewSettingCurrentEventRepository */
-        $settingEvent = $ReviewSettingCurrentEventRepository->get(ProductReviewSettingUid::TEST);
-        $criteria = $settingEvent->getCriteria()->current()->getConst();
+        $ProductReviewSettingEvent = $ReviewSettingCurrentEventRepository->get(ProductReviewSettingUid::TEST);
+
+        $criteria = $ProductReviewSettingEvent->getCriteria()->current()->getConst();
 
         /** Добавляем критерий в коллекцию */
         $criteriaDTO = new NewProductReviewCriteriaDTO()
@@ -144,7 +145,7 @@ final class NewProductReviewTest extends KernelTestCase
 
 
         /** Добавляем пользователя */
-        $userDTO = new NewProductReviewUserDTO()->setValue(UserUid::TEST);
+        $userDTO = new NewProductReviewUserDTO()->setValue(new  UserUid(UserUid::TEST));
 
         $newEditProductReviewDTO->setUser($userDTO);
 
@@ -156,6 +157,7 @@ final class NewProductReviewTest extends KernelTestCase
 
 
         /** @var NewProductReviewHandler $NewEditProductReviewHandler */
+        $NewEditProductReviewHandler = self::getContainer()->get(NewProductReviewHandler::class);
         $handle = $NewEditProductReviewHandler->handle($newEditProductReviewDTO);
 
         self::assertInstanceOf(ProductReview::class, $handle);

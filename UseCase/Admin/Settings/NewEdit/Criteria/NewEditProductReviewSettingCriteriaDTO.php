@@ -28,10 +28,10 @@ namespace BaksDev\Products\Review\UseCase\Admin\Settings\NewEdit\Criteria;
 use BaksDev\Products\Review\Entity\Setting\Criteria\ProductReviewSettingCriteriaInterface;
 use BaksDev\Products\Review\Type\Setting\Criteria\ConstId\ProductReviewSettingCriteriaConst;
 use BaksDev\Products\Review\UseCase\Admin\Settings\NewEdit\Criteria\Text\NewEditProductReviewSettingCriteriaTextDTO;
-use Symfony\Component\Validator\Constraints as Assert;
 use ReflectionProperty;
+use Symfony\Component\Validator\Constraints as Assert;
 
-/** @see NewEditProductReviewSettingEvent */
+/** @see ProductReviewSettingCriteria */
 final class NewEditProductReviewSettingCriteriaDTO implements ProductReviewSettingCriteriaInterface
 {
     /** Постоянный уникальный идентификатор критерия */
@@ -40,7 +40,12 @@ final class NewEditProductReviewSettingCriteriaDTO implements ProductReviewSetti
     private readonly ProductReviewSettingCriteriaConst $const;
 
     /** ProductReviewSettingCriteriaText */
-    private ?NewEditProductReviewSettingCriteriaTextDTO $text = null;
+    private ?NewEditProductReviewSettingCriteriaTextDTO $text;
+
+    public function __construct()
+    {
+        $this->text = new NewEditProductReviewSettingCriteriaTextDTO();
+    }
 
     public function getConst(): ProductReviewSettingCriteriaConst
     {
@@ -68,7 +73,7 @@ final class NewEditProductReviewSettingCriteriaDTO implements ProductReviewSetti
         return $this;
     }
 
-    public function getText(): ?NewEditProductReviewSettingCriteriaTextDTO
+    public function getText(): NewEditProductReviewSettingCriteriaTextDTO
     {
         return $this->text;
     }

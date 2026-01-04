@@ -25,18 +25,18 @@ declare(strict_types=1);
 
 namespace BaksDev\Products\Review\UseCase\Admin\Review\NewEdit;
 
-use BaksDev\Products\Review\UseCase\Admin\Review\NewEdit\Category\EditProductReviewCategoryDTO;
-use BaksDev\Products\Review\UseCase\Admin\Review\NewEdit\Name\EditProductReviewNameDTO;
-use BaksDev\Products\Review\UseCase\Admin\Review\NewEdit\Rating\EditProductReviewRatingDTO;
-use BaksDev\Products\Review\UseCase\Admin\Review\NewEdit\Status\EditProductReviewStatusDTO;
 use BaksDev\Products\Review\Entity\Review\Event\ProductReviewEventInterface;
 use BaksDev\Products\Review\Type\Review\Event\ProductReviewEventUid;
-use BaksDev\Products\Review\UseCase\Admin\Review\NewEdit\Text\EditProductReviewTextDTO;
+use BaksDev\Products\Review\UseCase\Admin\Review\NewEdit\Category\EditProductReviewCategoryDTO;
+use BaksDev\Products\Review\UseCase\Admin\Review\NewEdit\Criteria\EditProductReviewCriteriaDTO;
+use BaksDev\Products\Review\UseCase\Admin\Review\NewEdit\Name\EditProductReviewNameDTO;
 use BaksDev\Products\Review\UseCase\Admin\Review\NewEdit\Product\EditProductReviewProductDTO;
+use BaksDev\Products\Review\UseCase\Admin\Review\NewEdit\Rating\EditProductReviewRatingDTO;
+use BaksDev\Products\Review\UseCase\Admin\Review\NewEdit\Status\EditProductReviewStatusDTO;
+use BaksDev\Products\Review\UseCase\Admin\Review\NewEdit\Text\EditProductReviewTextDTO;
 use BaksDev\Products\Review\UseCase\Admin\Review\NewEdit\User\EditProductReviewUserDTO;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
-use BaksDev\Products\Review\UseCase\Admin\Review\NewEdit\Criteria\EditProductReviewCriteriaDTO;
 
 final class EditProductReviewDTO implements ProductReviewEventInterface
 {
@@ -59,7 +59,7 @@ final class EditProductReviewDTO implements ProductReviewEventInterface
     #[Assert\Valid]
     private EditProductReviewProductDTO $product;
 
-    private ?EditProductReviewNameDTO $name = null;
+    private EditProductReviewNameDTO $name;
 
     #[Assert\Valid]
     private EditProductReviewStatusDTO $status;
@@ -70,6 +70,7 @@ final class EditProductReviewDTO implements ProductReviewEventInterface
     public function __construct()
     {
         $this->criteria = new ArrayCollection();
+        $this->name = new EditProductReviewNameDTO();
     }
 
     /**
@@ -136,12 +137,12 @@ final class EditProductReviewDTO implements ProductReviewEventInterface
         return $this;
     }
 
-    public function getName(): ?EditProductReviewNameDTO
+    public function getName(): EditProductReviewNameDTO
     {
         return $this->name;
     }
 
-    public function setName(?EditProductReviewNameDTO $name): self
+    public function setName(EditProductReviewNameDTO $name): self
     {
         $this->name = $name;
         return $this;
