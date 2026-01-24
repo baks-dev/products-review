@@ -1,9 +1,9 @@
 ROLE_PRODUCTS_REVIEW_SETTINGS:
-  name: 'Review settings'
-  desc: 'Settings of reviews criteria'
+  name: 'Feedback Settings'
+  desc: 'Feedback Criteria Settings'
 
 ROLE_PRODUCTS_REVIEW_SETTINGS_INDEX:
-  name: 'View'
+  name: 'Browse'
   desc: ''
 
 ROLE_PRODUCTS_REVIEW_SETTINGS_NEWEDIT:
@@ -15,5 +15,21 @@ ROLE_PRODUCTS_REVIEW_SETTINGS_DELETE:
   desc: ''
 
 ROLE_PRODUCTS_REVIEW:
-  name: 'Products reviews'
-  desc: 'Admin page for all the products reviews'
+  name: 'Product Reviews'
+  desc: 'Product Reviews Page'
+
+ROLE_PRODUCTS_REVIEW_DELETE:
+  name: 'Delete'
+  desc: 'Remove user feedback'
+
+ROLE_PRODUCTS_REVIEW_EDIT:
+  name: 'Edit'
+  desc: 'Edit user feedback'
+
+ROLE_PRODUCTS_REVIEW_INDEX:
+  name: 'Browse'
+  desc: 'Viewing the list of user reviews'
+
+ROLE_PRODUCTS_REVIEW_NEW:
+  name: 'Add'
+  desc: 'Add custom feedback'

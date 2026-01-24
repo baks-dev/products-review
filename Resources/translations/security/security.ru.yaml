@@ -14,6 +14,27 @@ ROLE_PRODUCTS_REVIEW_SETTINGS_DELETE:
   name: 'Удалить'
   desc: ''
 
+
 ROLE_PRODUCTS_REVIEW:
   name: 'Отзывы о продуктах'
-  desc: 'Страница администрирования отзывов'
+  desc: 'Страница отзывов о продукте'
+
+ROLE_PRODUCTS_REVIEW_DELETE:
+  name: 'Удалить'
+  desc: 'Удалить пользовательский отзыв'
+
+ROLE_PRODUCTS_REVIEW_EDIT:
+  name: 'Редактировать'
+  desc: 'Редактировать пользовательский отзыв'
+
+ROLE_PRODUCTS_REVIEW_INDEX:
+  name: 'Просмотр'
+  desc: 'Просмотр списка пользовательских отзывов'
+
+ROLE_PRODUCTS_REVIEW_NEW:
+  name: 'Добавить'
+  desc: 'Добавить пользовательский отзыв'
+
+
+
+
