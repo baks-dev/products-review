@@ -43,7 +43,7 @@
 
                 <div class="collapse" id="collapseRead{{ loop.index }}">
                     <p class=" fs-12 mb-2">
-                        {{ review.reviewText|striptags }}
+                        {{ review.reviewText|striptags|nl2br }}
                     </p>
                 </div>
             {% endif %}
