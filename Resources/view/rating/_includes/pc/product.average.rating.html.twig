@@ -7,27 +7,31 @@
 </div>
 
 {% if criteria %}
-<div class="border p-4 rounded-4 mb-5">
-    {% for criterion in criteria %}
-    <dl class="mb-0 fs-11 d-flex align-items-center">
-        <dt style="width: 65%;">{{ criterion.name|length > 100 ? criterion.name|striptags|slice(0, 150) ~ '...' : criterion.name }}</dt>
-        <dd style="width: 35%;">
-            <div
-                class="progress"
-                style="height: 7px;"
-                role="progressbar"
-                aria-label="Значение характеристики"
-                aria-valuenow="100"
-                aria-valuemin="0"
-                aria-valuemax="100"
-            >
-                <div
-                     class="progress-bar {{ criterion.avg >= loop.index ? criterion.avg < 4 ? criterion.avg < 2 ? 'bg-danger' : 'bg-warning' : 'bg-success' : 'bg-secondary' }}"
-                     style="width: {{ criterion.avg / 5 * 100 }}%"
-                ></div>
-            </div>
-        </dd>
-    </dl>
-    {% endfor %}
-</div>
+    <div class="border p-4 rounded-4 mb-5">
+        {% for criterion in criteria %}
+            <dl class="mb-0 fs-11 d-flex align-items-center">
+                <dt style="width: 65%;">{{ criterion.name|length > 100 ? criterion.name|striptags|slice(0, 150) ~ '...' : criterion.name }}</dt>
+                <dd style="width: 35%;">
+                    <div
+                            class="progress"
+                            style="height: 7px;"
+                            role="progressbar"
+                            aria-label="Значение характеристики"
+                            aria-valuenow="100"
+                            aria-valuemin="0"
+                            aria-valuemax="100"
+                    >
+                        <div
+                                class="progress-bar {{ criterion.avg > 0 ?
+                                criterion.avg < 4 ?
+                                criterion.avg < 2 ? 'bg-danger' : 'bg-warning'
+                                : 'bg-success'
+                                : 'bg-light' }}"
+                                style="width: {{ criterion.avg / 5 * 100 }}%"
+                        ></div>
+                    </div>
+                </dd>
+            </dl>
+        {% endfor %}
+    </div>
 {% endif %}
