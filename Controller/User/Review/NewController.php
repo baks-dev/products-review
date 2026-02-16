@@ -170,7 +170,7 @@ final class NewController extends AbstractController
 
             $this->addFlash
             (
-                'page.reviews.new',
+                'page.new',
                 $handle instanceof ProductReview ? 'success.new' : 'danger.edit',
                 'products-review.user',
                 $handle,

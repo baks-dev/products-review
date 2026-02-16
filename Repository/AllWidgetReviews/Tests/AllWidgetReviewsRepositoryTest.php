@@ -27,8 +27,8 @@ namespace BaksDev\Products\Review\Repository\AllWidgetReviews\Tests;
 
 use BaksDev\Products\Product\Type\Id\ProductUid;
 use BaksDev\Products\Product\UseCase\Admin\NewEdit\Tests\ProductsProductNewAdminUseCaseTest;
-use BaksDev\Products\Review\Repository\AllWidgetReviews\AllWidgetReviews;
 use BaksDev\Products\Review\Repository\AllWidgetReviews\AllWidgetReviewsInterface;
+use BaksDev\Products\Review\Repository\AllWidgetReviews\AllWidgetReviewsRepository;
 use BaksDev\Products\Review\Repository\AllWidgetReviews\AllWidgetReviewsResult;
 use BaksDev\Products\Review\Repository\AverageProductRating\Tests\AverageProductRatingRepositoryTest;
 use BaksDev\Users\Profile\UserProfile\UseCase\User\NewEdit\Tests\UserNewUserProfileHandleTest;
@@ -53,7 +53,7 @@ final class AllWidgetReviewsRepositoryTest extends KernelTestCase
 
         $AllReviewsRepository = self::getContainer()->get(AllWidgetReviewsInterface::class);
 
-        /** @var AllWidgetReviews $AllReviewsRepository */
+        /** @var AllWidgetReviewsRepository $AllReviewsRepository */
         $results = $AllReviewsRepository->findAll();
 
         if(false === $results || false === $results->valid())

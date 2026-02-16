@@ -11,7 +11,7 @@
                 url : review.productUrl,
             }) %}
 
-            <div class="d-flex gap-3 {{ loop.index == 3 ? '' : 'border-bottom' }} pt-4 pb-3">
+            <div class="d-flex gap-3 {{ loop.index == 5 ? '' : 'border-bottom' }} pt-4 pb-3">
                 {% if review.productImages %}
                     <a href="{{ review_url }}" style="height: max-content">
                         <div
@@ -42,7 +42,8 @@
 
                         <a class="fs-10 text-black" href="{{ review_url }}">{{ review.count }} отзывов</a>
                     </div>
-                    <a class="h6 text-uppercase fw-bold text-decoration-none" href="{{ review_url }}">{{ review.productName ?: 'Анонимный пользователь' }}</a>
+                    <a class="h6 small text-uppercase fw-bold text-decoration-none"
+                       href="{{ review_url }}">{{ review.productName ?: 'Анонимный пользователь' }}</a>
                     <p class="m-0 fs-11 croppingText">{{ review.reviewText|length > 150 ? review.reviewText|striptags|slice(0, 150) ~ '...' : review.reviewText|striptags }}</p>
                 </div>
             </div>
