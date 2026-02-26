@@ -44,7 +44,13 @@ final readonly class AllReviewsResult
         private string $profile_username,
         private ?float $review_rating_value,
         private ?string $review_name,
+        private ?string $users_profile_username,
     ) {}
+
+    public function getUsersProfileUsername(): ?string
+    {
+        return $this->users_profile_username;
+    }
 
     public function getReviewEvent(): ProductReviewEventUid
     {

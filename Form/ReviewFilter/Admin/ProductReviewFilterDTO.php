@@ -1,5 +1,6 @@
+<?php
 /*
- * Copyright 2025.  Baks.dev <admin@baks.dev>
+ *  Copyright 2026.  Baks.dev <admin@baks.dev>
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy
  *  of this software and associated documentation files (the "Software"), to deal
@@ -20,36 +21,41 @@
  *  THE SOFTWARE.
  */
 
-executeFunc(function productReviewStatusFilter()
+declare(strict_types=1);
+
+namespace BaksDev\Products\Review\Form\ReviewFilter\Admin;
+
+use BaksDev\Products\Review\Type\Status\ReviewStatus;
+use BaksDev\Users\Profile\UserProfile\Type\Id\UserProfileUid;
+
+final class ProductReviewFilterDTO
 {
-    if(typeof formDebounce !== 'function')
+    private ?UserProfileUid $profile = null;
+
+    private ?ReviewStatus $status = null;
+
+
+    public function getProfile(): ?UserProfileUid
     {
-        return false;
+        return $this->profile;
     }
 
-    const form = document.forms.review_status_form;
-
-
-    if(typeof form === 'undefined')
+    public function setProfile(?UserProfileUid $profile): self
     {
-        return false;
+        $this->profile = $profile;
+        return $this;
     }
 
-    form.addEventListener('click', () =>
+
+    public function getStatus(): ?ReviewStatus
     {
-        if(idFormDebounce == lastFormDebounce)
-        {
-            /* Сбрасываем отправку формы, если выбран выпадающий список */
-            clearTimeout(lastFormDebounce);
-        }
+        return $this->status;
+    }
 
-        lastFormDebounce = idFormDebounce;
-    });
+    public function setStatus(?ReviewStatus $status): self
+    {
+        $this->status = $status;
+        return $this;
+    }
 
-    const field = form.querySelector('select');
-
-    // Добавляем обработчик изменения
-    field.addEventListener('change', formDebounce(() => { form.submit(); }, 1500));
-
-    return true;
-});
+}

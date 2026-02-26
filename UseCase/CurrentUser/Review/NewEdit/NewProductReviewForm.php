@@ -25,24 +25,27 @@ declare(strict_types=1);
 
 namespace BaksDev\Products\Review\UseCase\CurrentUser\Review\NewEdit;
 
+use BaksDev\Products\Review\UseCase\CurrentUser\Review\NewEdit\Criteria\NewProductReviewCriteriaForm;
 use BaksDev\Products\Review\UseCase\CurrentUser\Review\NewEdit\Name\NewProductReviewNameForm;
-use BaksDev\Products\Review\UseCase\CurrentUser\Review\NewEdit\Status\NewProductReviewStatusForm;
-use BaksDev\Products\Review\UseCase\CurrentUser\Review\NewEdit\Product\NewProductReviewProductForm;
+use BaksDev\Products\Review\UseCase\CurrentUser\Review\NewEdit\Profile\NewProductReviewProfileDTO;
+use BaksDev\Products\Review\UseCase\CurrentUser\Review\NewEdit\Text\NewProductReviewTextForm;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use BaksDev\Products\Review\UseCase\CurrentUser\Review\NewEdit\User\NewProductReviewUserForm;
-use BaksDev\Products\Review\UseCase\CurrentUser\Review\NewEdit\Text\NewProductReviewTextForm;
-use BaksDev\Products\Review\UseCase\CurrentUser\Review\NewEdit\Criteria\NewProductReviewCriteriaForm;
-use BaksDev\Products\Review\UseCase\CurrentUser\Review\NewEdit\Category\NewProductReviewCategoryForm;
 
 final class NewProductReviewForm extends AbstractType
 {
+
+    public function __construct(#[Autowire(env: 'PROJECT_PROFILE')] private readonly ?string $projectProfile = null) {}
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-       // $builder->add('category', NewProductReviewCategoryForm::class);
+        // $builder->add('category', NewProductReviewCategoryForm::class);
 
         //$builder->add('user', NewProductReviewUserForm::class);
 
@@ -71,6 +74,22 @@ final class NewProductReviewForm extends AbstractType
             SubmitType::class,
             ['label' => 'Save', 'label_html' => true, 'attr' => ['class' => 'btn-primary']],
         );
+
+
+        /** Задать profile из значения PROJECT_PROFILE в .env */
+        if($this->projectProfile)
+        {
+            $builder->addEventListener(FormEvents::PRE_SET_DATA, function(FormEvent $event): void {
+
+                /** @var NewProductReviewDTO $productsReviewDTO */
+                $productsReviewDTO = $event->getData();
+                $NewProductReviewProfileDTO = new NewProductReviewProfileDTO()->setValue($this->projectProfile);
+
+                $productsReviewDTO->setProfile($NewProductReviewProfileDTO);
+
+            });
+        }
+
     }
 
     public function configureOptions(OptionsResolver $resolver): void

@@ -20,7 +20,11 @@
 
         <div class="border  border-light  rounded-4 p-3 p-3">
             {# Фильтр по статусам отзывов #}
-            <div class="d-flex justify-content-between">
+            <div class="d-flex gap-3 justify-content-between mb-3 align-items-center">
+
+                {# Форма поиска по разделу #}
+                {% include Template('/_includes/'~baks_settings.device~'/search.html.twig') %}
+
                 {{ include(_self|replace({ "content.html.twig": "filter.html.twig" })) }}
             </div>
 
@@ -36,6 +40,7 @@
                     <th class='text-nowrap'>Имя в отзыве</th>
                     <th class='w-50 text-center'>Продукт</th>
                     <th class='w-100 text-center'>Сообщение</th>
+                    <th class='w-100 text-center'>Склад</th>
                 </tr>
 
                 </thead>

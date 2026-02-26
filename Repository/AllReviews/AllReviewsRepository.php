@@ -26,39 +26,64 @@ declare(strict_types=1);
 namespace BaksDev\Products\Review\Repository\AllReviews;
 
 use BaksDev\Core\Doctrine\DBALQueryBuilder;
+use BaksDev\Core\Form\Search\SearchDTO;
 use BaksDev\Core\Services\Paginator\PaginatorInterface;
 use BaksDev\Products\Product\Entity\Event\ProductEvent;
 use BaksDev\Products\Product\Entity\Product;
 use BaksDev\Products\Product\Entity\Trans\ProductTrans;
 use BaksDev\Products\Product\Type\Id\ProductUid;
+use BaksDev\Products\Review\Entity\Review\Event\ProductReviewEvent;
 use BaksDev\Products\Review\Entity\Review\Modify\ProductReviewModify;
 use BaksDev\Products\Review\Entity\Review\Name\ProductReviewName;
 use BaksDev\Products\Review\Entity\Review\Product\ProductReviewProduct;
 use BaksDev\Products\Review\Entity\Review\ProductReview;
-use BaksDev\Products\Review\Entity\Review\Event\ProductReviewEvent;
+use BaksDev\Products\Review\Entity\Review\Profile\ProductReviewProfile;
 use BaksDev\Products\Review\Entity\Review\Rating\ProductReviewRating;
 use BaksDev\Products\Review\Entity\Review\Status\ProductReviewStatus;
 use BaksDev\Products\Review\Entity\Review\Text\ProductReviewText;
 use BaksDev\Products\Review\Entity\Review\User\ProductReviewUser;
-use BaksDev\Products\Review\Form\Status\ReviewStatusDTO;
+use BaksDev\Products\Review\Form\ReviewFilter\Admin\ProductReviewFilterDTO;
 use BaksDev\Products\Review\Type\Status\ReviewStatus;
+use BaksDev\Products\Review\Type\Status\ReviewStatus\Collection\ReviewStatusActive;
 use BaksDev\Users\Profile\UserProfile\Entity\Event\Info\UserProfileInfo;
 use BaksDev\Users\Profile\UserProfile\Entity\Event\Personal\UserProfilePersonal;
+use BaksDev\Users\Profile\UserProfile\Entity\Event\UserProfileEvent;
 use BaksDev\Users\Profile\UserProfile\Entity\UserProfile;
+use BaksDev\Users\Profile\UserProfile\Type\Id\UserProfileUid;
 use Generator;
 
 final class AllReviewsRepository implements AllReviewsInterface
 {
-    private ?ReviewStatusDTO $filter = null;
+
+    private ?ProductReviewFilterDTO $filter = null;
 
     private ProductUid $product;
+
+    private ?SearchDTO $search = null;
+
+
+    /**
+     * Флаг для отображения всех отзывов (всех складов)
+     */
+
+    private bool $allProjects = false;
+
+
+    /**
+     * Флаг для задания активности всех отзывов (всех складов)
+     * по умолчанию выводим активные
+     */
+
+    private bool $active = true;
+
 
     public function __construct(
         private readonly DBALQueryBuilder $DBALQueryBuilder,
         private readonly PaginatorInterface $paginator,
     ) {}
 
-    public function filter(ReviewStatusDTO $filter): self
+
+    public function filter(ProductReviewFilterDTO $filter): self
     {
         $this->filter = $filter;
         return $this;
@@ -70,9 +95,30 @@ final class AllReviewsRepository implements AllReviewsInterface
         return $this;
     }
 
+    public function setAllProjects(bool $allProjects): self
+    {
+        $this->allProjects = $allProjects;
+        return $this;
+    }
+
+    public function setActive(bool $active): self
+    {
+        $this->active = $active;
+        return $this;
+    }
+
+
+    public function search(SearchDTO $search): static
+    {
+        $this->search = $search;
+        return $this;
+    }
+
+
     private function builder(): DBALQueryBuilder
     {
         $dbal = $this->DBALQueryBuilder->createQueryBuilder(self::class)->bindLocal();
+
 
         $dbal
             ->select('review.event AS review_event')
@@ -213,12 +259,94 @@ final class AllReviewsRepository implements AllReviewsInterface
                 'review_name.event = review_event.id',
             );
 
+        /** Profile */
+        $dbal
+            ->leftJoin(
+                'review_event',
+                ProductReviewProfile::class,
+                'review_profile',
+                'review_profile.event = review_event.id',
+            );
+
+
+        /** UserProfile */
+
+        $dbal
+            ->leftJoin(
+                'review_profile',
+                UserProfile::class,
+                'project_profile',
+                'project_profile.id = review_profile.value',
+            );
+
+        // Event
+        $dbal->leftJoin(
+            'project_profile',
+            UserProfileEvent::class,
+            'users_profile_event',
+            'users_profile_event.id = project_profile.event',
+        );
+
+        // Personal
+        $dbal
+            ->addSelect('users_profile_personal.username AS users_profile_username')
+            ->leftJoin(
+                'users_profile_event',
+                UserProfilePersonal::class,
+                'users_profile_personal',
+                'users_profile_personal.event = users_profile_event.id',
+            );
+
+        /* Показать активные отзывы */
+
+        if(true === $this->active)
+        {
+            $dbal
+                ->where('review_status.value = :status')
+                ->setParameter('status', ReviewStatusActive::PARAM, ReviewStatus::TYPE);
+        }
+
+        /* Фильтр по status */
         if(false === empty($this->filter) && false === empty($this->filter->getStatus()))
         {
             $dbal
                 ->where('review_status.value = :status')
                 ->setParameter('status', $this->filter->getStatus(), ReviewStatus::TYPE);
         }
+
+
+        /* Фильтр по profile */
+        if(false === empty($this->filter) && false === empty($this->filter->getProfile()))
+        {
+            $dbal
+                ->andWhere('review_profile.value = :profile')
+                ->setParameter(
+                    'profile',
+                    $this->filter->getProfile(),
+                    UserProfileUid::TYPE,
+                );
+        }
+
+
+        /* Если выводить не для всех складов */
+        if(false === $this->allProjects && true === $dbal->bindProjectProfile())
+        {
+            // Отзывы с учетом PROJECT_PROFILE либо NULL
+            $dbal->andWhere('project_profile.id = :'.$dbal::PROJECT_PROFILE_KEY.' OR review_profile.value IS NULL');
+        }
+
+
+        /* Поиск */
+        if(true === ($this->search instanceof SearchDTO) && $this->search->getQuery())
+        {
+
+            $dbal
+                ->createSearchQueryBuilder($this->search)
+                ->addSearchLike('review_name.value')
+                ->addSearchLike('review_text.value')
+                ->addSearchLike('product_trans.name');
+        }
+
 
         $dbal->orderBy('review.id', 'DESC');
 

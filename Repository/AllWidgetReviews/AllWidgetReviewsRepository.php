@@ -42,6 +42,7 @@ use BaksDev\Products\Review\Entity\Review\Modify\ProductReviewModify;
 use BaksDev\Products\Review\Entity\Review\Name\ProductReviewName;
 use BaksDev\Products\Review\Entity\Review\Product\ProductReviewProduct;
 use BaksDev\Products\Review\Entity\Review\ProductReview;
+use BaksDev\Products\Review\Entity\Review\Profile\ProductReviewProfile;
 use BaksDev\Products\Review\Entity\Review\Rating\ProductReviewRating;
 use BaksDev\Products\Review\Entity\Review\Status\ProductReviewStatus;
 use BaksDev\Products\Review\Entity\Review\Text\ProductReviewText;
@@ -288,6 +289,21 @@ final class AllWidgetReviewsRepository implements AllWidgetReviewsInterface
                 'review_average_counter',
                 'review_average_counter.product = review_average.product',
             );
+
+        /* Фильтруем отзывы только для PROJECT_PROFILE */
+        if(true === $dbal->bindProjectProfile())
+        {
+            // Отзывы с учетом PROJECT_PROFILE либо NULL
+            $dbal
+                ->join(
+                    'review_event',
+                    ProductReviewProfile::class,
+                    'review_profile',
+                    'review_profile.event = review_event.id
+                     AND
+                      (review_profile.value = :'.$dbal::PROJECT_PROFILE_KEY.' OR review_profile.value IS NULL)',
+                );
+        }
 
         $dbal->orderBy('review.id', 'DESC');
 

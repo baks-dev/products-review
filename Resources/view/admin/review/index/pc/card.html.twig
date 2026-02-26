@@ -25,4 +25,8 @@
         {{ item.reviewText|length > 150 ? item.reviewText|striptags|slice(0, 150) ~ '...' : item.reviewText|striptags }}
     </td>
 
+    <td class="text-center">
+        {{ item.usersProfileUsername }}
+    </td>
+
 </tr>

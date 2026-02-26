@@ -25,18 +25,19 @@ declare(strict_types=1);
 
 namespace BaksDev\Products\Review\UseCase\CurrentUser\Review\NewEdit;
 
-use BaksDev\Products\Review\UseCase\CurrentUser\Review\NewEdit\Category\NewProductReviewCategoryDTO;
-use BaksDev\Products\Review\UseCase\CurrentUser\Review\NewEdit\Name\NewProductReviewNameDTO;
-use BaksDev\Products\Review\UseCase\CurrentUser\Review\NewEdit\Rating\NewProductReviewRatingDTO;
-use BaksDev\Products\Review\UseCase\CurrentUser\Review\NewEdit\Status\NewProductReviewStatusDTO;
 use BaksDev\Products\Review\Entity\Review\Event\ProductReviewEventInterface;
 use BaksDev\Products\Review\Type\Review\Event\ProductReviewEventUid;
-use BaksDev\Products\Review\UseCase\CurrentUser\Review\NewEdit\Text\NewProductReviewTextDTO;
+use BaksDev\Products\Review\UseCase\CurrentUser\Review\NewEdit\Category\NewProductReviewCategoryDTO;
+use BaksDev\Products\Review\UseCase\CurrentUser\Review\NewEdit\Criteria\NewProductReviewCriteriaDTO;
+use BaksDev\Products\Review\UseCase\CurrentUser\Review\NewEdit\Name\NewProductReviewNameDTO;
 use BaksDev\Products\Review\UseCase\CurrentUser\Review\NewEdit\Product\NewProductReviewProductDTO;
+use BaksDev\Products\Review\UseCase\CurrentUser\Review\NewEdit\Profile\NewProductReviewProfileDTO;
+use BaksDev\Products\Review\UseCase\CurrentUser\Review\NewEdit\Rating\NewProductReviewRatingDTO;
+use BaksDev\Products\Review\UseCase\CurrentUser\Review\NewEdit\Status\NewProductReviewStatusDTO;
+use BaksDev\Products\Review\UseCase\CurrentUser\Review\NewEdit\Text\NewProductReviewTextDTO;
 use BaksDev\Products\Review\UseCase\CurrentUser\Review\NewEdit\User\NewProductReviewUserDTO;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
-use BaksDev\Products\Review\UseCase\CurrentUser\Review\NewEdit\Criteria\NewProductReviewCriteriaDTO;
 
 final class NewProductReviewDTO implements ProductReviewEventInterface
 {
@@ -65,6 +66,9 @@ final class NewProductReviewDTO implements ProductReviewEventInterface
 
     #[Assert\Valid]
     private NewProductReviewRatingDTO $rating;
+
+    #[Assert\Valid]
+    private ?NewProductReviewProfileDTO $profile = null;
 
     public function __construct()
     {
@@ -184,6 +188,17 @@ final class NewProductReviewDTO implements ProductReviewEventInterface
     public function setRating(NewProductReviewRatingDTO $rating): void
     {
         $this->rating = $rating;
+    }
+
+    public function getProfile(): ?NewProductReviewProfileDTO
+    {
+        return $this->profile;
+    }
+
+    public function setProfile(?NewProductReviewProfileDTO $profile): self
+    {
+        $this->profile = $profile;
+        return $this;
     }
 
 }

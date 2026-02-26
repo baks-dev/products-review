@@ -40,10 +40,12 @@ use BaksDev\Products\Review\UseCase\CurrentUser\Review\NewEdit\Name\NewProductRe
 use BaksDev\Products\Review\UseCase\CurrentUser\Review\NewEdit\NewProductReviewDTO;
 use BaksDev\Products\Review\UseCase\CurrentUser\Review\NewEdit\NewProductReviewHandler;
 use BaksDev\Products\Review\UseCase\CurrentUser\Review\NewEdit\Product\NewProductReviewProductDTO;
+use BaksDev\Products\Review\UseCase\CurrentUser\Review\NewEdit\Profile\NewProductReviewProfileDTO;
 use BaksDev\Products\Review\UseCase\CurrentUser\Review\NewEdit\Rating\NewProductReviewRatingDTO;
 use BaksDev\Products\Review\UseCase\CurrentUser\Review\NewEdit\Status\NewProductReviewStatusDTO;
 use BaksDev\Products\Review\UseCase\CurrentUser\Review\NewEdit\Text\NewProductReviewTextDTO;
 use BaksDev\Products\Review\UseCase\CurrentUser\Review\NewEdit\User\NewProductReviewUserDTO;
+use BaksDev\Users\Profile\UserProfile\Type\Id\UserProfileUid;
 use BaksDev\Users\User\Type\Id\UserUid;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\Attributes\DependsOnClass;
@@ -154,6 +156,11 @@ final class NewProductReviewTest extends KernelTestCase
         $ratingDTO = new NewProductReviewRatingDTO()->setValue(5);
 
         $newEditProductReviewDTO->setRating($ratingDTO);
+
+        /** Добавляем профиль */
+        $NewProductReviewProfileDTO = new NewProductReviewProfileDTO()->setValue(UserProfileUid::TEST);
+
+        $newEditProductReviewDTO->setProfile($NewProductReviewProfileDTO);
 
 
         /** @var NewProductReviewHandler $NewEditProductReviewHandler */

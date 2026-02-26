@@ -25,18 +25,25 @@ declare(strict_types=1);
 
 namespace BaksDev\Products\Review\Repository\AllReviews;
 
+use BaksDev\Core\Form\Search\SearchDTO;
 use BaksDev\Core\Services\Paginator\PaginatorInterface;
-use BaksDev\Products\Review\Form\Status\ReviewStatusDTO;
 use BaksDev\Products\Product\Type\Id\ProductUid;
+use BaksDev\Products\Review\Form\ReviewFilter\Admin\ProductReviewFilterDTO;
 use Generator;
 
 interface AllReviewsInterface
 {
-    public function filter(ReviewStatusDTO $filter): self;
+    public function search(SearchDTO $search): self;
+
+    public function filter(ProductReviewFilterDTO $filter): self;
 
     public function product(ProductUid $product): self;
 
     public function findPaginator(): PaginatorInterface;
 
     public function findAll(): Generator;
+
+    public function setAllProjects(bool $allProjects): self;
+
+    public function setActive(bool $active): self;
 }

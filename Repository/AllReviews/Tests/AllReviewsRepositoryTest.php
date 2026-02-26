@@ -32,7 +32,6 @@ use BaksDev\Products\Review\Repository\AllReviews\AllReviewsRepository;
 use BaksDev\Products\Review\Repository\AllReviews\AllReviewsResult;
 use BaksDev\Products\Review\UseCase\CurrentUser\Review\NewEdit\Tests\NewProductReviewTest;
 use BaksDev\Users\Profile\UserProfile\UseCase\User\NewEdit\Tests\UserNewUserProfileHandleTest;
-use BaksDev\Users\User\Type\Id\UserUid;
 use PHPUnit\Framework\Attributes\DependsOnClass;
 use PHPUnit\Framework\Attributes\Group;
 use ReflectionClass;
@@ -56,6 +55,7 @@ final class AllReviewsRepositoryTest extends KernelTestCase
         /** @var AllReviewsRepository $AllReviewsRepository */
         $results = $AllReviewsRepository
             ->product(new ProductUid(ProductUid::TEST))
+            ->setAllProjects(true)
             ->findPaginator()
             ->getData();
 
