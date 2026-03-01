@@ -25,9 +25,11 @@ declare(strict_types=1);
 
 namespace BaksDev\Products\Review\Repository\ReviewCurrentEvent;
 
-use BaksDev\Products\Review\Entity\Review\ProductReview;
 use BaksDev\Products\Review\Entity\Review\Event\ProductReviewEvent;
+use BaksDev\Products\Review\Entity\Review\ProductReview;
+use Symfony\Component\DependencyInjection\Attribute\Autoconfigure;
 
+#[Autoconfigure(public: true)]
 interface ReviewCurrentEventInterface
 {
     public function get(ProductReview|string $productReview): ?ProductReviewEvent;

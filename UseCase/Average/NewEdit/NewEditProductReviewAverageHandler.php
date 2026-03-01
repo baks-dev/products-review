@@ -27,7 +27,9 @@ namespace BaksDev\Products\Review\UseCase\Average\NewEdit;
 
 use BaksDev\Core\Entity\AbstractHandler;
 use BaksDev\Products\Review\Entity\Average\ProductReviewAverage;
+use Symfony\Component\DependencyInjection\Attribute\Autoconfigure;
 
+#[Autoconfigure(public: true)]
 final class NewEditProductReviewAverageHandler extends AbstractHandler
 {
     /** @see ProductReviewAverage */
