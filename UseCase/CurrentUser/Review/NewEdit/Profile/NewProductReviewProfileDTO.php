@@ -1,6 +1,6 @@
 <?php
 /*
- * Copyright 2025.  Baks.dev <admin@baks.dev>
+ *  Copyright 2026.  Baks.dev <admin@baks.dev>
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy
  *  of this software and associated documentation files (the "Software"), to deal
@@ -23,32 +23,37 @@
 
 declare(strict_types=1);
 
-namespace BaksDev\Products\Review\Twig;
+namespace BaksDev\Products\Review\UseCase\CurrentUser\Review\NewEdit\Profile;
 
-use BaksDev\Products\Review\Repository\AllWidgetReviews\AllWidgetReviewsInterface;
-use Twig\Environment;
-use Twig\Extension\AbstractExtension;
-use Twig\TwigFunction;
+use BaksDev\Products\Review\Entity\Review\Profile\ProductReviewProfileInterface;
+use BaksDev\Users\Profile\UserProfile\Type\Id\UserProfileUid;
 
-final class ReviewsWidgetExtension extends AbstractExtension
+/** @see ProductReviewProfile */
+final class NewProductReviewProfileDTO implements ProductReviewProfileInterface
 {
-    public function __construct(private readonly AllWidgetReviewsInterface $AllWidgetReviewsRepository) {}
 
-    public function getFunctions(): array
+    /** Значение свойства */
+    private ?UserProfileUid $value = null;
+
+    public function getValue(): ?UserProfileUid
     {
-        return [
-            new TwigFunction(
-                'reviews_widget', [$this, 'reviews'], ['needs_environment' => true, 'is_safe' => ['html']],
-            ),
-        ];
+        return $this->value;
     }
 
-    public function reviews(Environment $twig): string
+    public function setValue(UserProfileUid|string|null $profile): self
     {
-        $reviews = $this->AllWidgetReviewsRepository->findAll();
+        if(empty($profile))
+        {
+            $this->value = null;
+            return $this;
+        }
 
-        return $twig->render(
-            '@products-review/public/_includes/pc/reviews.widget.html.twig', ['reviews' => $reviews],
-        );
+        if(is_string($profile))
+        {
+            $profile = new UserProfileUid($profile);
+        }
+
+        $this->value = $profile;
+        return $this;
     }
 }

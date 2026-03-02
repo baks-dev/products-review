@@ -25,15 +25,17 @@ declare(strict_types=1);
 
 namespace BaksDev\Products\Review\Controller\Admin\Review;
 
-use BaksDev\Products\Review\Form\Status\ReviewStatusDTO;
-use BaksDev\Products\Review\Form\Status\ReviewStatusForm;
+use BaksDev\Core\Controller\AbstractController;
+use BaksDev\Core\Form\Search\SearchDTO;
+use BaksDev\Core\Form\Search\SearchForm;
+use BaksDev\Core\Listeners\Event\Security\RoleSecurity;
+use BaksDev\Products\Review\Form\ReviewFilter\Admin\ProductReviewFilterDTO;
+use BaksDev\Products\Review\Form\ReviewFilter\Admin\ProductReviewFilterForm;
 use BaksDev\Products\Review\Repository\AllReviews\AllReviewsInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use BaksDev\Core\Controller\AbstractController;
-use Symfony\Component\Routing\Attribute\Route;
-use BaksDev\Core\Listeners\Event\Security\RoleSecurity;
 use Symfony\Component\HttpKernel\Attribute\AsController;
+use Symfony\Component\Routing\Attribute\Route;
 
 #[AsController]
 #[RoleSecurity('ROLE_PRODUCTS_REVIEW_INDEX')]
@@ -46,19 +48,42 @@ final class IndexController extends AbstractController
         int $page = 0,
     ): Response
     {
-        // Фильтр по статусам
-        $filter = new ReviewStatusDTO();
-        $filterForm = $this->createForm(ReviewStatusForm::class, $filter);
-        $filterForm->handleRequest($request);
+
+        /* Поиск */
+        $search = new SearchDTO();
+
+        $searchForm = $this
+            ->createForm(
+                type: SearchForm::class,
+                data: $search,
+                options: ['action' => $this->generateUrl('products-review:admin.review.index')],
+            )
+            ->handleRequest($request);
 
 
-        // Получаем список
+        /* Фильтр */
+        $filter = new ProductReviewFilterDTO();
+
+        $filterForm = $this
+            ->createForm(
+                type: ProductReviewFilterForm::class,
+                data: $filter,
+                options: ['action' => $this->generateUrl('products-review:admin.review.index')],
+            )
+            ->handleRequest($request);
+
+
+        /* Получаем список */
         $reviews = $allReview
+            ->search($search)
             ->filter($filter)
+            ->setAllProjects(true) // Выводить отзывы со всех профилей/складов
+            ->setActive(false) // По умолчанию выводить все отзывы
             ->findPaginator();
 
         return $this->render(
             [
+                'search' => $searchForm->createView(),
                 'query' => $reviews,
                 'filter' => $filterForm->createView(),
             ]

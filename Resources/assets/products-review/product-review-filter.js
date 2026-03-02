@@ -1,6 +1,5 @@
-<?php
 /*
- * Copyright 2025.  Baks.dev <admin@baks.dev>
+ * Copyright 2026.  Baks.dev <admin@baks.dev>
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy
  *  of this software and associated documentation files (the "Software"), to deal
@@ -21,24 +20,36 @@
  *  THE SOFTWARE.
  */
 
-declare(strict_types=1);
-
-namespace BaksDev\Products\Review\Form\Status;
-
-use BaksDev\Products\Review\Type\Status\ReviewStatus;
-
-final class ReviewStatusDTO
+executeFunc(function productReviewFilter()
 {
-    private ?ReviewStatus $status = null;
-
-    public function getStatus(): ?ReviewStatus
+    if(typeof formDebounce !== 'function')
     {
-        return $this->status;
+        return false;
     }
 
-    public function setStatus(ReviewStatus $status): self
+    const form = document.forms.product_review_filter_form;
+
+    if(typeof form === 'undefined')
     {
-        $this->status = $status;
-        return $this;
+        return false;
     }
-}
+
+    form.addEventListener('click', () =>
+    {
+        if(idFormDebounce == lastFormDebounce)
+        {
+            /* Сбросить отправку формы, если выбран выпадающий список */
+            clearTimeout(lastFormDebounce);
+        }
+
+        lastFormDebounce = idFormDebounce;
+    });
+
+    /* Получить все select поля */
+    const select_fields = form.querySelectorAll('select');
+
+    /* Добавить обработчики onchange */
+    select_fields.forEach(field => field.addEventListener('change', formDebounce(() => { form.submit(); }, 1500)));
+
+    return true;
+});

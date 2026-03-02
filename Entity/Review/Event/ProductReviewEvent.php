@@ -25,24 +25,25 @@ declare(strict_types=1);
 
 namespace BaksDev\Products\Review\Entity\Review\Event;
 
-use BaksDev\Products\Review\Entity\Review\Modify\ProductReviewModify;
 use BaksDev\Core\Entity\EntityEvent;
+use BaksDev\Products\Review\Entity\Review\Category\ProductReviewCategory;
+use BaksDev\Products\Review\Entity\Review\Criteria\ProductReviewCriteria;
+use BaksDev\Products\Review\Entity\Review\Modify\ProductReviewModify;
+use BaksDev\Products\Review\Entity\Review\Name\ProductReviewName;
 use BaksDev\Products\Review\Entity\Review\Product\ProductReviewProduct;
 use BaksDev\Products\Review\Entity\Review\ProductReview;
+use BaksDev\Products\Review\Entity\Review\Profile\ProductReviewProfile;
 use BaksDev\Products\Review\Entity\Review\Rating\ProductReviewRating;
 use BaksDev\Products\Review\Entity\Review\Status\ProductReviewStatus;
+use BaksDev\Products\Review\Entity\Review\Text\ProductReviewText;
+use BaksDev\Products\Review\Entity\Review\User\ProductReviewUser;
 use BaksDev\Products\Review\Type\Review\Event\ProductReviewEventUid;
+use BaksDev\Products\Review\Type\Review\Id\ProductReviewUid;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use InvalidArgumentException;
 use Symfony\Component\Validator\Constraints as Assert;
-use BaksDev\Products\Review\Entity\Review\Text\ProductReviewText;
-use BaksDev\Products\Review\Entity\Review\User\ProductReviewUser;
-use BaksDev\Products\Review\Type\Review\Id\ProductReviewUid;
-use BaksDev\Products\Review\Entity\Review\Criteria\ProductReviewCriteria;
-use BaksDev\Products\Review\Entity\Review\Name\ProductReviewName;
-use Doctrine\Common\Collections\Collection;
-use BaksDev\Products\Review\Entity\Review\Category\ProductReviewCategory;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'product_review_event')]
@@ -85,6 +86,10 @@ class ProductReviewEvent extends EntityEvent
 
     #[ORM\OneToOne(targetEntity: ProductReviewRating::class, mappedBy: 'event', cascade: ['all'])]
     private ?ProductReviewRating $rating = null;
+
+    /** Profile */
+    #[ORM\OneToOne(targetEntity: ProductReviewProfile::class, mappedBy: 'event', cascade: ['all'], fetch: 'EAGER')]
+    private ?ProductReviewProfile $profile = null;
 
     /** Модификатор */
     #[ORM\OneToOne(targetEntity: ProductReviewModify::class, mappedBy: 'event', cascade: ['all'], fetch: 'EAGER')]
@@ -134,7 +139,8 @@ class ProductReviewEvent extends EntityEvent
 
     public function getDto($dto): mixed
     {
-        if ($dto instanceof ProductReviewEventInterface) {
+        if($dto instanceof ProductReviewEventInterface)
+        {
             return parent::getDto($dto);
         }
 
@@ -143,7 +149,8 @@ class ProductReviewEvent extends EntityEvent
 
     public function setEntity($dto): mixed
     {
-        if ($dto instanceof ProductReviewEventInterface) {
+        if($dto instanceof ProductReviewEventInterface)
+        {
             return parent::setEntity($dto);
         }
 
