@@ -185,14 +185,24 @@ final class AllReviewsRepository implements AllReviewsInterface
 
 
         /** Status */
+
         $dbal
             ->addSelect('review_status.value AS review_status')
             ->join(
                 'review_event',
                 ProductReviewStatus::class,
                 'review_status',
-                'review_status.event = review_event.id',
+                'review_status.event = review_event.id'.(true === $this->active ? ' AND review_status.value = :status' : ''),
             );
+
+        if(true === $this->active)
+        {
+            $dbal->setParameter(
+                'status',
+                ReviewStatusActive::PARAM,
+                ReviewStatus::TYPE
+            );
+        }
 
 
         /** Text */
@@ -297,14 +307,6 @@ final class AllReviewsRepository implements AllReviewsInterface
                 'users_profile_personal.event = users_profile_event.id',
             );
 
-        /* Показать активные отзывы */
-
-        if(true === $this->active)
-        {
-            $dbal
-                ->where('review_status.value = :status')
-                ->setParameter('status', ReviewStatusActive::PARAM, ReviewStatus::TYPE);
-        }
 
         /* Фильтр по status */
         if(false === empty($this->filter) && false === empty($this->filter->getStatus()))
