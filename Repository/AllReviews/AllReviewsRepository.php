@@ -200,7 +200,7 @@ final class AllReviewsRepository implements AllReviewsInterface
             $dbal->setParameter(
                 'status',
                 ReviewStatusActive::PARAM,
-                ReviewStatus::TYPE
+                ReviewStatus::TYPE,
             );
         }
 

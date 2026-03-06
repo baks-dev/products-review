@@ -295,14 +295,14 @@ final class AllWidgetReviewsRepository implements AllWidgetReviewsInterface
         {
             // Отзывы с учетом PROJECT_PROFILE либо NULL
             $dbal
-                ->join(
+                ->leftJoin(
                     'review_event',
                     ProductReviewProfile::class,
                     'review_profile',
-                    'review_profile.event = review_event.id
-                     AND
-                      (review_profile.value = :'.$dbal::PROJECT_PROFILE_KEY.' OR review_profile.value IS NULL)',
+                    'review_profile.event = review_event.id',
                 );
+
+            $dbal->where('review_profile.value = :'.$dbal::PROJECT_PROFILE_KEY.' OR review_profile.value IS NULL');
         }
 
         $dbal->orderBy('review.id', 'DESC');
