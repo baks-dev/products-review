@@ -29,7 +29,7 @@ use BaksDev\Products\Review\Entity\Review\Event\ProductReviewEvent;
 use BaksDev\Products\Review\Entity\Review\ProductReview;
 use Symfony\Component\DependencyInjection\Attribute\Autoconfigure;
 
-#[Autoconfigure(public: true)]
+// #[Autoconfigure(public: true)]
 interface ReviewCurrentEventInterface
 {
     public function get(ProductReview|string $productReview): ?ProductReviewEvent;
