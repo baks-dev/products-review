@@ -25,11 +25,11 @@ declare(strict_types=1);
 
 namespace BaksDev\Products\Review\Entity\Review;
 
+use BaksDev\Products\Review\Entity\Review\Event\ProductReviewEvent;
+use BaksDev\Products\Review\Type\Review\Event\ProductReviewEventUid;
+use BaksDev\Products\Review\Type\Review\Id\ProductReviewUid;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-use BaksDev\Products\Review\Type\Review\Id\ProductReviewUid;
-use BaksDev\Products\Review\Type\Review\Event\ProductReviewEventUid;
-use BaksDev\Products\Review\Entity\Review\Event\ProductReviewEvent;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'product_review')]

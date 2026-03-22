@@ -94,6 +94,11 @@ final class NewProductReviewDTO implements ProductReviewEventInterface
         return $this->criteria;
     }
 
+    public function setCriteria(ArrayCollection $criteria): void
+    {
+        $this->criteria = $criteria;
+    }
+
     public function addCriterion(NewProductReviewCriteriaDTO $criteria): self
     {
         $this->criteria->add($criteria);
@@ -163,11 +168,6 @@ final class NewProductReviewDTO implements ProductReviewEventInterface
     public function setStatus(NewProductReviewStatusDTO $status): void
     {
         $this->status = $status;
-    }
-
-    public function setCriteria(ArrayCollection $criteria): void
-    {
-        $this->criteria = $criteria;
     }
 
     public function getCategory(): NewProductReviewCategoryDTO

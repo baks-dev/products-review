@@ -31,6 +31,7 @@ interface AllWidgetReviewsInterface
 {
     /**
      * Метод возвращает пагинатор Reviews
+     *
      * @return Generator<AllWidgetReviewsResult>|false
      */
     public function findAll(): Generator|false;

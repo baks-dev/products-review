@@ -42,7 +42,7 @@ final class ProductAverageRatingExtension extends AbstractExtension
             new TwigFunction(
                 'product_average_rating',
                 [$this, 'rating'],
-                ['needs_environment' => true, 'is_safe' => ['html']]
+                ['needs_environment' => true, 'is_safe' => ['html']],
             ),
         ];
     }

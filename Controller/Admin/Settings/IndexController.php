@@ -25,16 +25,16 @@ declare(strict_types=1);
 
 namespace BaksDev\Products\Review\Controller\Admin\Settings;
 
+use BaksDev\Core\Controller\AbstractController;
 use BaksDev\Core\Form\Search\SearchDTO;
 use BaksDev\Core\Form\Search\SearchForm;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use BaksDev\Core\Controller\AbstractController;
-use Symfony\Component\Routing\Attribute\Route;
 use BaksDev\Core\Listeners\Event\Security\RoleSecurity;
-use Symfony\Component\HttpKernel\Attribute\AsController;
 use BaksDev\Products\Review\Repository\AllReviewSettings\FindAllReviewSettingsInterface;
 use BaksDev\Products\Review\Repository\AllReviewSettings\FindAllReviewSettingsRepository;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Attribute\AsController;
+use Symfony\Component\Routing\Attribute\Route;
 
 #[AsController]
 #[RoleSecurity('ROLE_PRODUCTS_REVIEW_SETTINGS_INDEX')]

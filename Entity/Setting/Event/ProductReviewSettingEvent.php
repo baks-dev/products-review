@@ -26,8 +26,8 @@ declare(strict_types=1);
 namespace BaksDev\Products\Review\Entity\Setting\Event;
 
 use BaksDev\Core\Entity\EntityEvent;
-use BaksDev\Products\Review\Entity\Setting\Criteria\ProductReviewSettingCriteria;
 use BaksDev\Products\Review\Entity\Setting\Category\ProductReviewSettingCategory;
+use BaksDev\Products\Review\Entity\Setting\Criteria\ProductReviewSettingCriteria;
 use BaksDev\Products\Review\Entity\Setting\ProductReviewSetting;
 use BaksDev\Products\Review\Type\Setting\Event\ProductReviewSettingEventUid;
 use BaksDev\Products\Review\Type\Setting\Id\ProductReviewSettingUid;
@@ -81,9 +81,9 @@ class ProductReviewSettingEvent extends EntityEvent
         return (string) $this->id;
     }
 
-    public function getId(): ProductReviewSettingEventUid
+    public function getMain(): ?ProductReviewSettingUid
     {
-        return $this->id;
+        return $this->main;
     }
 
     public function setMain(ProductReviewSettingUid|ProductReviewSetting $main): void
@@ -91,16 +91,17 @@ class ProductReviewSettingEvent extends EntityEvent
         $this->main = $main instanceof ProductReviewSetting ? $main->getId() : $main;
     }
 
-    public function getMain(): ?ProductReviewSettingUid
+    public function getId(): ProductReviewSettingEventUid
     {
-        return $this->main;
+        return $this->id;
     }
 
     public function getDto($dto): mixed
     {
         $dto = is_string($dto) && class_exists($dto) ? new $dto() : $dto;
 
-        if ($dto instanceof ProductReviewSettingEventInterface) {
+        if($dto instanceof ProductReviewSettingEventInterface)
+        {
             return parent::getDto($dto);
         }
 
@@ -109,7 +110,8 @@ class ProductReviewSettingEvent extends EntityEvent
 
     public function setEntity($dto): mixed
     {
-        if ($dto instanceof ProductReviewSettingEventInterface || $dto instanceof self) {
+        if($dto instanceof ProductReviewSettingEventInterface || $dto instanceof self)
+        {
             return parent::setEntity($dto);
         }
 

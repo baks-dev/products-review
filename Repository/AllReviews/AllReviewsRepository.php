@@ -114,6 +114,12 @@ final class AllReviewsRepository implements AllReviewsInterface
         return $this;
     }
 
+    public function findPaginator(): PaginatorInterface
+    {
+        $dbal = $this->builder();
+
+        return $this->paginator->fetchAllHydrate($dbal, AllReviewsResult::class);
+    }
 
     private function builder(): DBALQueryBuilder
     {
@@ -357,13 +363,6 @@ final class AllReviewsRepository implements AllReviewsInterface
         $dbal->addGroupBy('review.id');
 
         return $dbal;
-    }
-
-    public function findPaginator(): PaginatorInterface
-    {
-        $dbal = $this->builder();
-
-        return $this->paginator->fetchAllHydrate($dbal, AllReviewsResult::class);
     }
 
     public function findAll(): Generator

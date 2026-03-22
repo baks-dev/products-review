@@ -35,8 +35,8 @@ use BaksDev\Products\Review\UseCase\Admin\Review\Delete\DeleteProductReviewHandl
 use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpKernel\Attribute\AsController;
+use Symfony\Component\Routing\Attribute\Route;
 
 #[AsController]
 #[RoleSecurity('ROLE_PRODUCTS_REVIEW_DELETE')]
@@ -55,7 +55,7 @@ final class DeleteController extends AbstractController
         $form = $this->createForm(DeleteProductReviewForm::class, $ProductsReviewDeleteDTO, [
             'action' => $this->generateUrl(
                 'products-review:admin.review.delete',
-                ['id' => $ProductsReviewEvent]
+                ['id' => $ProductsReviewEvent],
             ),
         ]);
         $form->handleRequest($request);
@@ -69,7 +69,7 @@ final class DeleteController extends AbstractController
                 'page.reviews.delete',
                 $handle instanceof ProductReview ? 'success.reviews.delete' : 'danger.reviews.delete',
                 'products-review.admin',
-                $handle
+                $handle,
             );
 
             return $handle instanceof ProductReview ? $this->redirectToRoute('products-review:admin.review.index') : $this->redirectToReferer();

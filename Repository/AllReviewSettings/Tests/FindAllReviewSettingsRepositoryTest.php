@@ -48,17 +48,17 @@ final class FindAllReviewSettingsRepositoryTest extends KernelTestCase
         /** @var FindAllReviewSettingsRepository $FindAllReviewSettingsRepository */
         $results = $FindAllReviewSettingsRepository->findAll()->getData();
 
-        foreach ($results as $result)
+        foreach($results as $result)
         {
             self::assertInstanceOf(FindAllReviewSettingsResult::class, $result);
 
             self::assertTrue(
                 $result->getReviewSettingId() === false
-                || $result->getReviewSettingId() instanceof ProductReviewSettingUid
+                || $result->getReviewSettingId() instanceof ProductReviewSettingUid,
             );
             self::assertTrue(
                 $result->getReviewSettingEvent() === false
-                || $result->getReviewSettingEvent() instanceof ProductReviewSettingEventUid
+                || $result->getReviewSettingEvent() instanceof ProductReviewSettingEventUid,
             );
             self::assertTrue($result->getCategories() === false || is_array($result->getCategories()));
             self::assertTrue($result->getCriteria() === false || is_array($result->getCriteria()));

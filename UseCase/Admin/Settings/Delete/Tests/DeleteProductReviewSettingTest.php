@@ -46,6 +46,33 @@ use Symfony\Component\DependencyInjection\Attribute\When;
 #[Group('products-review')]
 final class DeleteProductReviewSettingTest extends KernelTestCase
 {
+    public static function tearDownAfterClass(): void
+    {
+        $EntityManager = self::getContainer()->get(EntityManagerInterface::class);
+
+        /** @var EntityManager $EntityManager */
+        $main = $EntityManager
+            ->getRepository(ProductReviewSetting::class)
+            ->findOneBy(['id' => ProductReviewSettingUid::TEST]);
+
+        if($main)
+        {
+            $EntityManager->remove($main);
+        }
+
+        $event = $EntityManager
+            ->getRepository(ProductReviewSettingEvent::class)
+            ->findBy(['main' => ProductReviewSettingEventUid::TEST]);
+
+        foreach($event as $remove)
+        {
+            $EntityManager->remove($remove);
+        }
+
+        $EntityManager->flush();
+        $EntityManager->clear();
+    }
+
     #[DependsOnClass(DeleteProductReviewTest::class)]
     #[DependsOnClass(EditProductReviewSettingTest::class)]
     public function testUseCase(): void
@@ -77,30 +104,5 @@ final class DeleteProductReviewSettingTest extends KernelTestCase
             ->where('id = :id')
             ->setParameter('id', ProductReviewSettingUid::TEST);
         self::assertFalse($dbal->fetchExist());
-    }
-
-    public static  function tearDownAfterClass(): void
-    {
-        $EntityManager = self::getContainer()->get(EntityManagerInterface::class);
-
-        /** @var EntityManager $EntityManager */
-        $main = $EntityManager
-            ->getRepository(ProductReviewSetting::class)
-            ->findOneBy(['id' => ProductReviewSettingUid::TEST]);
-
-        if($main) {
-            $EntityManager->remove($main);
-        }
-
-        $event = $EntityManager
-            ->getRepository(ProductReviewSettingEvent::class)
-            ->findBy(['main' => ProductReviewSettingEventUid::TEST]);
-
-        foreach ($event as $remove) {
-            $EntityManager->remove($remove);
-        }
-
-        $EntityManager->flush();
-        $EntityManager->clear();
     }
 }

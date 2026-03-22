@@ -77,7 +77,7 @@ final readonly class AllCriteriaByCategoryRepository implements AllCriteriaByCat
                 'setting_criteria',
                 ProductReviewSettingCriteriaText::class,
                 'setting_criteria_text',
-                'setting_criteria.id = setting_criteria_text.criteria'
+                'setting_criteria.id = setting_criteria_text.criteria',
             );
 
         $dbal
@@ -85,7 +85,7 @@ final readonly class AllCriteriaByCategoryRepository implements AllCriteriaByCat
                 'setting_criteria',
                 ProductReviewSettingEvent::class,
                 'setting_event',
-                'setting_criteria.event = setting_event.id'
+                'setting_criteria.event = setting_event.id',
             );
 
         $dbal
@@ -93,7 +93,7 @@ final readonly class AllCriteriaByCategoryRepository implements AllCriteriaByCat
                 'setting_event',
                 ProductReviewSetting::class,
                 'setting',
-                'setting.event = setting_event.id'
+                'setting.event = setting_event.id',
             );
 
         $dbal
@@ -101,7 +101,7 @@ final readonly class AllCriteriaByCategoryRepository implements AllCriteriaByCat
                 'setting_event',
                 ProductReviewSettingCategory::class,
                 'setting_category',
-                'setting_category.event = setting_event.id'
+                'setting_category.event = setting_event.id',
             )
             ->where('setting_category.value = :category')
             ->setParameter('category', $this->category, CategoryProductUid::TYPE);

@@ -64,11 +64,13 @@ class ProductReviewSettingCategory extends EntityEvent
     /** @return ProductReviewSettingCategoryInterface */
     public function getDto($dto): mixed
     {
-        if (is_string($dto) && class_exists($dto)) {
+        if(is_string($dto) && class_exists($dto))
+        {
             $dto = new $dto();
         }
 
-        if ($dto instanceof ProductReviewSettingCategoryInterface) {
+        if($dto instanceof ProductReviewSettingCategoryInterface)
+        {
             return parent::getDto($dto);
         }
 
@@ -78,7 +80,8 @@ class ProductReviewSettingCategory extends EntityEvent
     /** @var ProductReviewSettingCategoryInterface $dto */
     public function setEntity($dto): mixed
     {
-        if ($dto instanceof ProductReviewSettingCategoryInterface) {
+        if($dto instanceof ProductReviewSettingCategoryInterface)
+        {
             return parent::setEntity($dto);
         }
 

@@ -25,12 +25,12 @@ declare(strict_types=1);
 
 namespace BaksDev\Products\Review\Entity\Setting\Criteria;
 
-use BaksDev\Products\Review\Entity\Setting\Event\ProductReviewSettingEvent;
+use BaksDev\Core\Entity\EntityEvent;
 use BaksDev\Products\Review\Entity\Setting\Criteria\Text\ProductReviewSettingCriteriaText;
+use BaksDev\Products\Review\Entity\Setting\Event\ProductReviewSettingEvent;
 use BaksDev\Products\Review\Type\Setting\Criteria\ConstId\ProductReviewSettingCriteriaConst;
 use BaksDev\Products\Review\Type\Setting\Criteria\Id\ProductReviewSettingCriteriaUid;
 use Doctrine\ORM\Mapping as ORM;
-use BaksDev\Core\Entity\EntityEvent;
 use InvalidArgumentException;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -81,7 +81,8 @@ class ProductReviewSettingCriteria extends EntityEvent
 
     public function getDto($dto): mixed
     {
-        if ($dto instanceof ProductReviewSettingCriteriaInterface) {
+        if($dto instanceof ProductReviewSettingCriteriaInterface)
+        {
             return parent::getDto($dto);
         }
 
@@ -90,7 +91,8 @@ class ProductReviewSettingCriteria extends EntityEvent
 
     public function setEntity($dto): mixed
     {
-        if ($dto instanceof ProductReviewSettingCriteriaInterface) {
+        if($dto instanceof ProductReviewSettingCriteriaInterface)
+        {
             return parent::setEntity($dto);
         }
 

@@ -26,9 +26,9 @@ declare(strict_types=1);
 namespace BaksDev\Products\Review\UseCase\Admin\Review\Delete;
 
 use BaksDev\Products\Review\Entity\Review\Event\ProductReviewEventInterface;
+use BaksDev\Products\Review\Type\Review\Event\ProductReviewEventUid;
 use BaksDev\Products\Review\UseCase\Admin\Review\Delete\Modify\DeleteProductReviewModifyDTO;
 use Symfony\Component\Validator\Constraints as Assert;
-use BaksDev\Products\Review\Type\Review\Event\ProductReviewEventUid;
 
 final class DeleteProductReviewDTO implements ProductReviewEventInterface
 {

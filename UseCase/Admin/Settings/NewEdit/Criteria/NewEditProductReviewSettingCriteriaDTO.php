@@ -67,14 +67,14 @@ final class NewEditProductReviewSettingCriteriaDTO implements ProductReviewSetti
         return $this;
     }
 
+    public function getText(): NewEditProductReviewSettingCriteriaTextDTO
+    {
+        return $this->text;
+    }
+
     public function setText(NewEditProductReviewSettingCriteriaTextDTO $text): self
     {
         $this->text = $text;
         return $this;
-    }
-
-    public function getText(): NewEditProductReviewSettingCriteriaTextDTO
-    {
-        return $this->text;
     }
 }

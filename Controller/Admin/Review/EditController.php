@@ -27,20 +27,20 @@ namespace BaksDev\Products\Review\Controller\Admin\Review;
 
 use BaksDev\Core\Controller\AbstractController;
 use BaksDev\Core\Listeners\Event\Security\RoleSecurity;
+use BaksDev\Products\Review\Entity\Review\Event\ProductReviewEvent;
+use BaksDev\Products\Review\Entity\Review\ProductReview;
 use BaksDev\Products\Review\Repository\AllCriteriaByCategory\AllCriteriaByCategoryInterface;
 use BaksDev\Products\Review\Repository\AllCriteriaByCategory\AllCriteriaByCategoryResult;
 use BaksDev\Products\Review\UseCase\Admin\Review\NewEdit\Criteria\EditProductReviewCriteriaDTO;
+use BaksDev\Products\Review\UseCase\Admin\Review\NewEdit\EditProductReviewDTO;
+use BaksDev\Products\Review\UseCase\Admin\Review\NewEdit\EditProductReviewForm;
+use BaksDev\Products\Review\UseCase\Admin\Review\NewEdit\EditProductReviewHandler;
 use BaksDev\Products\Review\UseCase\Admin\Review\NewEdit\Rating\EditProductReviewRatingDTO;
 use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpKernel\Attribute\AsController;
-use BaksDev\Products\Review\Entity\Review\Event\ProductReviewEvent;
-use BaksDev\Products\Review\UseCase\Admin\Review\NewEdit\EditProductReviewHandler;
-use BaksDev\Products\Review\UseCase\Admin\Review\NewEdit\EditProductReviewDTO;
-use BaksDev\Products\Review\UseCase\Admin\Review\NewEdit\EditProductReviewForm;
-use BaksDev\Products\Review\Entity\Review\ProductReview;
+use Symfony\Component\Routing\Attribute\Route;
 
 
 #[AsController]
@@ -70,6 +70,7 @@ final class EditController extends AbstractController
                  * Итерируемся по тем критериям, которые уже были добавлены в DTO (у них уже есть оценка). Проверяем,
                  * является ли данный критерий одним из них. Если да - назначаем имя и переходим к следующему критерию в
                  * цикле.
+                 *
                  * @var EditProductReviewCriteriaDTO $criterion
                  */
                 foreach($editProductReviewDTO->getCriteria() as $criterion)
@@ -113,7 +114,7 @@ final class EditController extends AbstractController
         $form = $this->createForm(EditProductReviewForm::class, $editProductReviewDTO, [
             'action' => $this->generateUrl(
                 'products-review:admin.review.newedit.edit',
-                ['id' => $productReviewEvent]
+                ['id' => $productReviewEvent],
             ),
         ]);
         $form->handleRequest($request);
@@ -152,7 +153,7 @@ final class EditController extends AbstractController
                 'page.reviews.edit',
                 $handle instanceof ProductReview ? 'success.reviews.edit' : 'danger.reviews.edit',
                 'products-review.admin',
-                $handle
+                $handle,
             );
 
             return $handle instanceof ProductReview ? $this->redirectToRoute('products-review:admin.review.index') : $this->redirectToReferer();

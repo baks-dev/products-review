@@ -26,11 +26,11 @@ declare(strict_types=1);
 namespace BaksDev\Products\Review\Entity\Review\User;
 
 use BaksDev\Core\Entity\EntityEvent;
+use BaksDev\Products\Review\Entity\Review\Event\ProductReviewEvent;
 use BaksDev\Users\User\Type\Id\UserUid;
 use Doctrine\ORM\Mapping as ORM;
 use InvalidArgumentException;
 use Symfony\Component\Validator\Constraints as Assert;
-use BaksDev\Products\Review\Entity\Review\Event\ProductReviewEvent;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'product_review_user')]
@@ -61,11 +61,13 @@ class ProductReviewUser extends EntityEvent
 
     public function getDto($dto): mixed
     {
-        if (is_string($dto) && class_exists($dto)) {
+        if(is_string($dto) && class_exists($dto))
+        {
             $dto = new $dto();
         }
 
-        if ($dto instanceof ProductReviewUserInterface) {
+        if($dto instanceof ProductReviewUserInterface)
+        {
             return parent::getDto($dto);
         }
 
@@ -74,7 +76,8 @@ class ProductReviewUser extends EntityEvent
 
     public function setEntity($dto): mixed
     {
-        if ($dto instanceof ProductReviewUserInterface) {
+        if($dto instanceof ProductReviewUserInterface)
+        {
             return parent::setEntity($dto);
         }
 

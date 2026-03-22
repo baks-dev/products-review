@@ -25,8 +25,8 @@ declare(strict_types=1);
 
 namespace BaksDev\Products\Review\Listeners\Entity;
 
-use BaksDev\Products\Review\Entity\Review\Modify\ProductReviewModify;
 use BaksDev\Core\Type\Ip\IpAddress;
+use BaksDev\Products\Review\Entity\Review\Modify\ProductReviewModify;
 use BaksDev\Users\User\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Attribute\AsEntityListener;
 use Doctrine\ORM\Events;
@@ -63,7 +63,7 @@ final readonly class ProductReviewListener
         {
             $data->upModifyAgent(
                 new IpAddress($this->request->getCurrentRequest()->getClientIp()), /* Ip */
-                $this->request->getCurrentRequest()->headers->get('User-Agent') /* User-Agent */
+                $this->request->getCurrentRequest()->headers->get('User-Agent'), /* User-Agent */
             );
         }
     }

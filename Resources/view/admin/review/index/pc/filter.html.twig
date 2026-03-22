@@ -1,17 +1,17 @@
 {{ form_start(filter) }}
 
-    <div class="w-100 d-flex gap-2 justify-content-end" style="height: 55px;">
+<div class="w-100 d-flex gap-2 justify-content-end" style="height: 55px;">
 
-        {# Profile #}
-        <div class="w-25" style="min-width: 220px;">
-            {{ form_row(filter.profile, { placeholder : 'Выберите склад ...', attr : { 'data-select' : 'select2' } }) }}
-        </div>
-
-        {# Status #}
-        <div class="w-25" style="min-width: 220px;">
-            {{ form_row(filter.status, { attr : { 'data-select' : 'select2' }, placeholder: 'Все статусы...' }) }}
-        </div>
-
+    {# Profile #}
+    <div class="w-25" style="min-width: 220px;">
+        {{ form_row(filter.profile, { placeholder : 'Выберите склад ...', attr : { 'data-select' : 'select2' } }) }}
     </div>
+
+    {# Status #}
+    <div class="w-25" style="min-width: 220px;">
+        {{ form_row(filter.status, { attr : { 'data-select' : 'select2' }, placeholder: 'Все статусы...' }) }}
+    </div>
+
+</div>
 
 {{ form_end(filter) }}

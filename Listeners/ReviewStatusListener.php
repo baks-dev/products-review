@@ -25,12 +25,12 @@ declare(strict_types=1);
 
 namespace BaksDev\Products\Review\Listeners;
 
+use BaksDev\Products\Review\Type\Status\ReviewStatus\ReviewStatusCollection;
+use BaksDev\Products\Review\Type\Status\ReviewStatusType;
 use Symfony\Component\Console\ConsoleEvents;
 use Symfony\Component\Console\Event\ConsoleCommandEvent;
 use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 use Symfony\Component\HttpKernel\Event\ControllerEvent;
-use BaksDev\Products\Review\Type\Status\ReviewStatus\ReviewStatusCollection;
-use BaksDev\Products\Review\Type\Status\ReviewStatusType;
 
 /**
  * Слушатель инициирует статусы для определения в типе доктрины.

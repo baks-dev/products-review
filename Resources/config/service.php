@@ -28,7 +28,7 @@ return static function(ContainerConfigurator $configurator): void {
     /* Статусы заказов */
     $services->load(
         $NAMESPACE.'Type\Status\ReviewStatus\\',
-        $PATH.implode(DIRECTORY_SEPARATOR, ['Type', 'Status', 'ReviewStatus'])
+        $PATH.implode(DIRECTORY_SEPARATOR, ['Type', 'Status', 'ReviewStatus']),
     );
 
     $services->load($NAMESPACE.'Form\Rating\\', $PATH.implode(DIRECTORY_SEPARATOR, ['Form', 'Rating'])); //  'Form/Rating');

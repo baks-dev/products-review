@@ -25,4 +25,4 @@ declare(strict_types=1);
 
 namespace BaksDev\Products\Review\Entity\Setting;
 
-interface ProductReviewSettingInterface {}
+interface ProductReviewSettingInterface { }

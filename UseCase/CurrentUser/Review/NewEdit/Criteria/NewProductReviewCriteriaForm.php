@@ -43,17 +43,17 @@ final class NewProductReviewCriteriaForm extends AbstractType
         $builder->add('name', TextType::class, [
             'attr' => ['class' => 'd-none'],
             'label' => false,
-            'required' => false
+            'required' => false,
         ]);
 
         $builder->add('rating', RatingFieldForm::class);
 
-        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event)
-        {
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, function(FormEvent $event) {
             $form = $event->getForm();
             $data = $event->getData();
 
-            if (false === empty($data)) {
+            if(false === empty($data))
+            {
 
                 $value = $data->getName();
 

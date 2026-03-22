@@ -26,8 +26,8 @@ declare(strict_types=1);
 namespace BaksDev\Products\Review\UseCase\Admin\Review\Delete;
 
 use BaksDev\Core\Entity\AbstractHandler;
-use BaksDev\Products\Review\Entity\Review\ProductReview;
 use BaksDev\Products\Review\Entity\Review\Event\ProductReviewEvent;
+use BaksDev\Products\Review\Entity\Review\ProductReview;
 use BaksDev\Products\Review\Messenger\ProductReviewMessage;
 
 final class DeleteProductReviewHandler extends AbstractHandler
@@ -41,7 +41,8 @@ final class DeleteProductReviewHandler extends AbstractHandler
             ->preEventRemove(ProductReview::class, ProductReviewEvent::class);
 
         /** Валидация всех объектов */
-        if ($this->validatorCollection->isInvalid()) {
+        if($this->validatorCollection->isInvalid())
+        {
             return $this->validatorCollection->getErrorUniqid();
         }
 
@@ -52,7 +53,7 @@ final class DeleteProductReviewHandler extends AbstractHandler
             ->addClearCacheOther('products-product')
             ->dispatch(
                 message: new ProductReviewMessage($this->main, $this->event),
-                transport: 'products-review'
+                transport: 'products-review',
             );
 
         return $this->main;

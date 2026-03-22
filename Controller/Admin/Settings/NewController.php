@@ -27,14 +27,14 @@ namespace BaksDev\Products\Review\Controller\Admin\Settings;
 
 use BaksDev\Core\Controller\AbstractController;
 use BaksDev\Core\Listeners\Event\Security\RoleSecurity;
+use BaksDev\Products\Review\Entity\Setting\ProductReviewSetting;
 use BaksDev\Products\Review\UseCase\Admin\Settings\NewEdit\NewEditProductReviewSettingDTO;
 use BaksDev\Products\Review\UseCase\Admin\Settings\NewEdit\NewEditProductReviewSettingForm;
 use BaksDev\Products\Review\UseCase\Admin\Settings\NewEdit\NewEditProductReviewSettingHandler;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpKernel\Attribute\AsController;
-use BaksDev\Products\Review\Entity\Setting\ProductReviewSetting;
+use Symfony\Component\Routing\Attribute\Route;
 
 #[AsController]
 #[RoleSecurity('ROLE_PRODUCTS_REVIEW_SETTINGS_NEWEDIT')]
@@ -44,7 +44,8 @@ final class NewController extends AbstractController
     public function news(
         Request $request,
         NewEditProductReviewSettingHandler $ProductsReviewSettingHandler,
-    ): Response {
+    ): Response
+    {
         $ProductsReviewSettingDTO = new NewEditProductReviewSettingDTO();
 
         // Форма
@@ -53,7 +54,8 @@ final class NewController extends AbstractController
         ]);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid() && $form->has('new_edit_product_review_setting')) {
+        if($form->isSubmitted() && $form->isValid() && $form->has('new_edit_product_review_setting'))
+        {
             $handle = $ProductsReviewSettingHandler->handle($ProductsReviewSettingDTO);
 
             $this->addFlash(

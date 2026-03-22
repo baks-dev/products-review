@@ -28,13 +28,13 @@ namespace BaksDev\Products\Review\Entity\Average;
 use BaksDev\Core\Entity\EntityState;
 use BaksDev\Products\Product\Type\Id\ProductUid;
 use BaksDev\Products\Review\Entity\Average\Counter\ProductReviewAverageCounter;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
-use Doctrine\DBAL\Types\Types;
-use Doctrine\Common\Collections\Collection;
 use BaksDev\Products\Review\Entity\Average\Criteria\ProductReviewAverageCriteria;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
+use Doctrine\ORM\Mapping as ORM;
 use InvalidArgumentException;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'product_review_average')]
@@ -57,8 +57,8 @@ class ProductReviewAverage extends EntityState
     #[ORM\OneToMany(targetEntity: ProductReviewAverageCriteria::class, mappedBy: 'average', cascade: ['all'])]
     private Collection $criteria;
 
-     #[ORM\OneToOne(targetEntity: ProductReviewAverageCounter::class, mappedBy: 'average', cascade: ['all'])]
-     private ?ProductReviewAverageCounter $counter = null;
+    #[ORM\OneToOne(targetEntity: ProductReviewAverageCounter::class, mappedBy: 'average', cascade: ['all'])]
+    private ?ProductReviewAverageCounter $counter = null;
 
     public function __construct(ProductUid $product)
     {

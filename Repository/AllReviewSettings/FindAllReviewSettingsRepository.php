@@ -29,13 +29,13 @@ use BaksDev\Core\Doctrine\DBALQueryBuilder;
 use BaksDev\Core\Form\Search\SearchDTO;
 use BaksDev\Core\Services\Paginator\Paginator;
 use BaksDev\Products\Category\Entity\CategoryProduct;
+use BaksDev\Products\Category\Entity\Event\CategoryProductEvent;
 use BaksDev\Products\Category\Entity\Trans\CategoryProductTrans;
 use BaksDev\Products\Review\Entity\Setting\Category\ProductReviewSettingCategory;
 use BaksDev\Products\Review\Entity\Setting\Criteria\ProductReviewSettingCriteria;
 use BaksDev\Products\Review\Entity\Setting\Criteria\Text\ProductReviewSettingCriteriaText;
 use BaksDev\Products\Review\Entity\Setting\Event\ProductReviewSettingEvent;
 use BaksDev\Products\Review\Entity\Setting\ProductReviewSetting;
-use BaksDev\Products\Category\Entity\Event\CategoryProductEvent;
 
 final class FindAllReviewSettingsRepository implements FindAllReviewSettingsInterface
 {
@@ -66,7 +66,7 @@ final class FindAllReviewSettingsRepository implements FindAllReviewSettingsInte
                 'review_setting',
                 ProductReviewSettingEvent::class,
                 'review_setting_event',
-                'review_setting.event = review_setting_event.id'
+                'review_setting.event = review_setting_event.id',
             );
 
         $dbal
@@ -74,7 +74,7 @@ final class FindAllReviewSettingsRepository implements FindAllReviewSettingsInte
                 'review_setting_event',
                 ProductReviewSettingCategory::class,
                 'review_setting_category',
-                'review_setting_event.id = review_setting_category.event'
+                'review_setting_event.id = review_setting_category.event',
             );
 
 
@@ -84,7 +84,7 @@ final class FindAllReviewSettingsRepository implements FindAllReviewSettingsInte
                 'review_setting_category',
                 CategoryProduct::class,
                 'category_product',
-                'category_product.id = review_setting_category.value'
+                'category_product.id = review_setting_category.value',
             );
 
         $dbal
@@ -92,7 +92,7 @@ final class FindAllReviewSettingsRepository implements FindAllReviewSettingsInte
                 'category_product',
                 CategoryProductEvent::class,
                 'category_product_event',
-                'category_product_event.id = category_product.event'
+                'category_product_event.id = category_product.event',
             );
 
         $dbal
@@ -101,7 +101,7 @@ final class FindAllReviewSettingsRepository implements FindAllReviewSettingsInte
                 'category_product_event',
                 CategoryProductTrans::class,
                 'category_trans',
-                'category_trans.event = category_product_event.id AND category_trans.local = :local'
+                'category_trans.event = category_product_event.id AND category_trans.local = :local',
             );
 
 
@@ -111,7 +111,7 @@ final class FindAllReviewSettingsRepository implements FindAllReviewSettingsInte
                 'review_setting_event',
                 ProductReviewSettingCriteria::class,
                 'review_setting_criteria',
-                'review_setting_criteria.event = review_setting_event.id'
+                'review_setting_criteria.event = review_setting_event.id',
             );
 
         $dbal
@@ -122,7 +122,7 @@ final class FindAllReviewSettingsRepository implements FindAllReviewSettingsInte
                 'review_setting_criteria',
                 ProductReviewSettingCriteriaText::class,
                 'review_setting_criteria_text',
-                'review_setting_criteria_text.criteria = review_setting_criteria.id'
+                'review_setting_criteria_text.criteria = review_setting_criteria.id',
             );
 
         /* Поиск */

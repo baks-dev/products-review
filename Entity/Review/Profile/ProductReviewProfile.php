@@ -63,11 +63,6 @@ class ProductReviewProfile extends EntityEvent
         return (string) $this->event;
     }
 
-    public function getValue(): UserProfileUid
-    {
-        return $this->value;
-    }
-
     /** @return ProductReviewProfileInterface */
     public function getDto($dto): mixed
     {
@@ -98,5 +93,10 @@ class ProductReviewProfile extends EntityEvent
         }
 
         throw new InvalidArgumentException(sprintf('Class %s interface error', $dto::class));
+    }
+
+    public function getValue(): UserProfileUid
+    {
+        return $this->value;
     }
 }

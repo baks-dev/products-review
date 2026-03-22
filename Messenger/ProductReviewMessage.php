@@ -26,8 +26,8 @@ declare(strict_types=1);
 namespace BaksDev\Products\Review\Messenger;
 
 use BaksDev\Products\Review\Entity\Review\Event\ProductReviewEvent;
-use BaksDev\Products\Review\Type\Review\Event\ProductReviewEventUid;
 use BaksDev\Products\Review\Entity\Review\ProductReview;
+use BaksDev\Products\Review\Type\Review\Event\ProductReviewEventUid;
 use BaksDev\Products\Review\Type\Review\Id\ProductReviewUid;
 
 final class ProductReviewMessage

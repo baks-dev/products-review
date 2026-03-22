@@ -72,14 +72,26 @@ final class ReviewStatus
         throw new InvalidArgumentException(sprintf('Undefined Review Status %s', $status));
     }
 
-    public function __toString(): string
-    {
-        return $this->status ? $this->status->getValue() : '';
-    }
-
     public function getReviewStatus(): ?ReviewStatusInterface
     {
         return $this->status;
+    }
+
+    public static function getDeclared(): array
+    {
+        return array_filter(
+            get_declared_classes(),
+            static function($className) {
+                return in_array(ReviewStatusInterface::class, class_implements($className), true);
+            },
+        );
+    }
+
+    public function equals(mixed $status): bool
+    {
+        $status = new self($status);
+
+        return $this->getReviewStatusValue() === $status->getReviewStatusValue();
     }
 
     public function getReviewStatusValue(): string
@@ -101,20 +113,8 @@ final class ReviewStatus
         return $case;
     }
 
-    public static function getDeclared(): array
+    public function __toString(): string
     {
-        return array_filter(
-            get_declared_classes(),
-            static function($className) {
-                return in_array(ReviewStatusInterface::class, class_implements($className), true);
-            }
-        );
-    }
-
-    public function equals(mixed $status): bool
-    {
-        $status = new self($status);
-
-        return $this->getReviewStatusValue() === $status->getReviewStatusValue();
+        return $this->status ? $this->status->getValue() : '';
     }
 }

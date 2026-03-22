@@ -8,6 +8,7 @@ use BaksDev\Products\Review\Type\Average\Criteria\ProductReviewAverageCriteriaUi
 use BaksDev\Products\Review\Type\Review\Criteria\Id\ProductReviewCriteriaType;
 use BaksDev\Products\Review\Type\Review\Criteria\Id\ProductReviewCriteriaUid;
 use BaksDev\Products\Review\Type\Review\Event\ProductReviewEventType;
+use BaksDev\Products\Review\Type\Review\Event\ProductReviewEventUid;
 use BaksDev\Products\Review\Type\Review\Id\ProductReviewType;
 use BaksDev\Products\Review\Type\Review\Id\ProductReviewUid;
 use BaksDev\Products\Review\Type\Setting\Criteria\ConstId\ProductReviewSettingCriteriaConst;
@@ -21,9 +22,8 @@ use BaksDev\Products\Review\Type\Setting\Id\ProductReviewSettingUid;
 use BaksDev\Products\Review\Type\Status\ReviewStatus;
 use BaksDev\Products\Review\Type\Status\ReviewStatusType;
 use Symfony\Config\DoctrineConfig;
-use BaksDev\Products\Review\Type\Review\Event\ProductReviewEventUid;
 
-return static function (DoctrineConfig $doctrine): void {
+return static function(DoctrineConfig $doctrine): void {
 
     $doctrine->dbal()->type(ProductReviewUid::TYPE)->class(ProductReviewType::class);
     $doctrine->dbal()->type(ProductReviewEventUid::TYPE)->class(ProductReviewEventType::class);

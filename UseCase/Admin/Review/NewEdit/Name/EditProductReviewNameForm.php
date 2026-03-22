@@ -25,8 +25,8 @@ declare(strict_types=1);
 
 namespace BaksDev\Products\Review\UseCase\Admin\Review\NewEdit\Name;
 
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -36,7 +36,7 @@ final class EditProductReviewNameForm extends AbstractType
     {
         $builder->add('value', TextType::class, [
             'required' => false,
-            'label' => false
+            'label' => false,
         ]);
     }
 

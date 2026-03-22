@@ -25,11 +25,11 @@ declare(strict_types=1);
 
 namespace BaksDev\Products\Review\Entity\Setting;
 
+use BaksDev\Products\Review\Entity\Setting\Event\ProductReviewSettingEvent;
 use BaksDev\Products\Review\Type\Setting\Event\ProductReviewSettingEventUid;
 use BaksDev\Products\Review\Type\Setting\Id\ProductReviewSettingUid;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-use BaksDev\Products\Review\Entity\Setting\Event\ProductReviewSettingEvent;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'product_review_setting')]

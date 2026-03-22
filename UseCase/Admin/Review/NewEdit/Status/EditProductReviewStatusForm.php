@@ -27,9 +27,9 @@ namespace BaksDev\Products\Review\UseCase\Admin\Review\NewEdit\Status;
 
 use BaksDev\Products\Review\Type\Status\ReviewStatus;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 final class EditProductReviewStatusForm extends AbstractType
 {
@@ -44,7 +44,7 @@ final class EditProductReviewStatusForm extends AbstractType
                 return $status->getReviewStatusValue();
             },
             'label' => false,
-            'translation_domain' => 'review.status'
+            'translation_domain' => 'review.status',
         ]);
     }
 

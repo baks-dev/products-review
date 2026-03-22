@@ -29,11 +29,10 @@ use BaksDev\Core\Entity\EntityState;
 use BaksDev\Products\Review\Entity\Average\ProductReviewAverage;
 use BaksDev\Products\Review\Type\Average\Criteria\ProductReviewAverageCriteriaUid;
 use BaksDev\Products\Review\Type\Setting\Criteria\ConstId\ProductReviewSettingCriteriaConst;
-use BaksDev\Products\Review\Type\Setting\Criteria\Id\ProductReviewSettingCriteriaUid;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 use InvalidArgumentException;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'product_review_average_criteria')]
@@ -73,7 +72,7 @@ class ProductReviewAverageCriteria extends EntityState
     {
         return $this->id;
     }
-    
+
     public function getDto($dto): mixed
     {
         $dto = is_string($dto) && class_exists($dto) ? new $dto() : $dto;

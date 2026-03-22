@@ -29,8 +29,8 @@ use BaksDev\Core\Entity\EntityEvent;
 use BaksDev\Products\Review\Entity\Review\Event\ProductReviewEvent;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 use InvalidArgumentException;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'product_review_name')]
@@ -58,19 +58,16 @@ class ProductReviewName extends EntityEvent
         return (string) $this->event;
     }
 
-    public function getValue(): string
-    {
-        return $this->value;
-    }
-
     /** @return ProductReviewNameInterface */
     public function getDto($dto): mixed
     {
-        if (is_string($dto) && class_exists($dto)) {
+        if(is_string($dto) && class_exists($dto))
+        {
             $dto = new $dto();
         }
 
-        if ($dto instanceof ProductReviewNameInterface) {
+        if($dto instanceof ProductReviewNameInterface)
+        {
             return parent::getDto($dto);
         }
 
@@ -85,10 +82,16 @@ class ProductReviewName extends EntityEvent
             return false;
         }
 
-        if ($dto instanceof ProductReviewNameInterface) {
+        if($dto instanceof ProductReviewNameInterface)
+        {
             return parent::setEntity($dto);
         }
 
         throw new InvalidArgumentException(sprintf('Class %s interface error', $dto::class));
+    }
+
+    public function getValue(): string
+    {
+        return $this->value;
     }
 }

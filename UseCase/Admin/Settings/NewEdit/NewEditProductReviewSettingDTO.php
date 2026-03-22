@@ -70,7 +70,8 @@ final class NewEditProductReviewSettingDTO implements ProductReviewSettingEventI
     /** Category */
     public function getCategory(): ArrayCollection
     {
-        if ($this->category->isEmpty()) {
+        if($this->category->isEmpty())
+        {
             $ProductReviewSettingCategoryDTO = new NewEditProductReviewSettingCategoryDTO();
             $this->addCategory($ProductReviewSettingCategoryDTO);
         }
@@ -84,10 +85,9 @@ final class NewEditProductReviewSettingDTO implements ProductReviewSettingEventI
          * Делаем проверку, чтобы не добавлять одинаковые категории в коллекцию (т.к. нет подобных ограничений на ui
          */
         $filter = $this->category->filter(
-            function(NewEditProductReviewSettingCategoryDTO $element) use ($category): bool
-            {
+            function(NewEditProductReviewSettingCategoryDTO $element) use ($category): bool {
                 return $element->getValue()?->equals($category->getValue());
-            }
+            },
         );
 
         if($filter->isEmpty())

@@ -96,7 +96,7 @@ final class ProductReviewFilterForm extends AbstractType
             },
             'label' => false,
             'required' => false,
-            'translation_domain' => 'review.status'
+            'translation_domain' => 'review.status',
         ]);
 
         $builder->get('status')->addModelTransformer(

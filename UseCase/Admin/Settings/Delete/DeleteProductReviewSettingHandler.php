@@ -40,7 +40,8 @@ final class DeleteProductReviewSettingHandler extends AbstractHandler
             ->preEventRemove(ProductReviewSetting::class, ProductReviewSettingEvent::class);
 
         /** Валидация всех объектов */
-        if ($this->validatorCollection->isInvalid()) {
+        if($this->validatorCollection->isInvalid())
+        {
             return $this->validatorCollection->getErrorUniqid();
         }
 
@@ -49,7 +50,7 @@ final class DeleteProductReviewSettingHandler extends AbstractHandler
         /* Отправляем сообщение в шину */
         $this->messageDispatch->dispatch(
             message: new ProductReviewSettingMessage(),
-            transport: 'products-review'
+            transport: 'products-review',
         );
 
         return $this->main;

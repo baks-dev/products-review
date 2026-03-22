@@ -112,9 +112,9 @@ class ProductReviewEvent extends EntityEvent
         return (string) $this->id;
     }
 
-    public function getId(): ProductReviewEventUid
+    public function getMain(): ?ProductReviewUid
     {
-        return $this->id;
+        return $this->main;
     }
 
     public function setMain(ProductReviewUid|ProductReview $main): void
@@ -122,9 +122,9 @@ class ProductReviewEvent extends EntityEvent
         $this->main = $main instanceof ProductReview ? $main->getId() : $main;
     }
 
-    public function getMain(): ?ProductReviewUid
+    public function getId(): ProductReviewEventUid
     {
-        return $this->main;
+        return $this->id;
     }
 
     public function getStatus(): ProductReviewStatus

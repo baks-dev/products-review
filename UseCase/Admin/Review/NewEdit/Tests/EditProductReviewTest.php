@@ -99,14 +99,14 @@ final class EditProductReviewTest extends KernelTestCase
         self::assertInstanceOf(EditProductReviewCriteriaDTO::class, $newEditProductReviewCriteriaDTO);
         self::assertInstanceOf(
             ProductReviewSettingCriteriaConst::class,
-            $newEditProductReviewCriteriaDTO->getCriteria()
+            $newEditProductReviewCriteriaDTO->getCriteria(),
         );
         self::assertIsInt($newEditProductReviewCriteriaDTO->getRating());
 
         /** Устанавливаем второй критерий */
         $newEditProductReviewCriteriaDTO2 = new EditProductReviewCriteriaDTO();
         $newEditProductReviewCriteriaDTO2->setCriteria(
-            new ProductReviewSettingCriteriaConst()
+            new ProductReviewSettingCriteriaConst(),
         );
 
         $newEditProductReviewCriteriaDTO2->setRating(2);

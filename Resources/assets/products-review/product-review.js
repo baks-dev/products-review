@@ -23,54 +23,67 @@
 executeFunc(function productReviewForm()
 {
     // Получаем все rate на странице
-    const rates = document.querySelectorAll('.rate');
-    rates.forEach(rate => {
-        const checks = Array.from(rate.querySelectorAll('.form-check'));
+    const rates = document.querySelectorAll(".rate");
+    rates.forEach(rate =>
+    {
+        const checks = Array.from(rate.querySelectorAll(".form-check"));
         let $selected = -1;
 
-        function highlight(index, className) {
-            checks.forEach((check, i) => {
-                const label = check.querySelector('label');
-                if (i <= index) {
+        function highlight(index, className)
+        {
+            checks.forEach((check, i) =>
+            {
+                const label = check.querySelector("label");
+                if(i <= index)
+                {
                     label.classList.add(className);
-                } else {
+                }
+                else
+                {
                     label.classList.remove(className);
                 }
             });
         }
 
-        function clearHover() {
-            checks.forEach(check => check.querySelector('label').classList.remove('hovered'));
+        function clearHover()
+        {
+            checks.forEach(check => check.querySelector("label").classList.remove("hovered"));
         }
 
-        function clearActive() {
-            checks.forEach(check => check.querySelector('label').classList.remove('active'));
+        function clearActive()
+        {
+            checks.forEach(check => check.querySelector("label").classList.remove("active"));
         }
 
-        checks.forEach((check, i) => {
-            const label = check.querySelector('label');
-            label.addEventListener('mouseenter', () => highlight(i, 'hovered'));
-            label.addEventListener('mouseleave', clearHover);
-            label.addEventListener('click', () => {
+        checks.forEach((check, i) =>
+        {
+            const label = check.querySelector("label");
+            label.addEventListener("mouseenter", () => highlight(i, "hovered"));
+            label.addEventListener("mouseleave", clearHover);
+            label.addEventListener("click", () =>
+            {
                 $selected = i;
                 clearActive();
-                highlight(i, 'active');
+                highlight(i, "active");
             });
-            check.querySelector('input').addEventListener('focus', () => highlight(i, 'hovered'));
-            check.querySelector('input').addEventListener('blur', clearHover);
-            check.querySelector('input').addEventListener('change', () => {
+            check.querySelector("input").addEventListener("focus", () => highlight(i, "hovered"));
+            check.querySelector("input").addEventListener("blur", clearHover);
+            check.querySelector("input").addEventListener("change", () =>
+            {
                 $selected = i;
                 clearActive();
-                highlight(i, 'active');
+                highlight(i, "active");
             });
         });
 
         // Если что-то выбрано при загрузке — подсветить
-        const checked = rate.querySelector('input:checked');
-        if (checked) {
-            const idx = checks.findIndex(check => check.querySelector('input') === checked);
-            if (idx !== -1) {
-                highlight(idx, 'active');
+        const checked = rate.querySelector("input:checked");
+        if(checked)
+        {
+            const idx = checks.findIndex(check => check.querySelector("input") === checked);
+            if(idx !== -1)
+            {
+                highlight(idx, "active");
                 $selected = idx;
             }
         }

@@ -26,15 +26,15 @@ declare(strict_types=1);
 namespace BaksDev\Products\Review\UseCase\CurrentUser\Review\NewEdit\Product;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
 final class NewProductReviewProductForm extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-       // $builder->add('value', HiddenType::class);
+        // $builder->add('value', HiddenType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

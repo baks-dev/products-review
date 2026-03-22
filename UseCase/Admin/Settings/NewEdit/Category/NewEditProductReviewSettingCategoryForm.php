@@ -40,10 +40,10 @@ final class NewEditProductReviewSettingCategoryForm extends AbstractType
     {
         $builder->add('value', ChoiceType::class, [
             'choices' => $options['event'] === null ? $this->categoryChoice->findAll() : $this->categoryChoice->event($options['event'])->findAll(),
-            'choice_value' => function (?CategoryProductUid $category) {
+            'choice_value' => function(?CategoryProductUid $category) {
                 return $category?->getValue();
             },
-            'choice_label' => function (CategoryProductUid $category) {
+            'choice_label' => function(CategoryProductUid $category) {
                 return (is_int($category->getAttr()) ? str_repeat(' - ', $category->getAttr() - 1) : '').$category->getOptions();
             },
             'label' => false,

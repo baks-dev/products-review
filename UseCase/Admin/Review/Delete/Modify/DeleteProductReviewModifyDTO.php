@@ -25,9 +25,9 @@ declare(strict_types=1);
 
 namespace BaksDev\Products\Review\UseCase\Admin\Review\Delete\Modify;
 
-use BaksDev\Products\Review\Entity\Review\Modify\ProductReviewModifyInterface;
 use BaksDev\Core\Type\Modify\Modify\ModifyActionDelete;
 use BaksDev\Core\Type\Modify\ModifyAction;
+use BaksDev\Products\Review\Entity\Review\Modify\ProductReviewModifyInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 final class DeleteProductReviewModifyDTO implements ProductReviewModifyInterface

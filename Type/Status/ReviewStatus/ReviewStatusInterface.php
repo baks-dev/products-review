@@ -30,9 +30,9 @@ use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
 #[AutoconfigureTag('baks.review.status')]
 interface ReviewStatusInterface
 {
-    /** Возвращает значение (value) */
-    public function getValue(): string;
-
     /**  Сортировка (чем выше число - тем первым в итерации будет значение) */
     public static function priority(): int;
+
+    /** Возвращает значение (value) */
+    public function getValue(): string;
 }

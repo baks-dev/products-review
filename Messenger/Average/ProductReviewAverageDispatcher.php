@@ -114,7 +114,7 @@ final readonly class ProductReviewAverageDispatcher
         {
             $this->logger->critical(
                 'products-review: Не удалось рассчитать средние оценки по продукту',
-                [self::class.':'.__LINE__, var_export($message, true)]
+                [self::class.':'.__LINE__, var_export($message, true)],
             );
         }
 
@@ -122,7 +122,7 @@ final readonly class ProductReviewAverageDispatcher
         {
             $this->logger->info(
                 'products-review: Успешно обновлены средние оценки по продукту',
-                [self::class.':'.__LINE__, var_export($message, true)]
+                [self::class.':'.__LINE__, var_export($message, true)],
             );
         }
     }

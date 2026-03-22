@@ -22,19 +22,19 @@
 
 executeFunc(function productReviewFilter()
 {
-    if(typeof formDebounce !== 'function')
+    if(typeof formDebounce !== "function")
     {
         return false;
     }
 
     const form = document.forms.product_review_filter_form;
 
-    if(typeof form === 'undefined')
+    if(typeof form === "undefined")
     {
         return false;
     }
 
-    form.addEventListener('click', () =>
+    form.addEventListener("click", () =>
     {
         if(idFormDebounce == lastFormDebounce)
         {
@@ -46,10 +46,13 @@ executeFunc(function productReviewFilter()
     });
 
     /* Получить все select поля */
-    const select_fields = form.querySelectorAll('select');
+    const select_fields = form.querySelectorAll("select");
 
     /* Добавить обработчики onchange */
-    select_fields.forEach(field => field.addEventListener('change', formDebounce(() => { form.submit(); }, 1500)));
+    select_fields.forEach(field => field.addEventListener("change", formDebounce(() =>
+    {
+        form.submit();
+    }, 1500)));
 
     return true;
 });

@@ -61,21 +61,21 @@ final readonly class AverageProductRatingRepository implements AverageProductRat
         $dbal
             ->from(ProductReviewProduct::class)
             ->where('product_review_product.value = :product')
-            ->setParameter('product', $this->product,ProductUid::TYPE);
+            ->setParameter('product', $this->product, ProductUid::TYPE);
 
         $dbal
             ->join(
                 'product_review_product',
                 ProductReviewEvent::class,
                 'product_review_event',
-                'product_review_event.id = product_review_product.event'
+                'product_review_event.id = product_review_product.event',
             );
 
         $dbal->join(
             'product_review_event',
             ProductReview::class,
             'product_review',
-            'product_review.event = product_review_event.id'
+            'product_review.event = product_review_event.id',
         );
 
         $dbal
@@ -84,7 +84,7 @@ final readonly class AverageProductRatingRepository implements AverageProductRat
                 ProductReviewStatus::class,
                 'product_review_status',
                 'product_review_status.event = product_review_event.id
-                AND product_review_status.value = :status'
+                AND product_review_status.value = :status',
             )
             ->setParameter('status', new ReviewStatus(ReviewStatusActive::PARAM), ReviewStatus::TYPE);
 
@@ -96,7 +96,7 @@ final readonly class AverageProductRatingRepository implements AverageProductRat
                 'product_review_event',
                 ProductReviewCriteria::class,
                 'product_review_criteria',
-                'product_review_criteria.event = product_review_event.id'
+                'product_review_criteria.event = product_review_event.id',
             );
 
         $dbal
@@ -104,7 +104,7 @@ final readonly class AverageProductRatingRepository implements AverageProductRat
                 'product_review_criteria',
                 ProductReviewSettingCriteria::class,
                 'setting_criteria',
-                'setting_criteria.const = product_review_criteria.criteria'
+                'setting_criteria.const = product_review_criteria.criteria',
             );
 
         $dbal
@@ -112,7 +112,7 @@ final readonly class AverageProductRatingRepository implements AverageProductRat
                 'setting_criteria',
                 ProductReviewSetting::class,
                 'setting',
-                'setting.event = setting_criteria.event'
+                'setting.event = setting_criteria.event',
             );
 
         /**
@@ -124,7 +124,7 @@ final readonly class AverageProductRatingRepository implements AverageProductRat
                 'setting',
                 ProductReviewSettingCategory::class,
                 'setting_category',
-                'setting_category.event = setting.event'
+                'setting_category.event = setting.event',
             );
 
         $dbal
@@ -133,7 +133,7 @@ final readonly class AverageProductRatingRepository implements AverageProductRat
                 'product_review_event',
                 ProductReviewCategory::class,
                 'product_review_category',
-                'product_review_category.event = product_review_event.id'
+                'product_review_category.event = product_review_event.id',
             );
 
         $dbal
@@ -142,7 +142,7 @@ final readonly class AverageProductRatingRepository implements AverageProductRat
                 'setting_criteria',
                 ProductReviewSettingCriteriaText::class,
                 'setting_criteria_text',
-                'setting_criteria.id = setting_criteria_text.criteria'
+                'setting_criteria.id = setting_criteria_text.criteria',
             );
 
         $dbal->allGroupByExclude();

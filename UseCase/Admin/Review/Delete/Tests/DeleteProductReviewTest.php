@@ -46,6 +46,33 @@ use Symfony\Component\DependencyInjection\Attribute\When;
 #[Group('products-review')]
 final class DeleteProductReviewTest extends KernelTestCase
 {
+    public static function tearDownAfterClass(): void
+    {
+        $EntityManager = self::getContainer()->get(EntityManagerInterface::class);
+
+        /** @var EntityManager $EntityManager */
+        $main = $EntityManager
+            ->getRepository(ProductReview::class)
+            ->findOneBy(['id' => ProductReviewUid::TEST]);
+
+        if($main)
+        {
+            $EntityManager->remove($main);
+        }
+
+        $event = $EntityManager
+            ->getRepository(ProductReviewEvent::class)
+            ->findBy(['main' => ProductReviewEventUid::TEST]);
+
+        foreach($event as $remove)
+        {
+            $EntityManager->remove($remove);
+        }
+
+        $EntityManager->flush();
+        $EntityManager->clear();
+    }
+
     #[DependsOnClass(EditProductReviewTest::class)]
     #[DependsOnClass(NewProductReviewAverageTest::class)]
     public function testUseCase(): void
@@ -83,30 +110,5 @@ final class DeleteProductReviewTest extends KernelTestCase
             ->where('id = :id')
             ->setParameter('id', ProductReviewUid::TEST);
         self::assertFalse($dbal->fetchExist());
-    }
-
-    public static function tearDownAfterClass(): void
-    {
-        $EntityManager = self::getContainer()->get(EntityManagerInterface::class);
-
-        /** @var EntityManager $EntityManager */
-        $main = $EntityManager
-            ->getRepository(ProductReview::class)
-            ->findOneBy(['id' => ProductReviewUid::TEST]);
-
-        if($main) {
-            $EntityManager->remove($main);
-        }
-
-        $event = $EntityManager
-            ->getRepository(ProductReviewEvent::class)
-            ->findBy(['main' => ProductReviewEventUid::TEST]);
-
-        foreach ($event as $remove) {
-            $EntityManager->remove($remove);
-        }
-
-        $EntityManager->flush();
-        $EntityManager->clear();
     }
 }

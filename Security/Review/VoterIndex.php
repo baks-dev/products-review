@@ -28,7 +28,6 @@ namespace BaksDev\Products\Review\Security\Review;
 use BaksDev\Users\Profile\Group\Security\RoleInterface;
 use BaksDev\Users\Profile\Group\Security\VoterInterface;
 use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
-use BaksDev\Products\Review\Security\Review\Role;
 
 #[AutoconfigureTag('baks.security.voter')]
 final class VoterIndex implements VoterInterface

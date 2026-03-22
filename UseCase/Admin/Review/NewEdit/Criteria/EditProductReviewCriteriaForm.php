@@ -25,14 +25,14 @@ declare(strict_types=1);
 
 namespace BaksDev\Products\Review\UseCase\Admin\Review\NewEdit\Criteria;
 
+use BaksDev\Products\Review\Form\Rating\RatingFieldForm;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
-use BaksDev\Products\Review\Form\Rating\RatingFieldForm;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class EditProductReviewCriteriaForm extends AbstractType
 {
@@ -45,17 +45,17 @@ final class EditProductReviewCriteriaForm extends AbstractType
         $builder->add('name', TextType::class, [
             'attr' => ['class' => 'd-none'],
             'label' => false,
-            'required' => false
+            'required' => false,
         ]);
 
         $builder->add('rating', RatingFieldForm::class);
 
-        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event)
-        {
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, function(FormEvent $event) {
             $form = $event->getForm();
             $data = $event->getData();
 
-            if (false === empty($data)) {
+            if(false === empty($data))
+            {
 
                 $value = $data->getName();
 

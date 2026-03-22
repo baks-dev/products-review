@@ -27,8 +27,8 @@ namespace BaksDev\Products\Review\UseCase\CurrentUser\Review\NewEdit\Status;
 
 use BaksDev\Products\Review\Entity\Review\Status\ProductReviewStatusInterface;
 use BaksDev\Products\Review\Type\Status\ReviewStatus;
-use Symfony\Component\Validator\Constraints as Assert;
 use BaksDev\Products\Review\Type\Status\ReviewStatus\Collection\ReviewStatusSubmit;
+use Symfony\Component\Validator\Constraints as Assert;
 
 final class NewProductReviewStatusDTO implements ProductReviewStatusInterface
 {

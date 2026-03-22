@@ -40,7 +40,7 @@ final class NewEditProductReviewSettingCriteriaForm extends AbstractType
     {
         $builder->add('text', NewEditProductReviewSettingCriteriaTextForm::class, [
             'required' => false,
-            'label' => false
+            'label' => false,
         ]);
 
         $builder->add('const', HiddenType::class);

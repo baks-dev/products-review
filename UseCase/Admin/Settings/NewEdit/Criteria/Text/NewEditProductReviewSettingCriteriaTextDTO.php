@@ -34,15 +34,14 @@ final class NewEditProductReviewSettingCriteriaTextDTO implements ProductReviewS
     #[Assert\NotBlank]
     private ?string $value = null;
 
+    public function getValue(): ?string
+    {
+        return $this->value;
+    }
 
     public function setValue(string $value): self
     {
         $this->value = $value;
         return $this;
-    }
-
-    public function getValue(): ?string
-    {
-        return $this->value;
     }
 }

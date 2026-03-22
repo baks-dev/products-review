@@ -66,11 +66,13 @@ class ProductReviewText extends EntityEvent
     /** @return ProductReviewTextInterface */
     public function getDto($dto): mixed
     {
-        if (is_string($dto) && class_exists($dto)) {
+        if(is_string($dto) && class_exists($dto))
+        {
             $dto = new $dto();
         }
 
-        if ($dto instanceof ProductReviewTextInterface) {
+        if($dto instanceof ProductReviewTextInterface)
+        {
             return parent::getDto($dto);
         }
 
@@ -80,7 +82,8 @@ class ProductReviewText extends EntityEvent
     /** @var ProductReviewTextInterface $dto */
     public function setEntity($dto): mixed
     {
-        if ($dto instanceof ProductReviewTextInterface) {
+        if($dto instanceof ProductReviewTextInterface)
+        {
             return parent::setEntity($dto);
         }
 

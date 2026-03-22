@@ -86,7 +86,7 @@ final class IndexController extends AbstractController
                 'search' => $searchForm->createView(),
                 'query' => $reviews,
                 'filter' => $filterForm->createView(),
-            ]
+            ],
         );
     }
 }

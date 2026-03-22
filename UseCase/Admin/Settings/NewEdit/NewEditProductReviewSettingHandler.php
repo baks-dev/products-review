@@ -41,7 +41,8 @@ final class NewEditProductReviewSettingHandler extends AbstractHandler
 
 
         /** Валидация всех объектов */
-        if ($this->validatorCollection->isInvalid()) {
+        if($this->validatorCollection->isInvalid())
+        {
             return $this->validatorCollection->getErrorUniqid();
         }
 

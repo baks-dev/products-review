@@ -69,11 +69,13 @@ class ProductReviewSettingCriteriaText extends EntityEvent
     /** @return ProductReviewSettingCriteriaTextInterface */
     public function getDto($dto): mixed
     {
-        if (is_string($dto) && class_exists($dto)) {
+        if(is_string($dto) && class_exists($dto))
+        {
             $dto = new $dto();
         }
 
-        if ($dto instanceof ProductReviewSettingCriteriaTextInterface) {
+        if($dto instanceof ProductReviewSettingCriteriaTextInterface)
+        {
             return parent::getDto($dto);
         }
 
@@ -83,7 +85,8 @@ class ProductReviewSettingCriteriaText extends EntityEvent
     /** @var ProductReviewSettingCriteriaTextInterface $dto */
     public function setEntity($dto): mixed
     {
-        if ($dto instanceof ProductReviewSettingCriteriaTextInterface) {
+        if($dto instanceof ProductReviewSettingCriteriaTextInterface)
+        {
             return parent::setEntity($dto);
         }
 

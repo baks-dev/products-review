@@ -25,4 +25,4 @@ declare(strict_types=1);
 
 namespace BaksDev\Products\Review\Entity\Review\Category;
 
-interface ProductReviewCategoryInterface {}
+interface ProductReviewCategoryInterface { }
