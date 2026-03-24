@@ -36,6 +36,7 @@ use BaksDev\Products\Review\Entity\Review\Profile\ProductReviewProfile;
 use BaksDev\Products\Review\Entity\Review\Rating\ProductReviewRating;
 use BaksDev\Products\Review\Entity\Review\Status\ProductReviewStatus;
 use BaksDev\Products\Review\Entity\Review\Text\ProductReviewText;
+use BaksDev\Products\Review\Entity\Review\Type\ProductReviewType;
 use BaksDev\Products\Review\Entity\Review\User\ProductReviewUser;
 use BaksDev\Products\Review\Type\Review\Event\ProductReviewEventUid;
 use BaksDev\Products\Review\Type\Review\Id\ProductReviewUid;
@@ -94,6 +95,10 @@ class ProductReviewEvent extends EntityEvent
     /** Модификатор */
     #[ORM\OneToOne(targetEntity: ProductReviewModify::class, mappedBy: 'event', cascade: ['all'], fetch: 'EAGER')]
     private ProductReviewModify $modify;
+
+    /** Review Type */
+    #[ORM\OneToOne(targetEntity: ProductReviewType::class, mappedBy: 'event', cascade: ['all'], fetch: 'EAGER')]
+    private ?ProductReviewType $type = null;
 
     public function __construct()
     {

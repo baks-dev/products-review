@@ -45,7 +45,14 @@ final readonly class AllReviewsResult
         private ?float $review_rating_value,
         private ?string $review_name,
         private ?string $users_profile_username,
+
+        private ?string $type_profile_name,
     ) {}
+
+    public function getTypeProfileName(): ?string
+    {
+        return $this->type_profile_name;
+    }
 
     public function getUsersProfileUsername(): ?string
     {
