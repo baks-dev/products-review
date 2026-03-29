@@ -40,7 +40,9 @@
                     <th class='text-nowrap'>Имя в отзыве</th>
                     <th class='w-50 text-center'>Продукт</th>
                     <th class='w-100 text-center'>Сообщение</th>
+                    <th class='w-100 text-center'>Оценка</th>
                     <th class='w-100 text-center'>Склад</th>
+                    <th class='w-100 text-center'>Тип отзыва</th>
                 </tr>
 
                 </thead>
@@ -52,6 +54,9 @@
                 <tbody>
 
             </table>
+
+            {# Пагинация #}
+            {% include Template('_includes/'~baks_settings.device~'/pagination.html.twig') with { 'pagination' : query } %}
 
         </div>
 

@@ -41,11 +41,12 @@ use BaksDev\Products\Review\Type\Status\ReviewStatus;
 use BaksDev\Products\Review\Type\Status\ReviewStatus\Collection\ReviewStatusActive;
 use Generator;
 
-final readonly class AverageProductRatingRepository implements AverageProductRatingInterface
+
+final class AverageProductRatingRepository implements AverageProductRatingInterface
 {
     private ProductUid $product;
 
-    public function __construct(private DBALQueryBuilder $queryBuilder) {}
+    public function __construct(private readonly DBALQueryBuilder $queryBuilder) {}
 
     public function product(ProductUid $product): self
     {

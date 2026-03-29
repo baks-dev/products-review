@@ -41,10 +41,13 @@ use BaksDev\Products\Review\Entity\Review\Profile\ProductReviewProfile;
 use BaksDev\Products\Review\Entity\Review\Rating\ProductReviewRating;
 use BaksDev\Products\Review\Entity\Review\Status\ProductReviewStatus;
 use BaksDev\Products\Review\Entity\Review\Text\ProductReviewText;
+use BaksDev\Products\Review\Entity\Review\Type\ProductReviewType;
 use BaksDev\Products\Review\Entity\Review\User\ProductReviewUser;
 use BaksDev\Products\Review\Form\ReviewFilter\Admin\ProductReviewFilterDTO;
 use BaksDev\Products\Review\Type\Status\ReviewStatus;
 use BaksDev\Products\Review\Type\Status\ReviewStatus\Collection\ReviewStatusActive;
+use BaksDev\Users\Profile\TypeProfile\Entity\Trans\TypeProfileTrans;
+use BaksDev\Users\Profile\TypeProfile\Entity\TypeProfile;
 use BaksDev\Users\Profile\UserProfile\Entity\Event\Info\UserProfileInfo;
 use BaksDev\Users\Profile\UserProfile\Entity\Event\Personal\UserProfilePersonal;
 use BaksDev\Users\Profile\UserProfile\Entity\Event\UserProfileEvent;
@@ -275,7 +278,39 @@ final class AllReviewsRepository implements AllReviewsInterface
                 'review_name.event = review_event.id',
             );
 
+
+        /** Type */
+
+        $dbal
+            ->leftJoin(
+                'review_event',
+                ProductReviewType::class,
+                'review_type',
+                'review_type.event = review_event.id',
+            );
+
+        /* TypeProfile */
+        $dbal
+            ->leftJoin(
+                'review_type',
+                TypeProfile::class,
+                'type_users_profile',
+                'type_users_profile.id = review_type.type',
+            );
+
+        /* TypeProfileTrans для вывода Типа профиля */
+        $dbal
+            ->addSelect('type_users_profile_trans.name as type_profile_name')
+            ->leftJoin(
+                'type_users_profile',
+                TypeProfileTrans::class,
+                'type_users_profile_trans',
+                'type_users_profile_trans.event = type_users_profile.event',
+            );
+
+
         /** Profile */
+
         $dbal
             ->leftJoin(
                 'review_event',

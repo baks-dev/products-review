@@ -35,6 +35,7 @@ use BaksDev\Products\Review\UseCase\CurrentUser\Review\NewEdit\Profile\NewProduc
 use BaksDev\Products\Review\UseCase\CurrentUser\Review\NewEdit\Rating\NewProductReviewRatingDTO;
 use BaksDev\Products\Review\UseCase\CurrentUser\Review\NewEdit\Status\NewProductReviewStatusDTO;
 use BaksDev\Products\Review\UseCase\CurrentUser\Review\NewEdit\Text\NewProductReviewTextDTO;
+use BaksDev\Products\Review\UseCase\CurrentUser\Review\NewEdit\Type\NewProductReviewTypeDTO;
 use BaksDev\Products\Review\UseCase\CurrentUser\Review\NewEdit\User\NewProductReviewUserDTO;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -69,6 +70,9 @@ final class NewProductReviewDTO implements ProductReviewEventInterface
 
     #[Assert\Valid]
     private ?NewProductReviewProfileDTO $profile = null;
+
+    #[Assert\Valid]
+    private ?NewProductReviewTypeDTO $type = null;
 
     public function __construct()
     {
@@ -198,6 +202,17 @@ final class NewProductReviewDTO implements ProductReviewEventInterface
     public function setProfile(?NewProductReviewProfileDTO $profile): self
     {
         $this->profile = $profile;
+        return $this;
+    }
+
+    public function getType(): ?NewProductReviewTypeDTO
+    {
+        return $this->type;
+    }
+
+    public function setType(?NewProductReviewTypeDTO $type): self
+    {
+        $this->type = $type;
         return $this;
     }
 
