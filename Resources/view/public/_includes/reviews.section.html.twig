@@ -1,1 +1,26 @@
+<style>
+    /* Стиль для обрезанного текста */
+    .review-content .truncated-text {
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    /* Когда текст раскрыт — убрать ограничение */
+    .review-content .expanded-text {
+        display: block;
+        overflow: visible;
+    }
+
+    .rotated svg {
+        transform: rotate(180deg);
+        transition: transform 0.3s ease; /* Для плавного поворота */
+    }
+</style>
+
+
 {% include Template('@products-review:public/_includes/'~baks_settings.device~'/reviews.section.html.twig') %}
+
+<script nonce='{{ csp_nonce() }}' async
+        data-src="/assets/{{ version }}/products-review/product-review-readmore.min.js?v={{ version }}" class="lazy"></script>

@@ -21,7 +21,7 @@
     <ul class="leader list-group list-group-flush">
 
         {# Редактировать #}
-        {% if is_granted(ROLE~'_NEWEDIT') or is_granted('ROLE_ADMIN') %}
+        {% if is_granted(ROLE~'_EDIT') or is_granted('ROLE_ADMIN') %}
             <li class="list-group-item d-flex justify-content-between bg-transparent border-0 text-truncate rounded-5">
                 <a href="{{ path('products-review:admin.review.newedit.edit', {id: item.reviewEvent }) }}"
                    class="text-decoration-none text-dark w-100 modal-link disabled"
