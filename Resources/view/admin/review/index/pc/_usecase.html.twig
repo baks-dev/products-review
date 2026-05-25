@@ -1,3 +1,6 @@
+{# @var item BaksDev\Products\Review\Repository\AllReviews\AllReviewsResult #}
+
+
 {# Пользовательское меню #}
 
 <button class="btn btn-link btn-sm p-0"
@@ -38,10 +41,18 @@
         {% if is_granted(ROLE~'_DELETE') or is_granted('ROLE_ADMIN') %}
             <li class="list-group-item d-flex justify-content-between bg-transparent border-0 text-truncate rounded-5">
 
-                <a href="{{ path('products-review:admin.review.delete', { id: item.reviewEvent }) }}"
+                <a href="{{ path('products-review:admin.review.delete') }}"
                    class="text-decoration-none text-dark w-100 modal-link disabled"
                    data-bs-toggle="modal"
                    data-bs-target="#modal"
+
+                   data-post-class="add-one-to-collection"
+                   data-method="post"
+                   data-collection-form="collection"
+                   data-formname="{{ add_selected_delete_form_name }}"
+
+                   data-id="{{ item.reviewEvent }}"
+
                    title="{{ 'btn.delete'|trans({}, 'core.btn') }}"
                 >
                     {{ 'btn.delete'|trans({}, 'core.btn') }}

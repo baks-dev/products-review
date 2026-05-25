@@ -85,8 +85,11 @@ class ProductReviewEvent extends EntityEvent
     #[ORM\OneToOne(targetEntity: ProductReviewCategory::class, mappedBy: 'event', cascade: ['all'])]
     private ProductReviewCategory $category;
 
+
+    /** Усреднённая оценка по всем критерия */
     #[ORM\OneToOne(targetEntity: ProductReviewRating::class, mappedBy: 'event', cascade: ['all'])]
     private ?ProductReviewRating $rating = null;
+
 
     /** Profile */
     #[ORM\OneToOne(targetEntity: ProductReviewProfile::class, mappedBy: 'event', cascade: ['all'], fetch: 'EAGER')]

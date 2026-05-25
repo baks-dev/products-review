@@ -44,7 +44,8 @@ class ProductReviewRating extends EntityEvent
     #[ORM\JoinColumn(name: 'event', referencedColumnName: 'id')]
     private ProductReviewEvent $event;
 
-    /** Значение оценки */
+
+    /** Усреднённая оценка по всем критерия */
     #[Assert\NotBlank]
     #[ORM\Column(type: Types::FLOAT)]
     #[Assert\Range(
@@ -52,6 +53,8 @@ class ProductReviewRating extends EntityEvent
         min: 1.0,
         max: 5.0
     )]
+
+
     private float $value;
 
     public function __construct(ProductReviewEvent $event)

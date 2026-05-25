@@ -121,7 +121,8 @@ final class EditController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid() && $form->has('edit_product_review'))
         {
-            $commonRating = 5;
+            $commonRating = $form->getData()->getRating()->getValue();
+
 
             if($form->get('criteria')->count() !== 0)
             {
@@ -140,7 +141,7 @@ final class EditController extends AbstractController
                     $ratingCount += 1;
                 }
 
-                $commonRating = empty($ratingCount) ? 5 : round($ratingSum / $ratingCount, 1);
+                $commonRating = empty($ratingCount) ? $commonRating : round($ratingSum / $ratingCount, 1);
             }
 
             $ratingDTO = new EditProductReviewRatingDTO()->setValue($commonRating);

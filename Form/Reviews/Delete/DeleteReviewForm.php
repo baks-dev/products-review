@@ -1,6 +1,6 @@
 <?php
 /*
- * Copyright 2025.  Baks.dev <admin@baks.dev>
+ * Copyright 2026.  Baks.dev <admin@baks.dev>
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy
  *  of this software and associated documentation files (the "Software"), to deal
@@ -23,51 +23,38 @@
 
 declare(strict_types=1);
 
-namespace BaksDev\Products\Review\UseCase\Admin\Review\Delete;
+namespace BaksDev\Products\Review\Form\Reviews\Delete;
 
-use BaksDev\Products\Review\Entity\Review\Event\ProductReviewEventInterface;
 use BaksDev\Products\Review\Type\Review\Event\ProductReviewEventUid;
-use BaksDev\Products\Review\UseCase\Admin\Review\Delete\Modify\DeleteProductReviewModifyDTO;
-use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\CallbackTransformer;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
-final class DeleteProductReviewDTO implements ProductReviewEventInterface
+final class DeleteReviewForm extends AbstractType
 {
-    /** ID */
-    #[Assert\NotBlank]
-    #[Assert\Uuid]
-    private ProductReviewEventUid $id;
+    public function buildForm(FormBuilderInterface $builder, array $options): void {
+        $builder->add('id', HiddenType::class);
 
-
-    /**
-     * Модификатор
-     */
-    #[Assert\Valid]
-    private DeleteProductReviewModifyDTO $modify;
-
-
-    public function __construct()
-    {
-        $this->modify = new DeleteProductReviewModifyDTO();
+        $builder->get('id')->addModelTransformer(
+            new CallbackTransformer(
+                function($id) {
+                    return $id instanceof ProductReviewEventUid ? $id->getValue() : $id;
+                },
+                function($id) {
+                    return $id ? new ProductReviewEventUid($id) : null;
+                },
+            ),
+        );
     }
 
-    public function getId(): ProductReviewEventUid
+    public function configureOptions(OptionsResolver $resolver): void
     {
-        return $this->id;
-    }
-
-    public function getEvent(): ProductReviewEventUid
-    {
-        return $this->id;
-    }
-
-    public function setId(ProductReviewEventUid $id): self
-    {
-        $this->id = $id;
-        return $this;
-    }
-
-    public function getModify(): DeleteProductReviewModifyDTO
-    {
-        return $this->modify;
+        $resolver->setDefaults([
+            'data_class' => DeleteReviewDTO::class,
+            'method' => 'POST',
+            'attr' => ['class' => 'w-100'],
+        ]);
     }
 }

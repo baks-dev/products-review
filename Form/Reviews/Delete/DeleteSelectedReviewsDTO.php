@@ -1,6 +1,6 @@
 <?php
 /*
- * Copyright 2025.  Baks.dev <admin@baks.dev>
+ * Copyright 2026.  Baks.dev <admin@baks.dev>
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy
  *  of this software and associated documentation files (the "Software"), to deal
@@ -23,27 +23,31 @@
 
 declare(strict_types=1);
 
-namespace BaksDev\Products\Review\UseCase\Admin\Review\NewEdit\Status;
+namespace BaksDev\Products\Review\Form\Reviews\Delete;
 
-use BaksDev\Products\Review\Entity\Review\Status\ProductReviewStatusInterface;
-use BaksDev\Products\Review\Type\Status\ReviewStatus;
-use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Common\Collections\ArrayCollection;
 
-final class EditProductReviewStatusDTO implements ProductReviewStatusInterface
+final readonly class DeleteSelectedReviewsDTO
 {
-    /** Status */
-    #[Assert\NotBlank]
-    private ?ReviewStatus $value;
+    private ArrayCollection $collection;
 
-
-    public function getValue(): ?ReviewStatus
+    public function __construct()
     {
-        return $this->value;
+        $this->collection = new ArrayCollection();
     }
 
-    public function setValue(?ReviewStatus $value): self
+
+    /** @return ArrayCollection<int, DeleteReviewDTO> */
+    public function getCollection(): ArrayCollection
     {
-        $this->value = $value;
+        return $this->collection;
+    }
+
+
+    public function addCollection(DeleteReviewDTO $DeleteReviewDTO): self
+    {
+        $this->collection->add($DeleteReviewDTO);
+
         return $this;
     }
 }

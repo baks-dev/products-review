@@ -31,6 +31,8 @@ use BaksDev\Core\Form\Search\SearchForm;
 use BaksDev\Core\Listeners\Event\Security\RoleSecurity;
 use BaksDev\Products\Review\Form\ReviewFilter\Admin\ProductReviewFilterDTO;
 use BaksDev\Products\Review\Form\ReviewFilter\Admin\ProductReviewFilterForm;
+use BaksDev\Products\Review\Form\Reviews\Delete\DeleteSelectedReviewsForm;
+use BaksDev\Products\Review\Form\Reviews\Status\ChangeStatusSelectedReviewsForm;
 use BaksDev\Products\Review\Repository\AllReviews\AllReviewsInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -81,11 +83,14 @@ final class IndexController extends AbstractController
             ->setActive(false) // По умолчанию выводить все отзывы
             ->findPaginator();
 
+
         return $this->render(
             [
                 'search' => $searchForm->createView(),
                 'query' => $reviews,
                 'filter' => $filterForm->createView(),
+                'add_selected_delete_form_name' => $this->createForm(DeleteSelectedReviewsForm::class)->getName(),
+                'add_selected_active_form_name' => $this->createForm(ChangeStatusSelectedReviewsForm::class)->getName(),
             ],
         );
     }

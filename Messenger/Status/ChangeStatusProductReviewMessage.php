@@ -1,6 +1,6 @@
 <?php
 /*
- * Copyright 2025.  Baks.dev <admin@baks.dev>
+ * Copyright 2026.  Baks.dev <admin@baks.dev>
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy
  *  of this software and associated documentation files (the "Software"), to deal
@@ -23,27 +23,36 @@
 
 declare(strict_types=1);
 
-namespace BaksDev\Products\Review\UseCase\Admin\Review\NewEdit\Status;
+namespace BaksDev\Products\Review\Messenger\Status;
 
-use BaksDev\Products\Review\Entity\Review\Status\ProductReviewStatusInterface;
+use BaksDev\Products\Review\Type\Review\Event\ProductReviewEventUid;
 use BaksDev\Products\Review\Type\Status\ReviewStatus;
-use Symfony\Component\Validator\Constraints as Assert;
 
-final class EditProductReviewStatusDTO implements ProductReviewStatusInterface
+final class ChangeStatusProductReviewMessage
 {
-    /** Status */
-    #[Assert\NotBlank]
-    private ?ReviewStatus $value;
+    private string $event;
 
+    private string $status;
 
-    public function getValue(): ?ReviewStatus
+    public function getEvent(): ProductReviewEventUid
     {
-        return $this->value;
+        return new ProductReviewEventUid($this->event);
     }
 
-    public function setValue(?ReviewStatus $value): self
+    public function getStatus(): ReviewStatus
     {
-        $this->value = $value;
+        return new ReviewStatus($this->status);
+    }
+
+    public function setEvent(ProductReviewEventUid $event): self
+    {
+        $this->event = (string) $event;
+        return $this;
+    }
+
+    public function setStatus(ReviewStatus $status): self
+    {
+        $this->status = (string) $status;
         return $this;
     }
 }

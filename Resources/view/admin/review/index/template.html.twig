@@ -22,5 +22,5 @@
 {% block javascript %}
 <script nonce='{{ csp_nonce() }}' async data-src='/assets/{{ version }}/plugins/nice-select2/nice-select2.min.js?v={{ version }}' class='lazy'></script>
 <script nonce='{{ csp_nonce() }}' async data-src="/assets/{{ version }}/products-review/product-review-filter.min.js?v={{ version }}" class="lazy"></script>
-
+<script nonce='{{ csp_nonce() }}' async data-src="/assets/{{ version }}/products-review/product-review-multiple-choice.min.js?v={{ version }}" class="lazy"></script>
 {% endblock %}
