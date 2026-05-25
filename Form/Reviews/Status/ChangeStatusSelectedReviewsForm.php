@@ -1,6 +1,6 @@
 <?php
 /*
- * Copyright 2025.  Baks.dev <admin@baks.dev>
+ * Copyright 2026.  Baks.dev <admin@baks.dev>
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy
  *  of this software and associated documentation files (the "Software"), to deal
@@ -23,38 +23,41 @@
 
 declare(strict_types=1);
 
-namespace BaksDev\Products\Review\UseCase\Admin\Review\Delete;
+namespace BaksDev\Products\Review\Form\Reviews\Status;
 
-use BaksDev\Products\Review\Type\Review\Event\ProductReviewEventUid;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\CallbackTransformer;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-final class DeleteProductReviewForm extends AbstractType
+final class ChangeStatusSelectedReviewsForm extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options): void {
-        $builder->add('id', HiddenType::class);
+    public function buildForm(FormBuilderInterface $builder, array $options): void
+    {
+        $builder->add('collection', CollectionType::class, [
+            /** Указать вложенные формы */
+            'entry_type' => ChangeStatusReviewForm::class,
+            'entry_options' => ['attr' => ['class' => 'reviews-data-box']],
+            'allow_add' => true,
+        ]);
 
-        $builder->get('id')->addModelTransformer(
-            new CallbackTransformer(
-                function($id) {
-                    return $id instanceof ProductReviewEventUid ? $id->getValue() : $id;
-                },
-                function($id) {
-                    return $id ? new ProductReviewEventUid($id) : null;
-                },
-            ),
+
+        /* Сохранить ******************************************************/
+        $builder->add(
+            'change_status_selected_reviews',
+            SubmitType::class,
+            ['label' => 'Save', 'label_html' => true]
         );
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => DeleteProductReviewDTO::class,
+            'data_class' => ChangeStatusSelectedReviewsDTO::class,
             'method' => 'POST',
             'attr' => ['class' => 'w-100'],
+            'show_submit' => false
         ]);
     }
 }

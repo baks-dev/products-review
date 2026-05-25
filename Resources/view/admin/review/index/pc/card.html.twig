@@ -1,6 +1,37 @@
+{# @var item BaksDev\Products\Review\Repository\AllReviews\AllReviewsResult #}
+
+
 {% trans_default_domain('products-review.admin') %}
 
 <tr class="vertical-middle">
+    <td>
+        {# Чекбокс для выбора нескольких отзывов #}
+        {% if (
+            is_granted('ROLE_PRODUCTS_REVIEW_DELETE') or
+            is_granted('ROLE_PRODUCTS_REVIEW_EDIT') or
+            is_granted('ROLE_ADMIN')
+        ) %}
+
+            <div data-buttons="true">
+                <label class="btn p-3 border-dotted rounded-3">
+                    <div class="d-flex align-items-center">
+                        <span class="h5 m-0 lh-1">
+                            <input
+                                    id="check-{{ item.reviewEvent }}"
+                                    type="checkbox"
+                                    class="form-check-input add-all-to-edit m-0 btn-outline-danger"
+                                    {# Данные, отправляемые POST #}
+                                    data-formname="{{ add_selected_delete_form_name }}"
+                                    data-id="{{ item.reviewEvent }}"
+                            >
+                        </span>
+                    </div>
+                </label>
+            </div>
+
+        {% endif %}
+    </td>
+
     <td class="text-nowrap">
         {# Пользовательское меню #}
         {{ include(_self|replace({ "card.html.twig": "_usecase.html.twig" })) }}
@@ -21,8 +52,8 @@
         {{ item.productName }}
     </td>
 
-    <td class="text-center">
-        {{ item.reviewText|length > 150 ? item.reviewText|striptags|slice(0, 150) ~ '...' : item.reviewText|striptags }}
+    <td class="text-center text-break">
+        {{ item.reviewText|striptags }}
     </td>
 
     <td class="text-center">

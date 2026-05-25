@@ -71,6 +71,7 @@ final class EditProductReviewDTO implements ProductReviewEventInterface
     {
         $this->criteria = new ArrayCollection();
         $this->name = new EditProductReviewNameDTO();
+        $this->rating = new EditProductReviewRatingDTO();
     }
 
     /**

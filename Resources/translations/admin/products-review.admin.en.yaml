@@ -10,6 +10,7 @@ page:
     index: Products reviews
     edit: Edit review
     delete: Delete review
+    status: Change review status
 
 success:
   settings:
@@ -18,7 +19,8 @@ success:
     delete: Setting deleted successfully
   reviews:
     edit: Review edited successfully
-    delete: Review deleted successfully
+    delete: Request for reviews deletion was successfully sent
+    status: Request for reviews status change was successfully sent
 
 danger:
   settings:
@@ -27,7 +29,8 @@ danger:
     delete: Error deleting review setting
   reviews:
     edit: Error editing review
-    delete: Error deleting review
+    delete: Error deleting reviews
+    status: Error changing reviews status
 
 breadcrumb:
   settings:
@@ -45,6 +48,8 @@ form:
       delete: Are you sure you want to delete review setting?
   reviews:
     header:
-      delete: Are you sure you want to delete the review?
+      delete: Delete review
+      status: Change reviews status
     label:
-      delete: Are you sure you want to delete the review?
+      delete: Are you sure you want to delete chosen reviews?
+      status: Are you sure you want to change status of chosen reviews?

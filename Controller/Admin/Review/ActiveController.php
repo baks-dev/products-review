@@ -1,6 +1,6 @@
 <?php
 /*
- * Copyright 2025.  Baks.dev <admin@baks.dev>
+ * Copyright 2026.  Baks.dev <admin@baks.dev>
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy
  *  of this software and associated documentation files (the "Software"), to deal
@@ -28,44 +28,49 @@ namespace BaksDev\Products\Review\Controller\Admin\Review;
 use BaksDev\Core\Controller\AbstractController;
 use BaksDev\Core\Listeners\Event\Security\RoleSecurity;
 use BaksDev\Core\Messenger\MessageDispatchInterface;
-use BaksDev\Products\Review\Form\Reviews\Delete\DeleteSelectedReviewsDTO;
-use BaksDev\Products\Review\Form\Reviews\Delete\DeleteSelectedReviewsForm;
-use BaksDev\Products\Review\Messenger\Delete\DeleteProductReviewMessage;
+use BaksDev\Products\Review\Form\Reviews\Status\ChangeStatusSelectedReviewsDTO;
+use BaksDev\Products\Review\Form\Reviews\Status\ChangeStatusSelectedReviewsForm;
+use BaksDev\Products\Review\Messenger\Status\ChangeStatusProductReviewMessage;
+use BaksDev\Products\Review\Type\Status\ReviewStatus;
+use BaksDev\Products\Review\Type\Status\ReviewStatus\Collection\ReviewStatusActive;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Attribute\AsController;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\HttpKernel\Attribute\AsController;
 
 #[AsController]
-#[RoleSecurity('ROLE_PRODUCTS_REVIEW_DELETE')]
-final class DeleteController extends AbstractController
+#[RoleSecurity('ROLE_PRODUCTS_REVIEW_EDIT')]
+final class ActiveController extends AbstractController
 {
-    #[Route('/admin/products/review/delete', name: 'admin.review.delete', methods: ['GET', 'POST'])]
-    public function delete(Request $request, MessageDispatchInterface $MessageDispatch): Response
+    #[Route('/admin/products/review/status/active', name: 'admin.review.newedit.status.active', methods: ['GET', 'POST'])]
+    public function active(Request $request, MessageDispatchInterface $MessageDispatch): Response
     {
-        $DeleteSelectedReviewsDTO = new DeleteSelectedReviewsDTO();
+        $ChangeStatusSelectedReviewsDTO = new ChangeStatusSelectedReviewsDTO();
 
         $form = $this
             ->createForm(
-                DeleteSelectedReviewsForm::class,
-                $DeleteSelectedReviewsDTO,
-                ['action' => $this->generateUrl('products-review:admin.review.delete')]
+                ChangeStatusSelectedReviewsForm::class,
+                $ChangeStatusSelectedReviewsDTO,
+                ['action' => $this->generateUrl('products-review:admin.review.newedit.status.active')]
             )
             ->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid() && $form->has('delete_selected_reviews'))
+        if($form->isSubmitted() && $form->isValid() && $form->has('change_status_selected_reviews'))
         {
-            foreach($DeleteSelectedReviewsDTO->getCollection() as $DeleteSelectedReviewDTO)
+            foreach($ChangeStatusSelectedReviewsDTO->getCollection() as $ChangeStatusSelectedReviewDTO)
             {
-                $DeleteProductReviewMessage = new DeleteProductReviewMessage($DeleteSelectedReviewDTO->getId());
-                $MessageDispatch->dispatch($DeleteProductReviewMessage, transport: 'products-review');
+                $ChangeStatusReviewMessage = new ChangeStatusProductReviewMessage()
+                    ->setEvent($ChangeStatusSelectedReviewDTO->getId())
+                    ->setStatus(new ReviewStatus(ReviewStatusActive::class));
+
+                $MessageDispatch->dispatch($ChangeStatusReviewMessage, transport: 'products-review');
             }
 
             $this->addFlash
             (
-                'page.reviews.delete',
-                'success.reviews.delete',
-                'products-review.admin'
+                'page.reviews.status',
+                'success.reviews.status',
+                'products-review.admin',
             );
 
             return $this->redirectToRoute('products-review:admin.review.index');

@@ -35,6 +35,7 @@
 
                 <tr>
                     <th>#</th>
+                    <th></th>
                     <th class='text-center'>Статуc</th>
                     <th class='text-center'>Пользователь</th>
                     <th class='text-nowrap'>Имя в отзыве</th>
@@ -54,6 +55,67 @@
                 <tbody>
 
             </table>
+
+            {% if query.data %}
+
+                <div class="position-absolute mt-2 pt-1 small">
+                    <strong class="">Множественный выбор:</strong>
+                </div>
+
+                <div class="to-invoice-actions d-flex gap-2 sticky-bottom ps-5 pb-3 pt-2 z-1"
+                     style="margin-left: 130px; max-width: 100px;">
+
+                    <button class="btn btn-sm btn-outline-primary text-nowrap mb-2"
+                            role="tooltip"
+                            data-bs-toggle="tooltip"
+                            data-bs-placement="bottom"
+                            data-bs-delay='{"show":600,"hide":100}'
+                            title="Выбрать все"
+                            id="select-all-to-edit">
+                        Выбрать все
+                    </button>
+
+                    <a class="btn btn-sm btn-danger text-nowrap mb-2 d-none"
+                       role="tooltip"
+                       data-bs-placement="bottom"
+                       data-bs-delay='{"show":600,"hide":100}'
+                       title="Удалить выбранные"
+                       id="add-all-to-delete"
+
+                       data-bs-toggle="modal"
+                       data-bs-target="#modal"
+
+                       data-post-class="add-all-to-edit"
+
+                       data-method="post"
+                       data-collection-form="collection"
+                       data-formname="{{ add_selected_delete_form_name }}"
+                       href="{{ path('products-review:admin.review.delete' ) }}">
+                        Удалить выбранные
+                    </a>
+
+                    <a class="btn btn-sm btn-success text-nowrap mb-2 d-none"
+                       role="tooltip"
+                       data-bs-placement="bottom"
+                       data-bs-delay='{"show":600,"hide":100}'
+                       title="Сделать активными выбранные"
+                       id="add-all-to-active"
+
+                       data-bs-toggle="modal"
+                       data-bs-target="#modal"
+
+                       data-post-class="add-all-to-edit"
+
+                       data-method="post"
+                       data-collection-form="collection"
+                       data-formname="{{ add_selected_active_form_name }}"
+                       href="{{ path('products-review:admin.review.newedit.status.active' ) }}">
+                        Сделать активными выбранные
+                    </a>
+
+                </div>
+            {% endif %}
+
 
             {# Пагинация #}
             {% include Template('_includes/'~baks_settings.device~'/pagination.html.twig') with { 'pagination' : query } %}

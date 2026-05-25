@@ -39,9 +39,20 @@ interface AllReviewsInterface
 
     public function product(ProductUid $product): self;
 
+
+    /**
+     * Метод получает все отзывы в виде пагинатора
+     * @return PaginatorInterface<AllReviewsResult>
+     */
     public function findPaginator(): PaginatorInterface;
 
+
+    /**
+     * Метод получает все отзывы в виде генератора
+     * @return Generator<AllReviewsResult>
+     */
     public function findAll(): Generator;
+
 
     public function setAllProjects(bool $allProjects): self;
 
